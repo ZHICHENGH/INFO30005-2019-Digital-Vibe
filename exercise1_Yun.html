@@ -6,6 +6,21 @@
 </head>
 <body>
 <p id ='text'> Javascript DOM :: Changing paragraph style</p>
+
+<script>
+    function js_new_style() {
+        let styleButton = document.getElementById("style");
+        styleButton.style.color = "red";
+        styleButton.style.font = "Arial";
+        styleButton.style.fontSize = "20";
+
+        let stylePara = document.getElementById("text");
+        stylePara.style.color = "red";
+        stylePara.style.font = "Arial";
+        stylePara.style.fontSize = "20";
+    }
+</script>
+
 <div>
     <button id="style" onclick="js_new_style()">New style</button>
 </div>
