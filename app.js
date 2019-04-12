@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (req, res) => res.send('INFO30005 Group - Digital Vibe'));
 
 // Database setup
-//require('./models/db.js');
+require('./models/db.js');
 
 // Routes setup
 var routes = require('./routes/route.js');

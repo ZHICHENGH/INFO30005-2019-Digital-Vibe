@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var placeSchema = mongoose.Schema(
     {
         "place_id":String,
-        "name":String,
+        "place_name":String,
         "address":String,
         "coordinate":String,
         "acc_toilet":String,
@@ -15,7 +15,7 @@ var placeSchema = mongoose.Schema(
 var userSchema = mongoose.Schema(
     {
         "user_id":String,
-        "name":String,
+        "user_name":String,
         "password":String,
         "email":String
     }
