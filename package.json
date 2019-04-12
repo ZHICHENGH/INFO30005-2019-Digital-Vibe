@@ -1,0 +1,22 @@
+{
+  "name": "info30005-2019-dv",
+  "version": "1.0.0",
+  "description": "Haha",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZHICHENGH/INFO30005-2019-DV.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZHICHENGH/INFO30005-2019-DV/issues"
+  },
+  "homepage": "https://github.com/ZHICHENGH/INFO30005-2019-DV#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
