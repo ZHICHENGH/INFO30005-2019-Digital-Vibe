@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 // Temporary homepage
 app.get('/', (req, res) => res.send('INFO30005 Group - Digital Vibe'));
 
@@ -16,6 +17,11 @@ var routes = require('./routes/route.js');
 app.use('/',routes);
 
 // Start the server
-app.listen(8080,function(req,res){
-    console.log('Express listening on port 8080');
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 8000;
+}
+
+app.listen(port,function(req,res){
+    console.log('Express listening on port' + port);
 });
