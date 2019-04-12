@@ -16,6 +16,6 @@ var routes = require('./routes/route.js');
 app.use('/',routes);
 
 // Start the server
-app.listen(8000,function(req,res){
-    console.log('Express listening on port 8000');
+app.listen(8080,function(req,res){
+    console.log('Express listening on port 8080');
 });
