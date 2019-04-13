@@ -1,5 +1,5 @@
 const express = require('express');
-const controller = require('../controllers/controller.js');
+const controller = require('../controllers/controller_places.js');
 
 const places_router = express.Router();
 
@@ -13,11 +13,8 @@ places_router.get('/placeAPI/name/:name', controller.getPlaceByName);
 places_router.post('/placeAPI', controller.createPlace);
 
 // update a place
-places_router.put('/placeAPI', controller.updatePlace);
+places_router.put('/placeAPI', controller.updatePlaceById);
 
-
-
-// Note that the common "/users" prefix of these routes appears in app.js where the router is used
 
 module.exports = places_router;
 
