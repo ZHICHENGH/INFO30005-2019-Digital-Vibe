@@ -19,9 +19,9 @@ app.use('/',routes);
 var places_route = require('./routes/routes_places');
 app.use('/places', places_route);
 
-/*var user_route = require('./routes/route_user');
+var user_route = require('./routes/route_user');
 app.use('/users', user_route);
-*/
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function(){
