@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Comment = mongoose.model('Comment');
+var Comment = mongoose.model('comment');
 
 var createComment = function(req,res){
     var comment = new Comment({
