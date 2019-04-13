@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+const dbPasswd = "GIAMdFgDfkJBYig7";
 
 //copy from CONNECT (MongoDB Atlas)
 const dbURI =
-    "mongodb+srv://<testAdmin>:<GIAMdFgDfkJBYig7>@testcluster0-jan0z.mongodb.net/";
+    "mongodb+srv://testAdmin:" + dbPasswd + "@testcluster0-jan0z.mongodb.net/test?retryWrites=true";
 
 const options = {
     useNewUrlParser: true,
