@@ -4,7 +4,7 @@ const Place = mongoose.model('place');
 
 // Get list of all places
 const getAllPlaces = (req, res) => {
-  Place.find((err, places) => {
+  Place.find({}, (err, places) => {
     if (err) {
       res.sendStatus(500);
     } else {
@@ -59,9 +59,7 @@ const updatePlaceById = (req, res) => {
 
 
 // export the callbacks
-module.exports = {
-  getAllPlaces,
-  getPlaceByName,
-  createPlace,
-  updatePlaceById
-};
+module.exports.createPlace = createPlace;
+module.exports.getAllPlaces = getAllPlaces;
+module.exports.getPlaceByName = getPlaceByName;
+module.exports.updatePlaceById = updatePlaceById;
