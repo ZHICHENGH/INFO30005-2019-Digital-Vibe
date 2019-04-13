@@ -13,3 +13,5 @@ router.get('/api/id/:id',controller.findOneuser);
 router.get('/api/name/:name',controller.finduserByName);
 //delete user by ID
 router.get('/api/id/:id',controller.deleteuserById);
+
+module.exports = router;
