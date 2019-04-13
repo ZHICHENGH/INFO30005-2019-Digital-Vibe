@@ -16,3 +16,5 @@ var createVerifyPlace = function(req,res){
         }
     });
 };
+
+module.exports.createVerifyPlace = createVerifyPlace;
