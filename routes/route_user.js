@@ -8,10 +8,10 @@ router.post('/creatusers',controller.createuser);
 //get all users
 router.get('/getusers',controller.findAllusers);
 //get user by id
-router.get('/api/id/:id',controller.findOneuser);
+router.get('/userid/:id',controller.findOneuser);
 //get user by name
-router.get('/api/name/:name',controller.finduserByName);
+router.get('/username/:name',controller.finduserByName);
 //delete user by ID
-router.get('/api/id/:id',controller.deleteuserById);
+router.get('/deletebyid/:id',controller.deleteuserById);
 
 module.exports = router;
