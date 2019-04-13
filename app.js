@@ -16,6 +16,9 @@ require('./models/db.js');
 var routes = require('./routes/route_verifyPlace.js');
 app.use('/',routes);
 
+var places_route = require('./routes/route_places.js');
+app.use('/places', places_route);
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function(){
