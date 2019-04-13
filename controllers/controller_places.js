@@ -4,7 +4,7 @@ const Place = mongoose.model('place');
 
 // Get list of all places
 const getAllPlaces = (req, res) => {
-  Place.find((err, places) => {
+  Place.find({}, (err, places) => {
     if (err) {
       res.sendStatus(500);
     } else {
