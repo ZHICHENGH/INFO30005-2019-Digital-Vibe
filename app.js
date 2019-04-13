@@ -13,8 +13,8 @@ app.get('/', (req, res) => res.send('INFO30005 Group - Digital Vibe'));
 require('./models/db.js');
 
 // Routes setup
-var routes = require('./routes/route_verifyPlace');
-app.use('/',routes);
+var verifyPlace_route = require('./routes/route_verifyPlace');
+app.use('/verifyPlace',verifyPlace_route);
 
 var places_route = require('./routes/routes_places');
 app.use('/places', places_route);
