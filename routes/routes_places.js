@@ -13,7 +13,7 @@ places_router.get('/placeAPI/name/:name', controller.getPlaceByName);
 places_router.post('/placeAPI', controller.createPlace);
 
 // update a place
-places_router.put('/placeAPI', controller.updatePlaceById);
+places_router.put('/placeAPI/id/:id', controller.updatePlaceById);
 
 
 module.exports = places_router;
