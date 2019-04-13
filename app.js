@@ -13,10 +13,10 @@ app.get('/', (req, res) => res.send('INFO30005 Group - Digital Vibe'));
 require('./models/db.js');
 
 // Routes setup
-var routes = require('./routes/route_verifyPlace.js');
+var routes = require('./routes/route_verifyPlace');
 app.use('/',routes);
 
-var places_route = require('./routes/route_places.js');
+var places_route = require('./routes/routes_places');
 app.use('/places', places_route);
 
 // Start the server
@@ -24,4 +24,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, function(){
     console.log(`Express listening on port ${PORT}`);
 });
-
