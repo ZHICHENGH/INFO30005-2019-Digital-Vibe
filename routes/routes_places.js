@@ -4,16 +4,16 @@ const controller = require('../controllers/controller.js');
 const places_router = express.Router();
 
 // Get all places
-places_router.get('/api', controller.getAllPlaces);
+places_router.get('/placeAPI', controller.getAllPlaces);
 
 // Get a specific place by name
-places_router.get('/api/name/:name', controller.getPlaceByName);
+places_router.get('/placeAPI/name/:name', controller.getPlaceByName);
 
 // Create a new place
-places_router.post('/', controller.createPlace);
+places_router.post('/placeAPI', controller.createPlace);
 
 // update a place
-places_router.put('/', controller.updatePlace);
+places_router.put('/placeAPI', controller.updatePlace);
 
 
 
