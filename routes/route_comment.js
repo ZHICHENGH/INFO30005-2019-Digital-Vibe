@@ -1,7 +1,8 @@
 const express = require('express');
+const router = express.Router();
 const controller = require('../controllers/controller_comment.js');
 
-const comment_router = express.Router();
+
 
 // Get all places
 places_router.post('/commentAPI', controller.createComment);
