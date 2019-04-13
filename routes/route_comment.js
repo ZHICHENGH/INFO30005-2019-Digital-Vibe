@@ -16,4 +16,4 @@ places_router.delete('/placeAPI/:place_id/:user_id/:comment_id', controller.dele
 places_router.get('/placeAPI/:user_id', controller.getcommentsbyuserid);
 
 
-module.exports = comment_router;
+module.exports = router;
