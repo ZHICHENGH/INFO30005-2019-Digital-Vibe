@@ -37,7 +37,7 @@ var findOneuser = function(req,res){
 };
 var finduserByName = function(req, res){
     var Name = req.params.name;
-    User.find({userName:Name},function(err,user){
+    User.find({user_name:Name},function(err,user){
         if(!err){
             res.send(user);
         }else{
