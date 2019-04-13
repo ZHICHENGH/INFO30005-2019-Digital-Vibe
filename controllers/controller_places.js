@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Place = mongoose.model('places');
+const Place = mongoose.model('place');
 
 
 // Get list of all places
