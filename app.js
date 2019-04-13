@@ -13,15 +13,12 @@ app.get('/', (req, res) => res.send('INFO30005 Group - Digital Vibe'));
 require('./models/db.js');
 
 // Routes setup
-var routes = require('./routes/route.js');
+var routes = require('./routes/route_verifyPlace.js');
 app.use('/',routes);
 
 // Start the server
-let port = process.env.PORT;
-if (port == null || port == "") {
-    port = 8000;
-}
-
-app.listen(port,function(req,res){
-    console.log('Express listening on port' + port);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, function(){
+    console.log(`Express listening on port ${PORT}`);
 });
+
