@@ -4,7 +4,7 @@ const controller = require('../controllers/controller_comment.js');
 const comment_router = express.Router();
 
 // Get all places
-places_router.get('/commentAPI', controller.createComment);
+places_router.post('/commentAPI', controller.createComment);
 
 // Get a specific place by name
 places_router.get('/comentAPI/:place_id', controller.getcommentsbyplaceid);
