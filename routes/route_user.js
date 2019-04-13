@@ -4,9 +4,9 @@ var router = express.Router();
 var controller = require('../controllers/controller_user.js');
 
 // Create new verifyPlace
-router.post('/api',controller.createuser);
+router.post('/creatusers',controller.createuser);
 //get all users
-router.get('/api',controller.findAllusers);
+router.get('/getusers',controller.findAllusers);
 //get user by id
 router.get('/api/id/:id',controller.findOneuser);
 //get user by name
