@@ -59,9 +59,7 @@ const updatePlaceById = (req, res) => {
 
 
 // export the callbacks
-module.exports = {
-  getAllPlaces,
-  getPlaceByName,
-  createPlace,
-  updatePlaceById
-};
+module.exports.createPlace = createPlace;
+module.exports.getAllPlaces = getAllPlaces;
+module.exports.getPlaceByName = getPlaceByName;
+module.exports.updatePlaceById = updatePlaceById;
