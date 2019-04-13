@@ -22,6 +22,9 @@ app.use('/places', places_route);
 var user_route = require('./routes/route_user');
 app.use('/users', user_route);
 
+var comment_route = require('./routes/route_comment');
+app.use('/comment', comment_route);
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function(){
