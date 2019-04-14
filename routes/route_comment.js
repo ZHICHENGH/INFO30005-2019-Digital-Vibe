@@ -17,7 +17,7 @@ router.get('/placeid/:place_id', controller.getcommentsbyplaceid);
 router.delete('/deletecomment/:comment_id', controller.deletecomment);
 
 // get comment by userid
-router.get('/commentAPI/:user_id', controller.getcommentsbyuserid);
+router.get('/user/:user_id', controller.getcommentsbyuserid);
 
 
 module.exports = router;
