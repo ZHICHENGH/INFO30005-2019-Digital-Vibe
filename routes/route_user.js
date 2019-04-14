@@ -3,7 +3,7 @@ var router = express.Router();
 
 var controller = require('../controllers/controller_user.js');
 
-// Create new verifyPlace
+//create a new user
 router.post('/creatusers/',controller.createuser);
 //get all users
 router.get('/getusers',controller.findAllusers);
