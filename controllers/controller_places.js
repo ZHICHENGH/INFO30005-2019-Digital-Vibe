@@ -29,7 +29,7 @@ var getPlaceByName = function(req, res){
 const createPlace = (req, res) => {
   var place = new Place({
     "place_id":req.body.place_id,
-    "name":req.body.place_name,
+    "place_name":req.body.name,
     "address":req.body.address,
     "coordinate":req.body.coordinate,
     "acc_toilet":req.body.acc_toilet,
