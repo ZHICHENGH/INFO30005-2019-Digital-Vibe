@@ -16,7 +16,7 @@ const getAllPlaces = (req, res) => {
 // Get one place by name
 var getPlaceByName = function(req, res){
     var placeName = req.params.name;
-    Place.find({name:placeName},function(err,place){
+    Place.find({place_name:placeName},function(err,place){
         if(!err){
             res.send(place);
         }else{
