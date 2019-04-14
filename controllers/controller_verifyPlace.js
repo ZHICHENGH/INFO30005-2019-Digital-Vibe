@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var VerifyPlace = mongoose.model('verifyPlace');
 
+//create a verify place
 var createVerifyPlace = function(req,res){
     var verifyPlace = new VerifyPlace({
         "place_id":req.body.place_id,
@@ -16,6 +17,7 @@ var createVerifyPlace = function(req,res){
     });
 };
 
+//find a verify place
 var findOneVerifyPlace = function(req,res){
     var req_place_id = req.params.place_id;
     var req_user_id = req.params.user_id;
@@ -34,6 +36,8 @@ var findOneVerifyPlace = function(req,res){
     });
 };
 
+
+//find a verify place by its acc type
 var findVerifyPlaceByPlaceAccType = function(req,res){
     var req_place_id = req.params.place_id;
     var req_acc_type = req.params.acc_type;
@@ -50,6 +54,7 @@ var findVerifyPlaceByPlaceAccType = function(req,res){
     });
 };
 
+//get all verifyplace
 var findAllVerifyPlace = function(req,res){
     VerifyPlace.find({},function(err,verifyPlace){
         if(!err){
@@ -60,6 +65,7 @@ var findAllVerifyPlace = function(req,res){
     });
 };
 
+//delete one verify place
 var deleteOneVerifyPlace = function(req,res){
     var req_place_id = req.body.place_id;
     var req_user_id = req.body.user_id;
@@ -77,6 +83,7 @@ var deleteOneVerifyPlace = function(req,res){
     });
 };
 
+//export functions
 module.exports.createVerifyPlace = createVerifyPlace;
 module.exports.findOneVerifyPlace = findOneVerifyPlace;
 module.exports.findVerifyPlaceByPlaceAccType = findVerifyPlaceByPlaceAccType;
