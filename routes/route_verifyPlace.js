@@ -16,6 +16,6 @@ router.get('/verifyPlaceAPI/:place_id/:user_id/:acc_type',controller.findOneVeri
 router.get('/verifyPlaceAPI/:place_id/:acc_type',controller.findAllVerifyPlace);
 
 // Delete one verifyPlace
-router.delete('/verifyPlaceAPI/:place_id/:user_id/:acc_type',controller.deleteOneVerifyPlace);
+router.delete('/verifyPlaceAPI/',controller.deleteOneVerifyPlace);
 
 module.exports = router;
