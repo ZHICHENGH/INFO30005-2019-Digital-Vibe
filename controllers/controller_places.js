@@ -48,7 +48,7 @@ const createPlace = (req, res) => {
 
 //Update a place
 const updatePlaceToiletById = (req, res) => {
-    Place.findByIdAndUpdate(req.params.place_id, {$set: {acc_toilet: req.body}}, {new: true}, function(err, place){
+    Place.findByIdAndUpdate(req.params.place_id, {$set: {acc_toilet: req.body.acc_toilet}}, {new: true}, function(err, place){
         if (err){
             res.sendStatus(500);
         } else {
