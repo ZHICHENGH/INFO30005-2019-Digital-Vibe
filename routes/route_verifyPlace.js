@@ -13,7 +13,7 @@ router.get('/verifyPlaceAPI',controller.findAllVerifyPlace);
 router.get('/verifyPlaceAPI/:place_id/:user_id/:acc_type',controller.findOneVerifyPlace);
 
 // Find verifyPlaces by Place and Acc_Type
-router.get('/verifyPlaceAPI/:place_id/:acc_type',controller.findAllVerifyPlace);
+router.get('/verifyPlaceAPI/:place_id/:acc_type',controller.findVerifyPlaceByPlaceAccType);
 
 // Delete one verifyPlace
 router.delete('/verifyPlaceAPI',controller.deleteOneVerifyPlace);
