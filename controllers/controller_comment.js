@@ -1,57 +1,75 @@
-var mongoose = require('mongoose');
-var  Comment= mongoose.model('comment');
+const mongoose = require('mongoose');
+const Comment = mongoose.model('comment');
 
-var createcomment = function(req,res){
-    var comment = new Comment({
-      "comment_id":req.body.place_id,
-      "user_id":req.body.user_id,
-      "place_id":req.body.place_id,
-      "text":req.body.text,
-      "timestamp":req.body.timestamp
-    });
-    comment.save(function(err,newComment){
-        if(!err){
-            res.send(newComment);
-        }else{
-            res.sendStatus(400);
-        }
-    });
+// new comment
+const createComment = (req, res) => {
+  const comment = new Comment({
+    "comment_id":req.body.comment_id,
+    "place_id":req.body.place_id,
+    "user_id":req.body.user_id,
+    "text":req.body.text,
+    "timestamp":req.body.timestamp
+  });
+  comment.save(function(err, newComment) {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.json(newComment);
+    }
+  });
 };
-var findAllcomments = function(req,res){
-    Comment.find(function(err,comment){
+// Get list of all comments
+const getAllComments = (req, res) => {
+  Comment.find({}, (err, comments) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.send(comments);
+    }
+  });
+};
+
+// find comment by userid
+var getCommentByuserid = function(req, res){
+    var userid = req.params.user_id;
+    Comment.find({user_id:userid},function(err,comment){
         if(!err){
             res.send(comment);
         }else{
-            res.sendStatus(404);
+            res.sendStatus(500);
         }
     });
 };
 
-var findcommentByuserid = function(req,res){
-    var commentInx = req.params.user_id;
-    Comment.find({user_id:commentInx},function(err,comment){
-        if(!err){
-            res.send(comment);
-        }else{
-            res.sendStatus(404);
-        }
-    });
-};
-
-var findcommentByplaceid = function(req, res){
+// find comment by placeid
+var getCommentByplaceid = function(req, res){
     var placeid = req.params.place_id;
-    Comment.find({place_id:placeid},function(err,user){
+    Comment.find({place_id:placeid},function(err,comment){
         if(!err){
             res.send(comment);
         }else{
-            res.sendStatus(404);
+            res.sendStatus(500);
+        }
+    });
+};
+
+var getCommentBycommentid = function(req, res){
+    var commentid = req.params.comment_id;
+    Comment.find({comment_id:commentid},function(err,comment){
+        if(!err){
+            res.send(comment);
+        }else{
+            res.sendStatus(500);
         }
     });
 };
 
 
 
-module.exports.createcomment = createcomment;
-module.exports.findAllcomments = findAllcomments;
-module.exports.findcommentByuserid = findcommentByuserid;
-module.exports.findcommentByplaceid = findcommentByplaceid;
+
+// export the callbacks
+module.exports.createComment = createComment;
+module.exports.getAllComments = getAllComments;
+module.exports.getCommentByuserid = getCommentByuserid;
+module.exports.getCommentByplaceid = getCommentByplaceid;
+module.exports.getCommentBycommentid = getCommentBycommentid;

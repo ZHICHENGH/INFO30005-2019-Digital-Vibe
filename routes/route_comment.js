@@ -1,20 +1,22 @@
-const express = require('express');
-const controller = require('../controllers/controller_places.js');
-
-const places_router = express.Router();
-
-// Get all places
-places_router.get('/placeAPI', controller.getAllPlaces);
-
-// Get a specific place by name
-places_router.get('/placeAPI/name/:name', controller.getPlaceByName);
-
-// Create a new place
-places_router.post('/placeAPI', controller.createPlace);
-
-// update a place
-places_router.put('/placeAPI/id/:id', controller.updatePlaceById);
+var express = require('express');
+var router = express.Router();
+var controller = require('../controllers/controller_comment.js');
 
 
-module.exports = places_router;
 
+// create new comment
+router.post('/commentAPI', controller.createComment);
+
+//get all comments
+router.get('/commentAPI',controller.getAllComments);
+
+// findcomment by userid
+router.get('/commentAPI/userid/:user_id', controller.getCommentByuserid);
+
+// find comment by place id
+router.get('/commentAPI/placeid/:place_id', controller.getCommentByplaceid);
+
+// find comment by place id
+router.get('/commentAPI/commentid/:comment_id', controller.getCommentBycommentid);
+
+module.exports = router;

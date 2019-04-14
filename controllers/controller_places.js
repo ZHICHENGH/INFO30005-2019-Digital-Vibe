@@ -15,7 +15,7 @@ const getAllPlaces = (req, res) => {
 
 // Get one place by name
 var getPlaceByName = function(req, res){
-    var placeName = req.params.name;
+    var placeName = req.params.place_name;
     Place.find({place_name:placeName},function(err,place){
         if(!err){
             res.send(place);
@@ -29,7 +29,7 @@ var getPlaceByName = function(req, res){
 const createPlace = (req, res) => {
   var place = new Place({
     "place_id":req.body.place_id,
-    "name":req.body.place_name,
+    "place_name":req.body.place_name,
     "address":req.body.address,
     "coordinate":req.body.coordinate,
     "acc_toilet":req.body.acc_toilet,
@@ -48,7 +48,7 @@ const createPlace = (req, res) => {
 
 // Update a place
 const updatePlaceById = (req, res) => {
-    Place.findByIdAndUpdate(req.params.id, req.body, {new: true}, function(err, place){
+    Place.findByIdAndUpdate(req.params.place_id, req.body, function(err, place){
         if (err){
             res.sendStatus(500);
         } else {
