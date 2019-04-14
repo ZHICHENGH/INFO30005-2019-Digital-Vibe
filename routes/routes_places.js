@@ -7,13 +7,13 @@ const places_router = express.Router();
 places_router.get('/placeAPI', controller.getAllPlaces);
 
 // Get a specific place by name
-places_router.get('/placeAPI/name/:name', controller.getPlaceByName);
+places_router.get('/placeAPI/name/:place_name', controller.getPlaceByName);
 
 // Create a new place
 places_router.post('/placeAPI', controller.createPlace);
 
 // update a place
-places_router.put('/placeAPI/id/:id', controller.updatePlaceById);
+places_router.put('/placeAPI/id/:place_id', controller.updatePlaceById);
 
 
 module.exports = places_router;
