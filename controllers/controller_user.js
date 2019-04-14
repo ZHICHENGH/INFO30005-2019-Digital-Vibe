@@ -1,81 +1,64 @@
-const mongoose = require('mongoose');
-const Comment = mongoose.model('comment');
+var mongoose = require('mongoose');
+var  User= mongoose.model('user');
 
-// new comment
-const createComment = (req, res) => {
-  const comment = new Comment({
-    "comment_id":req.body.comment_id,
-    "place_id":req.body.place_id,
-    "user_id":req.body.user_id,
-    "text":req.body.text,
-    "timestamp":req.body.timestamp
-  });
-  comment.save(function(err, newComment) {
-    if (err) {
-      res.sendStatus(500);
-    } else {
-      res.json(newComment);
-    }
-  });
-};
-// Get list of all comments
-const getAllComments = (req, res) => {
-  Comment.find({}, (err, comments) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
-      res.send(comments);
-    }
-  });
-};
-
-// find comment by userid
-var getCommentByuserid = function(req, res){
-    var userid = req.params.user_id;
-    Comment.find({user_id:userid},function(err,comment){
+var createuser = function(req,res){
+    var user = new User({
+        "user_id":req.params.user_id,
+        "user_name":req.params.name,
+        "passport":req.params.passport,
+        "email":req.params.email
+    });
+    user.save(function(err,newUser){
         if(!err){
-            res.send(comment);
+            res.send(newUser);
         }else{
-            res.sendStatus(500);
+            res.sendStatus(400);
         }
     });
 };
-
-// find comment by placeid
-var getCommentByplaceid = function(req, res){
-    var placeid = req.params.place_id;
-    Comment.find({place_id:placeid},function(err,comment){
+var findAllusers = function(req,res){
+    User.find(function(err,user){
         if(!err){
-            res.send(comment);
+            res.send(user);
         }else{
-            res.sendStatus(500);
+            res.sendStatus(404);
         }
     });
 };
-
-var getCommentBycommentid = function(req, res){
-    var commentid = req.params.comment_id;
-    Comment.find({comment_id:commentid},function(err,comment){
+var findOneuser = function(req,res){
+    var userInx = req.params.id;
+    User.find({user_id:userInx},function(err,user){
         if(!err){
-            res.send(comment);
+            res.send(user);
         }else{
-            res.sendStatus(500);
+            res.sendStatus(404);
         }
     });
 };
-
-var deleteCommentBycommentid = function(req, res){
-    var commentid = req.params.comment_id;
-    Comment.deleteOne({comment_id:commentid},function(err,comment){
+var finduserByName = function(req, res){
+    var Name = req.params.name;
+    User.find({user_name:Name},function(err,user){
         if(!err){
-            res.send(comment);
+            res.send(user);
         }else{
-            res.sendStatus(500);
+            res.sendStatus(404);
         }
     });
 };
+var deleteuserById =function(req,res){
+    var userInx = req.params.userid;
+    User.findOneAndDelete({user_id:userInx},function(err,res){
+    if(!err){
+            res.send(userInx);
+        }
+        else
+        res.send(404);
+    });
+};
+
 
 module.exports.createuser = createuser;
 module.exports.findAllusers = findAllusers;
 module.exports.findOneuser = findOneuser;
 module.exports.finduserByName = finduserByName;
+module.exports.deleteuserById = deleteuserById;
