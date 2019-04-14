@@ -60,10 +60,10 @@ var deletecomment = function(req,res){
 };
 
 
-var findAllcomment = function(req,res){
-    User.find(function(err,user){
+var findAllcomments = function(req,res){
+    User.find(function(err,comment){
         if(!err){
-            res.send(user);
+            res.send(comment);
         }else{
             res.sendStatus(600);
         }
@@ -75,4 +75,4 @@ module.exports.createComment = createComment;
 module.exports.getcommentsbyplaceid = getcommentsbyplaceid;
 module.exports.getcommentsbyuserid = getcommentsbyuserid;
 module.exports.deletecomment = deletecomment;
-module.exports.findAllcomment = findAllcomment;
+module.exports.findAllcomments = findAllcomments;
