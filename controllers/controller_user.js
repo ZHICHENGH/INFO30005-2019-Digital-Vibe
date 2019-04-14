@@ -48,11 +48,6 @@ var finduserByName = function(req, res){
 var deleteuserById =function(req,res){
     var userInx = req.params.id;
     User.remove({'user_id':userInx});
-    if(!err){
-            res.send("delete success!");
-        }
-        else
-        res.send("fail to delete");
 };
 
 
