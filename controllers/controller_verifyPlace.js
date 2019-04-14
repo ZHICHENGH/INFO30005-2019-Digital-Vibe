@@ -5,8 +5,7 @@ var createVerifyPlace = function(req,res){
     var verifyPlace = new VerifyPlace({
         "place_id":req.body.place_id,
         "user_id":req.body.user_id,
-        "acc_type":req.body.acc_type,
-        "value":req.body.value
+        "acc_type":req.body.acc_type
     });
     verifyPlace.save(function(err,newVerifyPlace){
         if(!err){

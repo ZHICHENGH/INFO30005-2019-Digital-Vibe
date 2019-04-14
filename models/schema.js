@@ -35,8 +35,7 @@ var verifyPlaceSchema = mongoose.Schema(
     {
         "place_id":String,
         "user_id":String,
-        "acc_type":String,
-        "value":String
+        "acc_type":String
     }
 );
 
