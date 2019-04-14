@@ -51,10 +51,7 @@ var getcommentsbyuserid = function(req,res){
 
 var deletecomment = function(req,res){
     var req_place_id = req.params.place_id;
-    var req_user_id = req.params.user_id;
-    var req_comment_id = req.params.comment_id;
-
-    Comment.deleteOne({
+    Comment.remove({
         comment_id:req_comment_id},function(err,comment){
         if(err){
             res.sendStatus(600);
@@ -62,7 +59,20 @@ var deletecomment = function(req,res){
     });
 };
 
+
+var findAllcomment = function(req,res){
+    User.find(function(err,user){
+        if(!err){
+            res.send(user);
+        }else{
+            res.sendStatus(600);
+        }
+    });
+};
+
+
 module.exports.createComment = createComment;
 module.exports.getcommentsbyplaceid = getcommentsbyplaceid;
 module.exports.getcommentsbyuserid = getcommentsbyuserid;
 module.exports.deletecomment = deletecomment;
+module.exports.findAllcomment = findAllcomment;
