@@ -4,10 +4,10 @@ var  User= mongoose.model('user');
 //create a new user
 var createuser = function(req,res){
     var user = new User({
-        "user_id":req.params.user_id,
-        "user_name":req.params.name,
-        "passport":req.params.passport,
-        "email":req.params.email
+        "user_id":req.body.user_id,
+        "user_name":req.body.name,
+        "passport":req.body.passport,
+        "email":req.body.email
     });
     user.save(function(err,newUser){
         if(!err){
