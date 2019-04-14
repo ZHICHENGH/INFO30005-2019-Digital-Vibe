@@ -47,13 +47,14 @@ var finduserByName = function(req, res){
 };
 var deleteuserById =function(req,res){
     var userInx = req.params.userid;
-    User.findOneAndDelete({'user_id':userInx},function(req,res){
+    User.findOneAndDelete({user_id:userInx},function(req,res){
     if(!err){
             res.send("delete success!");
         }
         else
         res.send("fail to delete");
-});
+    });
+};
 
 
 module.exports.createuser = createuser;
