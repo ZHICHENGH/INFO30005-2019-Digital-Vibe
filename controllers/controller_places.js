@@ -47,8 +47,9 @@ const createPlace = (req, res) => {
 
 
 // Update a place
-const updatePlaceById = (req, res) => {
-    Place.findByIdAndUpdate(req.params.place_id, req.body, function(err, place){
+const updatePlaceToiletById = (req, res) => {
+    
+    Place.findByIdAndUpdate(req.params.place_id, {$set: {acc_toilet: req.body}}, {new: true}, function(err, place){
         if (err){
             res.sendStatus(500);
         } else {
@@ -62,4 +63,4 @@ const updatePlaceById = (req, res) => {
 module.exports.createPlace = createPlace;
 module.exports.getAllPlaces = getAllPlaces;
 module.exports.getPlaceByName = getPlaceByName;
-module.exports.updatePlaceById = updatePlaceById;
+module.exports.updatePlaceToiletById = updatePlaceToiletById;
