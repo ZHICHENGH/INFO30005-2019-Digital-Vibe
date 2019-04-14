@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var  User= mongoose.model('user');
 
+//create a new user
 var createuser = function(req,res){
     var user = new User({
         "user_id":req.params.user_id,
@@ -16,6 +17,8 @@ var createuser = function(req,res){
         }
     });
 };
+
+//get all users
 var findAllusers = function(req,res){
     User.find(function(err,user){
         if(!err){
@@ -25,6 +28,8 @@ var findAllusers = function(req,res){
         }
     });
 };
+
+//get one user by id
 var findOneuser = function(req,res){
     var userInx = req.params.id;
     User.find({user_id:userInx},function(err,user){
@@ -35,6 +40,8 @@ var findOneuser = function(req,res){
         }
     });
 };
+
+//get one user by name
 var finduserByName = function(req, res){
     var Name = req.params.name;
     User.find({user_name:Name},function(err,user){
@@ -46,7 +53,7 @@ var finduserByName = function(req, res){
     });
 };
 
-
+//export functions
 module.exports.createuser = createuser;
 module.exports.findAllusers = findAllusers;
 module.exports.findOneuser = findOneuser;
