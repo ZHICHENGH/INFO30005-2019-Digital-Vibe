@@ -49,10 +49,10 @@ var deleteuserById =function(req,res){
     var userInx = req.params.userid;
     User.findOneAndDelete({user_id:userInx},function(err,res){
     if(!err){
-            res.send("delete success!");
+            res.send(userInx);
         }
         else
-        res.send("fail to delete");
+        res.send(404);
     });
 };
 
