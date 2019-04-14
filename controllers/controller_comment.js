@@ -7,9 +7,9 @@ var createcomment = function(req,res){
       "user_id":req.body.user_id,
       "place_id":req.body.place_id,
       "text":req.body.text,
-      "timestamp":req.timestamp
+      "timestamp":req.body.timestamp
     });
-    user.save(function(err,newComment){
+    comment.save(function(err,newComment){
         if(!err){
             res.send(newComment);
         }else{
@@ -18,7 +18,7 @@ var createcomment = function(req,res){
     });
 };
 var findAllcomments = function(req,res){
-    User.find(function(err,user){
+    Comment.find(function(err,comment){
         if(!err){
             res.send(comment);
         }else{
@@ -29,7 +29,7 @@ var findAllcomments = function(req,res){
 
 var findcommentByuserid = function(req,res){
     var commentInx = req.params.user_id;
-    User.find({user_id:commentInx},function(err,comment){
+    Comment.find({user_id:commentInx},function(err,comment){
         if(!err){
             res.send(comment);
         }else{
@@ -40,7 +40,7 @@ var findcommentByuserid = function(req,res){
 
 var findcommentByplaceid = function(req, res){
     var placeid = req.params.place_id;
-    User.find({place_id:placeid},function(err,user){
+    Comment.find({place_id:placeid},function(err,user){
         if(!err){
             res.send(comment);
         }else{
@@ -48,19 +48,10 @@ var findcommentByplaceid = function(req, res){
         }
     });
 };
-var deletecommentBycommentId =function(req,res){
-    var commentInx = req.params.comment_id;
-    User.remove({'comment_id':commentInx});
-    if(!err){
-            res.send("delete success!");
-        }
-        else
-        res.send("fail to delete");
-};
+
 
 
 module.exports.createcomment = createcomment;
 module.exports.findAllcomments = findAllcomments;
 module.exports.findcommentByuserid = findcommentByuserid;
 module.exports.findcommentByplaceid = findcommentByplaceid;
-module.exports.deletecommentBycommentId = deletecommentBycommentId;
