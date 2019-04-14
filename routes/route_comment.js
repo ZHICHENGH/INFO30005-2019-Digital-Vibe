@@ -4,16 +4,16 @@ var controller = require('../controllers/controller_comment.js');
 
 
 
-// Get all places
-router.post('/commentAPI', controller.createComment);
+// create new comment
+router.post('/createcomment', controller.createComment);
 
-// Get a specific place by name
-router.get('/comentAPI/:place_id', controller.getcommentsbyplaceid);
+// Get a specific comment by place id
+router.get('/placeid/:place_id', controller.getcommentsbyplaceid);
 
-// Create a new place
-router.get('/commentAPI/:place_id/:user_id/:comment_id', controller.deletecomment);
+// delete comment by commentid
+router.delete('/deletecomment/:comment_id', controller.deletecomment);
 
-// update a place
+// get comment by userid
 router.get('/commentAPI/:user_id', controller.getcommentsbyuserid);
 
 
