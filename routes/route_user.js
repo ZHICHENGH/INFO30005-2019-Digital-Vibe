@@ -11,7 +11,6 @@ router.get('/getusers',controller.findAllusers);
 router.get('/userid/:id',controller.findOneuser);
 //get user by name
 router.get('/username/:name',controller.finduserByName);
-//delete user by ID
-router.get('/deletebyID/:userid',controller.deleteuserById);
+
 
 module.exports = router;

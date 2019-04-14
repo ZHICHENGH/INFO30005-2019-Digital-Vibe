@@ -64,6 +64,16 @@ var getCommentBycommentid = function(req, res){
     });
 };
 
+var deleteCommentBycommentid = function(req, res){
+    var commentid = req.params.comment_id;
+    Comment.deleteOne({comment_id:commentid},function(err,comment){
+        if(!err){
+            res.send(comment);
+        }else{
+            res.sendStatus(500);
+        }
+    });
+};
 
 
 
@@ -73,3 +83,4 @@ module.exports.getAllComments = getAllComments;
 module.exports.getCommentByuserid = getCommentByuserid;
 module.exports.getCommentByplaceid = getCommentByplaceid;
 module.exports.getCommentBycommentid = getCommentBycommentid;
+module.exports.deleteCommentBycommentid = deleteCommentBycommentid;
