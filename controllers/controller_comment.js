@@ -9,7 +9,7 @@ var createcomment = function(req,res){
       "text":req.body.text,
       "timestamp":req.body.timestamp
     });
-    Comment.save(function(err,newComment){
+    comment.save(function(err,newComment){
         if(!err){
             res.send(newComment);
         }else{
