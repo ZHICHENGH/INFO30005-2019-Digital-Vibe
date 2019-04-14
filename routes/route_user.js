@@ -4,7 +4,7 @@ var router = express.Router();
 var controller = require('../controllers/controller_user.js');
 
 // Create new verifyPlace
-router.get('/creatusers/:user_id-:user_name-:passport-:email',controller.createuser);
+router.post('/creatusers/',controller.createuser);
 //get all users
 router.get('/getusers',controller.findAllusers);
 //get user by id
