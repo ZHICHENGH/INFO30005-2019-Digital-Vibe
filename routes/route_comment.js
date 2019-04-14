@@ -7,6 +7,9 @@ var controller = require('../controllers/controller_comment.js');
 // create new comment
 router.post('/createcomment', controller.createComment);
 
+//get all comments
+router.get('/getcomments',controller.findAllcomments);
+
 // Get a specific comment by place id
 router.get('/placeid/:place_id', controller.getcommentsbyplaceid);
 
