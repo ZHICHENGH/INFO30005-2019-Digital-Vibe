@@ -68,9 +68,11 @@ var deleteOneVerifyPlace = function(req,res){
     VerifyPlace.deleteOne({
         place_id:req_place_id,
         user_id:req_user_id,
-        acc_type:req_acc_type},function(err){
-        if(err){
-            res.sendStatus(404);
+        acc_type:req_acc_type},function(err,updatedVerifyPlace){
+        if(!err){
+            res.send(updatedVerifyPlace);
+        }else{
+            res.sendStatus(400);
         }
     });
 };
