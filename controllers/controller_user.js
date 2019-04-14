@@ -4,7 +4,7 @@ var  User= mongoose.model('user');
 var createuser = function(req,res){
     var user = new User({
         "user_id":req.params.user_id,
-        "name":req.params.name,
+        "user_name":req.params.name,
         "passport":req.params.passport,
         "email":req.params.email
     });
