@@ -46,7 +46,7 @@ var finduserByName = function(req, res){
     });
 };
 var deleteuserById =function(req,res){
-    var userInx = req.params.id;
+    var userInx = req.params.userid;
     User.remove({'user_id':userInx});
     if(!err){
             res.send("delete success!");
