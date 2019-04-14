@@ -45,20 +45,10 @@ var finduserByName = function(req, res){
         }
     });
 };
-var deleteuserById =function(req,res){
-    var userInx = req.params.userid;
-    User.findOneAndDelete({user_id:userInx},function(err,res){
-    if(!err){
-            res.send(userInx);
-        }
-        else
-        res.send(404);
-    });
-};
+
 
 
 module.exports.createuser = createuser;
 module.exports.findAllusers = findAllusers;
 module.exports.findOneuser = findOneuser;
 module.exports.finduserByName = finduserByName;
-module.exports.deleteuserById = deleteuserById;
