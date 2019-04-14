@@ -36,7 +36,7 @@ var getcommentsbyplaceid = function(req,res){
 var getcommentsbyuserid = function(req,res){
     var req_place_id = req.params.place_id;
 
-    VerifyPlace.find({
+    Comment.find({
         place_id:req_place_id,
     },function(err,comment){
         if(!err){
@@ -54,7 +54,7 @@ var deletecomment = function(req,res){
     var req_user_id = req.params.user_id;
     var req_comment_id = req.params.comment_id;
 
-    VerifyPlace.deleteOne({
+    Comment.deleteOne({
         comment_id:req_comment_id},function(err,comment){
         if(err){
             res.sendStatus(600);
