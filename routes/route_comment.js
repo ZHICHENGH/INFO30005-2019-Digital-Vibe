@@ -14,10 +14,10 @@ router.get('/getcomments',controller.findAllcomments);
 router.get('/placeid/:place_id', controller.findcommentByplaceid);
 
 // delete comment by commentid
-router.delete('/deletecomment/:comment_id', controller.findcommentByuserid);
+router.get('/user/:user_id', controller.findcommentByuserid);
 
 // get comment by userid
-router.get('/commentAPI/:user_id', controller.deletecommentBycommentId);
+router.delete('/commentid/:comment_id', controller.deletecommentBycommentId);
 
 
 module.exports = router;
