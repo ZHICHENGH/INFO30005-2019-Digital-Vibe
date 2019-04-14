@@ -3,10 +3,10 @@ var  User= mongoose.model('user');
 
 var createuser = function(req,res){
     var user = new User({
-        "user_id":req.body.user_id,
-        "name":req.body.name,
-        "passport":req.body.passport,
-        "email":req.body.email
+        "user_id":req.params.user_id,
+        "name":req.params.name,
+        "passport":req.params.passport,
+        "email":req.params.email
     });
     user.save(function(err,newUser){
         if(!err){
@@ -48,6 +48,11 @@ var finduserByName = function(req, res){
 var deleteuserById =function(req,res){
     var userInx = req.params.id;
     User.remove({'user_id':userInx});
+    if(!err){
+            res.send("delete success!");
+        }
+        else
+        res.send("fail to delete");
 };
 
 
