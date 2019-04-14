@@ -54,9 +54,7 @@ var deletecomment = function(req,res){
     var req_user_id = req.params.user_id;
     var req_comment_id = req.params.comment_id;
 
-    VerifyPlace.findOneAndDelete({
-        place_id:req_place_id,
-        user_id:req_user_id,
+    VerifyPlace.deleteOne({
         comment_id:req_comment_id},function(err,comment){
         if(err){
             res.sendStatus(600);
