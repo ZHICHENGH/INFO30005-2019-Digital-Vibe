@@ -53,8 +53,25 @@ var finduserByName = function(req, res){
     });
 };
 
+//user login
+var userLogin = function(req, res){
+    var username = req.body.name;
+    var password = req.body.password;
+
+    User.findOne({user_name:username, password:password}, function(err, user){
+        if (err) {
+            return res.sendStatus(500);
+        } else if (!user){
+            return res.send(0);
+        } else {
+            return res.send(user);
+        }
+    })
+}
+
 //export functions
 module.exports.createuser = createuser;
 module.exports.findAllusers = findAllusers;
 module.exports.findOneuser = findOneuser;
 module.exports.finduserByName = finduserByName;
+module.exports.userLogin = userLogin;
