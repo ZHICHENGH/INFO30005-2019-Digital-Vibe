@@ -31,7 +31,8 @@ const createPlace = (req, res) => {
     "place_id":req.body.place_id,
     "place_name":req.body.place_name,
     "address":req.body.address,
-    "coordinate":req.body.coordinate,
+    "lat":req.body.lat,
+    "lng":req.body.lng,
     "acc_toilet":req.body.acc_toilet,
     "acc_carpark":req.body.acc_carpark,
     "acc_life":req.body.acc_life
