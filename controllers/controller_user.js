@@ -6,7 +6,7 @@ var createuser = function(req,res){
     var user = new User({
         "user_id":req.body.user_id,
         "user_name":req.body.name,
-        "passport":req.body.passport,
+        "password":req.body.password,
         "email":req.body.email
     });
     user.save(function(err,newUser){
@@ -61,10 +61,10 @@ var userLogin = function(req, res){
     User.findOne({user_name:username, password:password}, function(err, user){
         if (err) {
             return res.sendStatus(500);
-        } else if (!user){
-            return res.send(0);
         } else {
-            return res.send(user);
+            res.render('index', {
+                user:user
+            })
         }
     })
 }
