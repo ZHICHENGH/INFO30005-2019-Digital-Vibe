@@ -11,6 +11,8 @@ router.get('/getusers',controller.findAllusers);
 router.get('/userid/:id',controller.findOneuser);
 //get user by name
 router.get('/username/:name',controller.finduserByName);
+//user login
+router.post('/login',controller.userLogin);
 
 
 module.exports = router;
