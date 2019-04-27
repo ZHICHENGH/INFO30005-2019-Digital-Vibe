@@ -6,7 +6,7 @@ var placeSchema = mongoose.Schema(
         "place_name":String,
         "address":String,
         "lat":String,
-        "lng":Sting,
+        "lng":String,
         "acc_toilet":String,
         "acc_carpark":String,
         "acc_life":String
