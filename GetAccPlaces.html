@@ -37,7 +37,7 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
 
         var map = new google.maps.Map(document.getElementById('map'), {
             center: new google.maps.LatLng(-37.7963689, 144.9589798),
-            zoom: 14
+            zoom: 16
         });
         var infoWindow = new google.maps.InfoWindow;
 
@@ -72,8 +72,8 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
                     infowincontent.appendChild(document.createElement('br'));
 
                     var text = document.createElement('text');
-                    infowincontent.appendChild(text);
                     text.textContent = address;
+                    infowincontent.appendChild(text);
                     if (acc_toilet == "Y"){
                         infowincontent.appendChild(document.createElement('br'));
                         text.textContent = "Accessible Toilet";
@@ -105,7 +105,7 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
                     bounds.extend(marker.position);
                     //now fit the map to the newly inclusive bounds
                     map.fitBounds(bounds);
-                    map.setZoom(14);
+                    map.setZoom(16);
 
                     markers.push(marker);
                 }
