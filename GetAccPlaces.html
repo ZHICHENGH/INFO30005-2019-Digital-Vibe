@@ -30,13 +30,14 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
 
 <script>
 
+    var markers = [];
+
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
             center: new google.maps.LatLng(-37.7963689, 144.9589798),
-            zoom: 4
+            zoom: 14
         });
         var infoWindow = new google.maps.InfoWindow;
-        var markers = [];
 
         // Clear out the old markers.
         markers.forEach(function(marker) {
@@ -71,13 +72,13 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
                     var text = document.createElement('text');
                     text.textContent = address;
                     if (acc_toilet == "Y"){
-                        text.textContent = text.textContent + "\nAccessible Toilet"
+                        text.textContent = text.textContent + "<br />" + "Accessible Toilet";
                     }
                     if (acc_carpark == "Y"){
-                        text.textContent = text.textContent + "\nAccessible Carpark"
+                        text.textContent = text.textContent + "<br />" +  "Accessible Carpark";
                     }
                     if (acc_lift == "Y"){
-                        text.textContent = text.textContent + "\nAccessible Lift"
+                        text.textContent = text.textContent + "<br />" + "Accessible Lift";
                     }
                     infowincontent.appendChild(text);
                     //var icon = customLabel[type] || {};
