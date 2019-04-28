@@ -15,7 +15,8 @@
 	<link rel="apple-touch-icon" href="/images/logo3.png">
     <link rel="shortcut icon" href="/images/logo3.png">
 
-	
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
@@ -102,36 +103,10 @@
 								
                                 <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
 
-                                <div class="search-toggle"> <br>
-                                    <div class="search-row">  
+                                <p style="padding: 10px" >Toilet <input type="checkbox" id="Acc_Toilet_Check" onclick="initMap()">
+                                    Carpark <input type="checkbox" id="Acc_Carpark_Check" onclick="initMap()">
+                                    Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
 
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Toilet
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  -->  
-
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Car Parking
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  --> 
-
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Lift
-                                                </label>
-                                            </div>
-                                        </div>
-                                	</div>    
-								</div>
                             </form>
                         
 				  </div>
@@ -179,7 +154,7 @@
 					<a href="#"><div style="padding: 18px"  class="header-left"> 
 						<h5></h5>
 					</div></a>
-                    <a href="page-login.html"><div style="padding: 10px"  class="header-left"> 
+                    <a href="https://joyaccess.herokuapp.com/login"><div style="padding: 10px"  class="header-left">
 						<h4>Login</h4>
 					</div></a>
 
@@ -207,25 +182,90 @@
 	
 <div style="height: 100%" id="map"></div>
 </div>
-        <!-- /#header -->
-        <!-- Content -->
-        <!-- /.content -->
-  
-    <!-- /#right-panel -->
-	
+
+
     <!-- Scripts -->
-	<script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -40, lng: 150.644},
-          zoom: 8
-        });
-      }
-	</script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBamM2AMAzA6-D3sgXjvdoGeLp3_yj0wg0&callback=initMap"
-    async defer></script>
-	
+    <script>
+        var markers = [];
+        function initMap() {
+            var bounds = new google.maps.LatLngBounds();
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: new google.maps.LatLng(-37.7963689, 144.9589798),
+                zoom: 16
+            });
+            var infoWindow = new google.maps.InfoWindow;
+            // Clear out the old markers.
+            markers.forEach(function(marker) {
+                marker.setMap(null);
+            });
+            markers = [];
+            // Change this depending on the name of your PHP or XML file
+            $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function(jsonData) {
+                $.each(jsonData, function(key,data) {
+                    var place_name = data.place_name;
+                    var address = data.address;
+                    var acc_toilet = data.acc_toilet;
+                    var acc_carpark = data.acc_carpark;
+                    var acc_lift = data.acc_lift;
+                    var point = new google.maps.LatLng(
+                        parseFloat(data.lat),
+                        parseFloat(data.lng));
+                    console.log("place_name = " + place_name + "\naddress = " + address + "\nacc_toilet = " + acc_toilet +
+                        "\nacc_carpark = " + acc_carpark + "\nacc_lift = " + acc_lift + "\npoint = " + point);
+                    if ((document.getElementById("Acc_Toilet_Check").checked == true && acc_toilet == "Y") ||
+                        (document.getElementById("Acc_Carpark_Check").checked == true && acc_carpark == "Y") ||
+                        (document.getElementById("Acc_Lift_Check").checked == true && acc_lift == "Y")) {
+                        var infowincontent = document.createElement('div');
+                        var strong = document.createElement('strong');
+                        strong.textContent = place_name;
+                        infowincontent.appendChild(strong);
+                        infowincontent.appendChild(document.createElement('br'));
+                        var text = document.createElement('text');
+                        text.textContent = address;
+                        infowincontent.appendChild(text);
+                        if (acc_toilet == "Y"){
+                            infowincontent.appendChild(document.createElement('br'));
+                            text.textContent = "Accessible Toilet";
+                            infowincontent.appendChild(text);
+                        }
+                        if (acc_carpark == "Y"){
+                            infowincontent.appendChild(document.createElement('br'));
+                            text.textContent = "Accessible Carpark";
+                            infowincontent.appendChild(text);
+                        }
+                        if (acc_lift == "Y"){
+                            infowincontent.appendChild(document.createElement('br'));
+                            text.textContent = "Accessible Lift";
+                            infowincontent.appendChild(text);
+                        }
+                        //var icon = customLabel[type] || {};
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: point,
+                            //label: icon.label
+                        });
+                        marker.addListener('click', function () {
+                            infoWindow.setContent(infowincontent);
+                            infoWindow.open(map, marker);
+                        });
+                        //extend the bounds to include each marker's position
+                        bounds.extend(marker.position);
+                        //now fit the map to the newly inclusive bounds
+                        map.fitBounds(bounds);
+                        map.setZoom(16);
+                        markers.push(marker);
+                    }
+                });
+            });
+        }
+
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBamM2AMAzA6-D3sgXjvdoGeLp3_yj0wg0&callback=initMap">
+    </script>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
