@@ -7,7 +7,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // Temporary homepage
-app.get('/', (req, res) => res.send('/index.html'));
+app.get('/', (req, res) => res.load('index.html'));
 
 // Database setup
 require('./models/db.js');
