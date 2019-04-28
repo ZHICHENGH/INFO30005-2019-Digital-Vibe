@@ -55,8 +55,8 @@ var finduserByName = function(req, res){
 
 //user login
 var userLogin = function(req, res){
-    var username = req.body.name;
-    var password = req.body.password;
+    var username = req.body.inputname;
+    var password = req.body.pswrd;
 
     User.findOne({user_name:username, password:password}, function(err, user){
         if (err) {
