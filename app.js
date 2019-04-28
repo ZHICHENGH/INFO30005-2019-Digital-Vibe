@@ -32,6 +32,10 @@ app.get("/", function(req, res){
     res.writeHead(200, {"content-type": "text/html"});
     res.end(fs.readFileSync(__dirname + "/index.html"))
 })
+app.get("/login", function(req, res){
+    res.writeHead(200, {"content-type": "text/html"});
+    res.end(fs.readFileSync(__dirname + "/page-login.html"))
+})
 
 app.get('/GetAccPlaces', function(request, response){
     response.sendfile('GetAccPlaces.html');
