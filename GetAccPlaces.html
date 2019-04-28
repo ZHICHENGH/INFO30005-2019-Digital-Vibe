@@ -75,20 +75,24 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
                     var text = document.createElement('text');
                     text.textContent = address;
                     infowincontent.appendChild(text);
+
                     if (acc_toilet == "Y"){
+                        var acctext_toilet = document.createElement('text');
                         infowincontent.appendChild(document.createElement('br'));
-                        text.textContent = "Accessible Toilet";
-                        infowincontent.appendChild(text);
+                        acctext_toilet.textContent = "Accessible Toilet";
+                        infowincontent.appendChild(acctext_toilet);
                     }
                     if (acc_carpark == "Y"){
+                        var acctext_carpark = document.createElement('text');
                         infowincontent.appendChild(document.createElement('br'));
-                        text.textContent = "Accessible Carpark";
-                        infowincontent.appendChild(text);
+                        acctext_carpark.textContent = "Accessible Carpark";
+                        infowincontent.appendChild(acctext_carpark);
                     }
                     if (acc_lift == "Y"){
+                        var acctext_lift = document.createElement('text');
                         infowincontent.appendChild(document.createElement('br'));
-                        text.textContent = "Accessible Lift";
-                        infowincontent.appendChild(text);
+                        acctext_lift.textContent = "Accessible Lift";
+                        infowincontent.appendChild(acctext_lift);
                     }
 
                     //var icon = customLabel[type] || {};
