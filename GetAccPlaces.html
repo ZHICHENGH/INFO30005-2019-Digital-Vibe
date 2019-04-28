@@ -33,9 +33,16 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
             center: new google.maps.LatLng(-37.7963689, 144.9589798),
-            zoom: 12
+            zoom: 4
         });
         var infoWindow = new google.maps.InfoWindow;
+        var markers = [];
+
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
+        markers = [];
 
         // Change this depending on the name of your PHP or XML file
         $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function(jsonData) {
@@ -63,6 +70,15 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
 
                     var text = document.createElement('text');
                     text.textContent = address;
+                    if (acc_toilet == "Y"){
+                        text.textContent = text.textContent + "\nAccessible Toilet"
+                    }
+                    if (acc_carpark == "Y"){
+                        text.textContent = text.textContent + "\nAccessible Carpark"
+                    }
+                    if (acc_lift == "Y"){
+                        text.textContent = text.textContent + "\nAccessible Lift"
+                    }
                     infowincontent.appendChild(text);
                     //var icon = customLabel[type] || {};
                     var marker = new google.maps.Marker({
@@ -74,11 +90,13 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
                         infoWindow.setContent(infowincontent);
                         infoWindow.open(map, marker);
                     });
+                    markers.push(marker);
                 }
             });
         });
     }
 
+    /*
     function downloadUrl(url, callback) {
         var request = window.ActiveXObject ?
             new ActiveXObject('Microsoft.XMLHTTP') :
@@ -94,8 +112,8 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
         request.open('GET', url, true);
         request.send(null);
     }
+    */
 
-    function doNothing() {}
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBamM2AMAzA6-D3sgXjvdoGeLp3_yj0wg0&callback=initMap">
