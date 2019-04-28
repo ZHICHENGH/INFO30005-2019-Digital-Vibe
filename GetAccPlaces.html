@@ -33,6 +33,8 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
     var markers = [];
 
     function initMap() {
+        var bounds = new google.maps.LatLngBounds();
+
         var map = new google.maps.Map(document.getElementById('map'), {
             center: new google.maps.LatLng(-37.7963689, 144.9589798),
             zoom: 14
@@ -70,17 +72,24 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
                     infowincontent.appendChild(document.createElement('br'));
 
                     var text = document.createElement('text');
+                    infowincontent.appendChild(text);
                     text.textContent = address;
                     if (acc_toilet == "Y"){
-                        text.textContent = text.textContent + "<br />" + "Accessible Toilet";
+                        infowincontent.appendChild(document.createElement('br'));
+                        text.textContent = "Accessible Toilet";
+                        infowincontent.appendChild(text);
                     }
                     if (acc_carpark == "Y"){
-                        text.textContent = text.textContent + "<br />" +  "Accessible Carpark";
+                        infowincontent.appendChild(document.createElement('br'));
+                        text.textContent = "Accessible Carpark";
+                        infowincontent.appendChild(text);
                     }
                     if (acc_lift == "Y"){
-                        text.textContent = text.textContent + "<br />" + "Accessible Lift";
+                        infowincontent.appendChild(document.createElement('br'));
+                        text.textContent = "Accessible Lift";
+                        infowincontent.appendChild(text);
                     }
-                    infowincontent.appendChild(text);
+
                     //var icon = customLabel[type] || {};
                     var marker = new google.maps.Marker({
                         map: map,
@@ -91,6 +100,13 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
                         infoWindow.setContent(infowincontent);
                         infoWindow.open(map, marker);
                     });
+
+                    //extend the bounds to include each marker's position
+                    bounds.extend(marker.position);
+                    //now fit the map to the newly inclusive bounds
+                    map.fitBounds(bounds);
+                    map.setZoom(14);
+
                     markers.push(marker);
                 }
             });
