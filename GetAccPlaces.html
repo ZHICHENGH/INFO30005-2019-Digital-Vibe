@@ -64,11 +64,11 @@ Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
                     var text = document.createElement('text');
                     text.textContent = address;
                     infowincontent.appendChild(text);
-                    var icon = customLabel[type] || {};
+                    //var icon = customLabel[type] || {};
                     var marker = new google.maps.Marker({
                         map: map,
                         position: point,
-                        label: icon.label
+                        //label: icon.label
                     });
                     marker.addListener('click', function () {
                         infoWindow.setContent(infowincontent);
