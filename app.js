@@ -5,9 +5,10 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
+/*
 // Temporary homepage
 app.get('/', (req, res) => res.send('index.html'));
+*/
 
 // Database setup
 require('./models/db.js');
