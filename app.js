@@ -23,9 +23,15 @@ var comment_route = require('./routes/route_comment');
 app.use('/comment', comment_route);
 
 // HTML files
-app.get('/', function(request, response){
-    response.sendfile('index.html');
-});
+var fs = require("fs");
+var path = require("path");
+console.log(path.join(__dirname, "public"))
+
+app.use(express.static(path.join(__dirname, "public")));
+app.get("/", function(req, res){
+    res.writeHead(200, {"content-type": "text/html"});
+    res.end(fs.readFileSync(__dirname + "/index.html"))
+})
 
 app.get('/GetAccPlaces', function(request, response){
     response.sendfile('GetAccPlaces.html');
