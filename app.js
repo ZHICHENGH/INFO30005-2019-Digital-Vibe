@@ -25,6 +25,12 @@ app.use('/users', user_route);
 var comment_route = require('./routes/route_comment');
 app.use('/comment', comment_route);
 
+// HTML files
+app.get('/', function(request, response){
+    response.sendfile('index.html');
+    response.sendfile('GetAccPlaces.html');
+});
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function(){
