@@ -1,0 +1,104 @@
+<!DOCTYPE html >
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Display Places with Accessibility Features</title>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<html>
+<body>
+<p>Accessibilities:</p>
+<p>Toilet <input type="checkbox" id="Acc_Toilet_Check" onclick="initMap()">
+Carpark <input type="checkbox" id="Acc_Carpark_Check" onclick="initMap()">
+Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
+
+<div id="map"></div>
+
+<script>
+
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: new google.maps.LatLng(-37.7963689, 144.9589798),
+            zoom: 12
+        });
+        var infoWindow = new google.maps.InfoWindow;
+
+        // Change this depending on the name of your PHP or XML file
+        $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function(jsonData) {
+            $.each(jsonData, function(key,data) {
+                var place_name = data.place_name;
+                var address = data.address;
+                var acc_toilet = data.acc_toilet;
+                var acc_carpark = data.acc_carpark;
+                var acc_lift = data.acc_lift;
+                var point = new google.maps.LatLng(
+                    parseFloat(data.lat),
+                    parseFloat(data.lng));
+
+                console.log("place_name = " + place_name + "\naddress = " + address + "\nacc_toilet = " + acc_toilet +
+                    "\nacc_carpark = " + acc_carpark + "\nacc_lift = " + acc_lift + "\npoint = " + point);
+
+                if ((document.getElementById("Acc_Toilet_Check").checked == true && acc_toilet == "Y") ||
+                (document.getElementById("Acc_Carpark_Check").checked == true && acc_carpark == "Y") ||
+                (document.getElementById("Acc_Lift_Check").checked == true && acc_lift == "Y")) {
+                    var infowincontent = document.createElement('div');
+                    var strong = document.createElement('strong');
+                    strong.textContent = place_name;
+                    infowincontent.appendChild(strong);
+                    infowincontent.appendChild(document.createElement('br'));
+
+                    var text = document.createElement('text');
+                    text.textContent = address;
+                    infowincontent.appendChild(text);
+                    var icon = customLabel[type] || {};
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: point,
+                        label: icon.label
+                    });
+                    marker.addListener('click', function () {
+                        infoWindow.setContent(infowincontent);
+                        infoWindow.open(map, marker);
+                    });
+                }
+            });
+        });
+    }
+
+    function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest;
+
+        request.onreadystatechange = function() {
+            if (request.readyState == 4) {
+                request.onreadystatechange = doNothing;
+                callback(request, request.status);
+            }
+        };
+
+        request.open('GET', url, true);
+        request.send(null);
+    }
+
+    function doNothing() {}
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBamM2AMAzA6-D3sgXjvdoGeLp3_yj0wg0&callback=initMap">
+</script>
+</body>
+</html>
