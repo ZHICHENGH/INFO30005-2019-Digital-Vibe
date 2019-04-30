@@ -5,12 +5,6 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Allow CORS in order to enable localhost testing
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
 
 // Database setup
 require('./models/db.js');
@@ -41,6 +35,10 @@ app.get("/", function(req, res){
 app.get("/login", function(req, res){
     res.writeHead(200, {"content-type": "text/html"});
     res.end(fs.readFileSync(__dirname + "/page-login.html"))
+})
+app.get("/signup", function(req, res){
+    res.writeHead(200, {"content-type": "text/html"});
+    res.end(fs.readFileSync(__dirname + "/page-register.html"))
 })
 
 app.get('/GetAccPlaces', function(request, response){
