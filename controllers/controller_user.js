@@ -53,7 +53,7 @@ var finduserByName = function(req, res){
     });
 };
 
-//user login
+/*//user login
 var userLogin = function(req, res){
     var username = req.body.inputname;
     var password = req.body.pswrd;
@@ -67,11 +67,11 @@ var userLogin = function(req, res){
             })
         }
     })
-}
+}*/
 
 //export functions
 module.exports.createuser = createuser;
 module.exports.findAllusers = findAllusers;
 module.exports.findOneuser = findOneuser;
 module.exports.finduserByName = finduserByName;
-module.exports.userLogin = userLogin;
+//module.exports.userLogin = userLogin;
