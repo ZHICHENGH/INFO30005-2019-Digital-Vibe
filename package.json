@@ -24,7 +24,6 @@
     "express-session":"^1.16.1",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "cookie-parser": "^1.4.3",
     "cancan": "^3.1.0"
   },
   "devDependencies": {
