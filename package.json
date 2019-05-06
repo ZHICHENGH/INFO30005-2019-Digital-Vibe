@@ -19,12 +19,13 @@
   "homepage": "https://github.com/joeany-unimelb/INFO30005-2019-DV#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cancan": "^3.1.0",
+    "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
+    "express-session": "^1.16.1",
     "mongoose": "^5.5.1",
-    "express-session":"^1.16.1",
     "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "cancan": "^3.1.0"
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "@types/express": "^4.16.1"
