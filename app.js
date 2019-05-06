@@ -2,8 +2,15 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var User = mongoose.model('user');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Enable CORS in order to facilitate localhost testing
 app.use(function(req, res, next) {
@@ -51,7 +58,55 @@ app.get('/GetAccPlaces', function(request, response){
     response.sendfile('GetAccPlaces.html');
 });
 
+//login
 
+// Express Session
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+  }));
+  
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
+
+var LocalStrategy = require('passport-local').Strategy;
+passport.use(new LocalStrategy(
+  function(email, password, done) {
+    User.findOne({
+        email:email
+    }, function(err, user){
+        if (err) {
+            return done(err);
+        } 
+        if (!user){
+            return done(null, false);
+        }
+        if (user.password != password){
+            return done(null, false);
+        }
+        return done(null, user);
+    })
+  }
+));
+
+passport.serializeUser(function(user, cb) {
+    cb(null, user.id);
+  });
+  
+  passport.deserializeUser(function(id, cb) {
+    User.findById(id, function(err, user) {
+      cb(err, user);
+    });
+  });
+
+app.post('/login',
+  passport.authenticate('local'),
+  function(req, res) {
+    res.redirect('/');
+  }
+);
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function(){
