@@ -84,10 +84,10 @@ passport.use(new LocalStrategy(
             return done(err);
         } 
         if (!user){
-            return done(null, false);
+            return done(null, false, {message: 'Unknown User'});
         }
         if (user.password != password){
-            return done(null, false);
+            return done(null, false, {message: 'Invalid Password'});
         }
         return done(null, user);
     })
