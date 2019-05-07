@@ -106,9 +106,10 @@ passport.deserializeUser(function(id, cb) {
 
 app.post('/login',
   passport.authenticate('local', {
-      succcessRedirect: '/',
       failureRedirect: '/login'
-  })
+  }), function(req, res){
+      res.redirect('/');
+  }
 );
 
 // Start the server
