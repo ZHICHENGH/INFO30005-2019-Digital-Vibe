@@ -105,11 +105,12 @@ passport.deserializeUser(function(id, cb) {
 });
 
 app.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    res.redirect('/');
-  }
+  passport.authenticate('local', {
+      succcessRedirect: '/',
+      failureRedirect: '/login'
+  })
 );
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function(){
