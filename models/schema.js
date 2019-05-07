@@ -41,6 +41,6 @@ var verifyPlaceSchema = mongoose.Schema(
 );
 
 mongoose.model('place',placeSchema);
-module.exports.mongoose.model('user',userSchema);
+mongoose.model('user',userSchema);
 mongoose.model('comment',commentSchema);
 mongoose.model('verifyPlace',verifyPlaceSchema);
