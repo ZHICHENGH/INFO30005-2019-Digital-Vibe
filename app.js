@@ -5,6 +5,11 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
+
+
+// Database setup
+require('./models/db.js');
+
 var passport = require('passport');
 var User = mongoose.model('user');
 
@@ -19,8 +24,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-// Database setup
-require('./models/db.js');
 
 // Routes setup
 var verifyPlace_route = require('./routes/route_verifyPlace');
@@ -95,11 +98,11 @@ passport.serializeUser(function(user, cb) {
     cb(null, user.id);
   });
   
-  passport.deserializeUser(function(id, cb) {
+passport.deserializeUser(function(id, cb) {
     User.findById(id, function(err, user) {
       cb(err, user);
     });
-  });
+});
 
 app.post('/login',
   passport.authenticate('local'),
