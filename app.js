@@ -76,9 +76,9 @@ app.use(passport.session());
 
 var LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(
-  function(email, password, done) {
+  function(user_name, password, done) {
     User.findOne({
-        email:email
+        user_name:user_name
     }, function(err, user){
         if (err) {
             return done(err);
