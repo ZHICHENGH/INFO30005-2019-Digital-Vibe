@@ -37,7 +37,7 @@
                     </a>
                 </div>
                 <div class="login-form">
-                    <form name="login">
+                    <form name="login" action="/login" method="post">
                         <div class="form-group">
                             <label>Email address</label>
                             <input type="email" class="form-control" name="inputname" placeholder="Email">
@@ -54,7 +54,7 @@
                                 <a href="#">Forgotten Password?</a>
                             </label>
                         </div>
-                        <button type="submit" onclick="check(inputname,pswrd)" class="btn btn-success btn-flat m-b-30 m-t-30">Login in</button>
+                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Login in</button>
                         <div class="register-link m-t-15 text-center">
                             <p>Don't have account ? <a href="https://joyaccess.herokuapp.com/signup"> Sign Up Here</a></p>
                         </div>
