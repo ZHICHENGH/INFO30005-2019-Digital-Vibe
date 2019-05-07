@@ -76,18 +76,18 @@ app.use(passport.session());
 
 var LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(
-  function(user_name, password, done) {
+  function(username, password, done) {
     User.findOne({
-        user_name:user_name
+        user_name:username
     }, function(err, user){
         if (err) {
             return done(err);
         } 
         if (!user){
-            return done(null, false, {message: 'Unknown User'});
+            return done(null, false);
         }
         if (user.password != password){
-            return done(null, false, {message: 'Invalid Password'});
+            return done(null, false);
         }
         return done(null, user);
     })
