@@ -106,10 +106,10 @@ passport.deserializeUser(function(id, cb) {
 
 app.post('/login',
   passport.authenticate('local', {
-      failureRedirect: '/login',
-      failureFlash: 'Invalid username or password.'
+      failureRedirect: '/login'
+      //failureFlash: 'Invalid username or password.'
   }), function(req, res){
-      res.redirect('/');
+      res.redirect('/users/' + req.user.user_name);
   }
 );
 
