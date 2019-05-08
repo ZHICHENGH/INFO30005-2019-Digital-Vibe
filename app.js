@@ -84,10 +84,10 @@ passport.use(new LocalStrategy(
             return done(err);
         } 
         if (!user){
-            return done(null, false);
+            return done(null, false, {message: 'Invalid user'});
         }
         if (user.password != password){
-            return done(null, false);
+            return done(null, false, {message: 'Invalid password'});
         }
         return done(null, user);
     })
@@ -106,7 +106,7 @@ passport.deserializeUser(function(id, cb) {
 
 app.post('/login',
   passport.authenticate('local', {
-    failureMessage: 'Invalid username or password',
+    failureFlash: true,
     failureRedirect: '/login'
   }), function(req, res){
       res.send(req.user);
