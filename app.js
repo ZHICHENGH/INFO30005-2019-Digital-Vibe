@@ -113,9 +113,6 @@ app.post('/login',
   }
 );
 
-res.render("login", { login_errors: req.session.messages || [] });
-req.session.messages = [];
-
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function(){
