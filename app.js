@@ -109,7 +109,7 @@ app.post('/login',
       failureRedirect: '/login'
       //failureFlash: 'Invalid username or password.'
   }), function(req, res){
-      res.redirect('/users/' + req.user.user_name);
+      res.redirect('/users/userAPI/' + req.user.user_name);
   }
 );
 
