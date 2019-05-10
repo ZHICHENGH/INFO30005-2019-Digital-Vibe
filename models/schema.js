@@ -7,9 +7,9 @@ var placeSchema = mongoose.Schema(
         "address":String,
         "lat":String,
         "lng":String,
-        "acc_toilet":String,
-        "acc_carpark":String,
-        "acc_lift":String
+        "acc_toilet":Boolean,
+        "acc_carpark":Boolean,
+        "acc_lift":Boolean
     }
 );
 

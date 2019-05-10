@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="public/assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="public/assets/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
@@ -76,9 +76,9 @@
                 </div>
 
                 <li class="menu-title">RESULT</li>
-                <a style="padding: 10px" href="#" > <em style="padding: 10px" class="fa fa-location-arrow"></em>Name: </a>
-                <a style="padding: 10px" href="#" > <em style="padding: 10px" class="fa fa-location-arrow"></em>Address: </a>
-                <a style="padding: 10px" href="#" > <em style="padding: 10px" class="fa fa-location-arrow"></em>Position: </a>
+                <a style="padding: 10px" href="#" > <em style="padding: 10px" class="fa fa-location-arrow" id="PlaceName"></em>Name: </a>
+                <a style="padding: 10px" href="#" > <em style="padding: 10px" class="fa fa-location-arrow" id="PlaceAddress"></em>Address: </a>
+                <a style="padding: 10px" href="#" > <em style="padding: 10px" class="fa fa-location-arrow" id="PlacePos"></em>Position: </a>
                 <a style="padding: 10px" href="#" > <em style="padding: 10px" class="fa fa-location-arrow"></em>Accessibilities:</a>
                 <p>Toilet <input type="checkbox" id="Acc_Toilet_Input" onclick="initMap()">
                     Carpark <input type="checkbox" id="Acc_Carpark_Input" onclick="initMap()">
@@ -150,7 +150,7 @@
             center: new google.maps.LatLng(-37.7963689, 144.9589798),
             zoom: 16
         });
-        var infoWindow = new google.maps.InfoWindow;
+
 
         map.addListener('click', function(e) {
             var exist = false;
@@ -201,9 +201,9 @@
                 console.log("place_name = " + place_name + "\naddress = " + address + "\nacc_toilet = " + acc_toilet +
                     "\nacc_carpark = " + acc_carpark + "\nacc_lift = " + acc_lift + "\npoint = " + point);
 
-                if ((document.getElementById("Acc_Toilet_Check").checked == true && acc_toilet == "Y") ||
-                (document.getElementById("Acc_Carpark_Check").checked == true && acc_carpark == "Y") ||
-                (document.getElementById("Acc_Lift_Check").checked == true && acc_lift == "Y")) {
+                if ((document.getElementById("Acc_Toilet_Check").checked == true && acc_toilet == true) ||
+                (document.getElementById("Acc_Carpark_Check").checked == true && acc_carpark == true) ||
+                (document.getElementById("Acc_Lift_Check").checked == true && acc_lift == true)) {
                     var infowincontent = document.createElement('div');
                     var strong = document.createElement('strong');
                     strong.textContent = place_name;
@@ -214,19 +214,19 @@
                     text.textContent = address;
                     infowincontent.appendChild(text);
 
-                    if (acc_toilet == "Y"){
+                    if (acc_toilet == true){
                         var acctext_toilet = document.createElement('text');
                         infowincontent.appendChild(document.createElement('br'));
                         acctext_toilet.textContent = "Accessible Toilet";
                         infowincontent.appendChild(acctext_toilet);
                     }
-                    if (acc_carpark == "Y"){
+                    if (acc_carpark == true){
                         var acctext_carpark = document.createElement('text');
                         infowincontent.appendChild(document.createElement('br'));
                         acctext_carpark.textContent = "Accessible Carpark";
                         infowincontent.appendChild(acctext_carpark);
                     }
-                    if (acc_lift == "Y"){
+                    if (acc_lift == true){
                         var acctext_lift = document.createElement('text');
                         infowincontent.appendChild(document.createElement('br'));
                         acctext_lift.textContent = "Accessible Lift";
@@ -283,6 +283,7 @@
 
             // For each place, get the icon, name and location.
             var bounds = new google.maps.LatLngBounds();
+
             places.forEach(function(place) {
                 if (!place.geometry) {
                     console.log("Returned place contains no geometry");
@@ -304,12 +305,54 @@
                     position: place.geometry.location
                 });
 
-                map.addListener(marker2,'click',function(){
-                    var infoWindow2 = new google.maps.InfoWindow();
-                    var contentStr = "Name: " + place.name + "\n" + "Address: " + place.address;
-                    infowindow2.setContent(contentStr);
-                    infowindow2.open(map,marker2);
-                });
+                var infoWindow2 = new google.maps.InfoWindow();
+
+                google.maps.event.addListener(marker2,'click',(function(marker2, map, place) {
+                    return function () {
+                        $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function(jsonData) {
+                            $.each(jsonData, function (key, data) {
+                                var place_name = data.place_name;
+                                var address = data.address;
+                                var acc_toilet = data.acc_toilet;
+                                var acc_carpark = data.acc_carpark;
+                                var acc_lift = data.acc_lift;
+                                var point = new google.maps.LatLng(
+                                    parseFloat(data.lat),
+                                    parseFloat(data.lng));
+
+                                console.log("place_name = " + place_name + "\naddress = " + address + "\nacc_toilet = " + acc_toilet +
+                                    "\nacc_carpark = " + acc_carpark + "\nacc_lift = " + acc_lift + "\npoint = " + point +
+                                    "\nMarker Pos = " + place.geometry.location);
+
+                                // If this Google Map Places API marker corresponds to an existing location in our
+                                // database that has accessibility info, we display it
+                                if ((point == place.geometry.location) && ((acc_toilet == true) || (acc_carpark == true) ||
+                                    (acc_lift == true))) {
+                                    document.getElementById("PlaceName").innerHTML = 'Name: ' + place_name;
+                                    document.getElementById("PlaceAddress").innerHTML = 'Address: ' + address;
+                                    document.getElementById("PlacePos").innerHTML = 'Position: ' + point;
+
+                                    // reset checkboxes to empty first
+                                    document.getElementById("Acc_Toilet_Input").checked = false;
+                                    document.getElementById("Acc_Carpark_Input").checked = false;
+                                    document.getElementById("Acc_Lift_Input").checked = false;
+
+                                    if (acc_toilet == true) {
+                                        document.getElementById("Acc_Toilet_Input").checked = true;
+                                    }
+                                    if (acc_carpark == true) {
+                                        document.getElementById("Acc_Carpark_Input").checked = true;
+                                    }
+                                    if (acc_lift == true) {
+                                        document.getElementById("Acc_Lift_Input").checked = true;
+                                    }
+                                }
+                            });
+                        });
+                        infoWindow2.setContent('Name: ' + place.name + '\<br />Address: ' + place.formatted_address);
+                        infoWindow2.open(map, marker2);
+                    }
+                }) (marker2, map, place));
 
                 markers2.push(marker2);
 
