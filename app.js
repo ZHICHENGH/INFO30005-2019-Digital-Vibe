@@ -46,12 +46,9 @@ var path = require("path");
 console.log(path.join(__dirname, "public"))
 
 app.use(express.static(path.join(__dirname, "public")));
-app.get("/", ensureAuthenticated, function(req, res){
-    res.render('index', {
-        name: req.user.name
-    })
-    //res.writeHead(200, {"content-type": "text/html"});
-    //res.end(fs.readFileSync(__dirname + "/index.html"))
+app.get("/", function(req, res){
+    res.writeHead(200, {"content-type": "text/html"});
+    res.end(fs.readFileSync(__dirname + "/index.html"))
 })
 app.get("/login", function(req, res){
     res.writeHead(200, {"content-type": "text/html"});
