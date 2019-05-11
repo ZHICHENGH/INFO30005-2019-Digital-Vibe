@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
 var flash = require('express-flash');
-
+const { ensureAuthenticated } = require('./auth.js');
 // Database setup
 require('./models/db.js');
 
@@ -16,6 +16,8 @@ var User = mongoose.model('user');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+
 
 // Enable CORS in order to facilitate localhost testing
 app.use(function(req, res, next) {
@@ -44,9 +46,12 @@ var path = require("path");
 console.log(path.join(__dirname, "public"))
 
 app.use(express.static(path.join(__dirname, "public")));
-app.get("/", function(req, res){
-    res.writeHead(200, {"content-type": "text/html"});
-    res.end(fs.readFileSync(__dirname + "/index.html"))
+app.get("/", ensureAuthenticated, function(req, res){
+    res.render('index', {
+        name: req.user.name
+    })
+    //res.writeHead(200, {"content-type": "text/html"});
+    //res.end(fs.readFileSync(__dirname + "/index.html"))
 })
 app.get("/login", function(req, res){
     res.writeHead(200, {"content-type": "text/html"});
@@ -77,6 +82,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+passport.serializeUser(function(user, cb) {
+    cb(null, user.id);
+  });
+  
+passport.deserializeUser(function(id, cb) {
+    User.findById(id, function(err, user) {
+      cb(err, user);
+    });
+});
 
 var LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(
@@ -98,25 +112,14 @@ passport.use(new LocalStrategy(
   }
 ));
 
-passport.serializeUser(function(user, cb) {
-    cb(null, user.id);
-  });
-  
-passport.deserializeUser(function(id, cb) {
-    User.findById(id, function(err, user) {
-      cb(err, user);
-    });
-});
 
-app.post('/login',
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-  }), function(req, res){
-      res.redirect('/user/' + req.user.username);
-  }
-);
+app.post('/login', function(req, res, next){
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/login',
+        failureFlash: true
+      }) (req, res, next);
+});
 
 // Start the server
 const PORT = process.env.PORT || 3000;
