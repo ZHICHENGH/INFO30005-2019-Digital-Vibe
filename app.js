@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
-
+var flash = require('express-flash');
 
 // Database setup
 require('./models/db.js');
@@ -75,6 +75,7 @@ app.use(express.static("public"));
 app.use(session({ secret: "cats" }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 
 var LocalStrategy = require('passport-local').Strategy;
@@ -109,10 +110,11 @@ passport.deserializeUser(function(id, cb) {
 
 app.post('/login',
   passport.authenticate('local', {
-    failureFlash: true,
-    failureRedirect: '/login'
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
   }), function(req, res){
-      res.send(req.user);
+      res.redirect('/user/' + req.user.username);
   }
 );
 
