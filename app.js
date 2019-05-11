@@ -73,6 +73,7 @@ app.use(session({
 // Passport init
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 var LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(
