@@ -109,14 +109,12 @@ passport.use(new LocalStrategy(
   }
 ));
 
-
-app.post('/login', function(req, res, next){
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true
-      }) (req, res, next);
-});
+app.post('/login', 
+  passport.authenticate('local', 
+  { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/?username=' + req.user.username);
+  });
 
 // Start the server
 const PORT = process.env.PORT || 3000;
