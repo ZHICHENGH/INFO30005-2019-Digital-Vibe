@@ -113,7 +113,7 @@ app.post('/login',
   passport.authenticate('local', 
   { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/?username=' + req.user.username);
+    res.redirect('/?username=' + req.user.user_name);
   });
 
 // Start the server
