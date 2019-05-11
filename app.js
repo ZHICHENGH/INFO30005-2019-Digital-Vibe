@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
 var flash = require('express-flash');
-const { ensureAuthenticated } = require('./auth.js');
 // Database setup
 require('./models/db.js');
 
@@ -110,8 +109,10 @@ passport.use(new LocalStrategy(
 ));
 
 app.post('/login', 
-  passport.authenticate('local', 
-  { failureRedirect: '/login' }),
+  passport.authenticate('local', { 
+      failureRedirect: '/login',
+      failureFlash: true
+ }),
   function(req, res) {
     res.redirect('/?username=' + req.user.user_name);
   });
