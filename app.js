@@ -14,7 +14,7 @@ var passport = require('passport');
 var User = mongoose.model('user');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Enable CORS in order to facilitate localhost testing
@@ -71,9 +71,11 @@ app.use(session({
   }));
   
 // Passport init
+app.use(express.static("public"));
+app.use(session({ secret: "cats" }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
+
 
 var LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(
