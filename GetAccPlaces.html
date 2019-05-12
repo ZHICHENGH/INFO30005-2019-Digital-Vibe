@@ -121,9 +121,10 @@
                     document.getElementById("Acc_Toilet_Check").checked + "\nCarpark Check = " + document.getElementById("Acc_Carpark_Check").checked +
                     "\nLift Check = " + document.getElementById("Acc_Lift_Check").checked);
 
-                if ((document.getElementById("Acc_Toilet_Check").checked == true && acc_toilet == "true") ||
-                (document.getElementById("Acc_Carpark_Check").checked == true && acc_carpark == "true") ||
-                (document.getElementById("Acc_Lift_Check").checked == true && acc_lift == "true")) {
+                if ((document.getElementById("Acc_Toilet_Check").checked == true && acc_toilet == true) ||
+                (document.getElementById("Acc_Carpark_Check").checked == true && acc_carpark == true) ||
+                (document.getElementById("Acc_Lift_Check").checked == true && acc_lift == true)) {
+                    console.log("Found place with accessibility!");
                     var infowincontent = document.createElement('div');
                     var strong = document.createElement('strong');
                     strong.textContent = place_name;
@@ -134,19 +135,19 @@
                     text.textContent = address;
                     infowincontent.appendChild(text);
 
-                    if (acc_toilet == "true"){
+                    if (acc_toilet == true){
                         var acctext_toilet = document.createElement('text');
                         infowincontent.appendChild(document.createElement('br'));
                         acctext_toilet.textContent = "Accessible Toilet";
                         infowincontent.appendChild(acctext_toilet);
                     }
-                    if (acc_carpark == "true"){
+                    if (acc_carpark == true){
                         var acctext_carpark = document.createElement('text');
                         infowincontent.appendChild(document.createElement('br'));
                         acctext_carpark.textContent = "Accessible Carpark";
                         infowincontent.appendChild(acctext_carpark);
                     }
-                    if (acc_lift == "true"){
+                    if (acc_lift == true){
                         var acctext_lift = document.createElement('text');
                         infowincontent.appendChild(document.createElement('br'));
                         acctext_lift.textContent = "Accessible Lift";
@@ -220,13 +221,13 @@
                         var element = document.getElementById("PlaceDetails");
                         element.appendChild(para);
 
-                        if (acc_toilet == "true") {
+                        if (acc_toilet == true) {
                             document.getElementById("acc_toilet_input").checked = true;
                         }
-                        if (acc_carpark == "true") {
+                        if (acc_carpark == true) {
                             document.getElementById("acc_carpark_input").checked = true;
                         }
-                        if (acc_lift == "true") {
+                        if (acc_lift == true) {
                             document.getElementById("acc_lift_input").checked = true;
                         }
 
@@ -397,7 +398,7 @@
                                     (acc_lift == "true"))) {
                                     console.log("Matching location found! Accessibility info should be visible!");
 
-                                    if (acc_toilet == "true") {
+                                    if (acc_toilet == true) {
                                         document.getElementById("acc_toilet_input").checked = true;
                                         var acctext_toilet = document.createElement('text');
                                         infowincontent.appendChild(document.createElement('br'));
@@ -405,7 +406,7 @@
                                         infowincontent.appendChild(acctext_toilet);
                                     }
 
-                                    if (acc_carpark == "true") {
+                                    if (acc_carpark == true) {
                                         document.getElementById("acc_carpark_input").checked = true;
                                         var acctext_carpark = document.createElement('text');
                                         infowincontent.appendChild(document.createElement('br'));
@@ -413,7 +414,7 @@
                                         infowincontent.appendChild(acctext_carpark);
                                     }
 
-                                    if (acc_lift == "true") {
+                                    if (acc_lift == true) {
                                         document.getElementById("acc_lift_input").checked = true;
                                         var acctext_lift = document.createElement('text');
                                         infowincontent.appendChild(document.createElement('br'));
