@@ -563,7 +563,7 @@ aside.left-panel {
   height: 100vh;
   padding: 0;
   vertical-align: top;
-  width: 280px;
+  width: 400px;
   position:absolute;
   -webkit-box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
           box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
@@ -738,8 +738,8 @@ aside.left-panel {
     display: none; }
 
 .open aside.left-panel {
-  max-width: 83px;
-  width: 83px; }
+  max-width: 400px;
+  width: 400px; }
   .open aside.left-panel .navbar .navbar-header {
     padding: 0; }
   .open aside.left-panel .navbar .navbar-brand {
@@ -2200,18 +2200,19 @@ footer.site-footer {
     font-size: 12px; } }
 @media (max-width: 1024px) {
   .open aside.left-panel {
-    width: 280px;
-    max-width: 280px; }
+    width: 400px;
+    max-width: 400px; }
 
-  aside.left-panel:hover {
+d\
+	dscxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxcxaside.left-panel:hover {
     overflow-x: inherit; }
 
   aside.left-panel.open-menu {
     overflow-x: scroll; }
 
   aside.left-panel {
-    max-width: 83px;
-    width: 83px; }
+    max-width: 400px;
+    width: 400px; }
     aside.left-panel .navbar .navbar-header {
       padding: 0; }
     aside.left-panel .navbar .navbar-brand {
@@ -2290,8 +2291,8 @@ footer.site-footer {
     aside.left-panel .menutoggle {
       display: none; }
     aside.left-panel.open-menu {
-      max-width: 280px;
-      width: 280px; }
+      max-width: 400px;
+      width: 400px; }
       aside.left-panel.open-menu .navbar .navbar-nav li > a {
         width: 100%;
         max-width: 100%;
