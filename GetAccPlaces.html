@@ -394,8 +394,8 @@
                                 // If this Google Map Places API marker corresponds to an existing location in our
                                 // database that has accessibility info, we display the accessibility info as well
                                 if ((lat == marker2.position.lat() && lng == marker2.position.lng()) &&
-                                    ((acc_toilet == "true") || (acc_carpark == "true") ||
-                                    (acc_lift == "true"))) {
+                                    ((acc_toilet == true) || (acc_carpark == true) ||
+                                    (acc_lift == true))) {
                                     console.log("Matching location found! Accessibility info should be visible!");
 
                                     if (acc_toilet == true) {
