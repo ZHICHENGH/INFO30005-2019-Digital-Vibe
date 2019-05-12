@@ -35,7 +35,7 @@ const createPlace = (req, res) => {
     "lng":req.body.lng,
     "acc_toilet":req.body.acc_toilet,
     "acc_carpark":req.body.acc_carpark,
-    "acc_life":req.body.acc_life
+    "acc_lift":req.body.acc_lift
   });
   place.save(function (err, newPlace) {
     if (err) {
