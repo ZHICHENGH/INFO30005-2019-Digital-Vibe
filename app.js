@@ -57,6 +57,7 @@ app.get("/indexLogin", function(req, res){
 
 app.get("/login", function(req, res){
     res.writeHead(200, {"content-type": "text/html"});
+    var errorMessage = req.flash("error");
     res.end(fs.readFileSync(__dirname + "/page-login.html"))
 })
 app.get("/signup", function(req, res){
@@ -67,6 +68,11 @@ app.get("/signup", function(req, res){
 app.get('/GetAccPlaces', function(request, response){
     response.sendfile('GetAccPlaces.html');
 });
+
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+  });
 
 //login
 
