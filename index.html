@@ -153,25 +153,15 @@
 					</div></a>
 					<a href="#"><div style="padding: 18px"  class="header-left"> 
 						<h5></h5>
-					</div></a>
+                    </div></a>
                     <a href="https://joyaccess.herokuapp.com/login"><div style="padding: 10px"  class="header-left">
 						<h4>Login</h4>
-					</div></a>
-
+                    </div></a>
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" src="images/admin.png" alt="User Avatar">
                         </a>
 
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
-
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
-
-                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
-                        </div>
                     </div>
 
                 </div>
@@ -185,6 +175,22 @@
 
 
     <!-- Scripts -->
+    
+    <Script language="javascript">
+        function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for(var i = 0; i < strs.length; i ++) {
+                theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+        }
+    </Script>
+     
     <script>
         var markers = [];
         function initMap() {
