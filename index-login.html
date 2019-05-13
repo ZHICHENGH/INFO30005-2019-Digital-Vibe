@@ -187,7 +187,7 @@
     
     <Script language="javascript">
         function GetRequest() {
-            var url = location.search; //获取url中"?"符后的字串
+            var url = location.search; 
             var theRequest = new Object();
             if (url.indexOf("?") != -1) {
                 var str = url.substr(1);
@@ -308,8 +308,8 @@
             "use strict";
 
             var usernameTag = document.querySelector("#username");
-            var username = GetRequest();
-            usernameTag.innerText = username;
+            var queryString = GetRequest();
+            usernameTag.innerText = queryString.username;
 
             // Pie chart flotPie1
             var piedata = [
