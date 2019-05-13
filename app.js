@@ -31,9 +31,10 @@ app.use('/comment', comment_route);
 // HTML files
 var fs = require("fs");
 var path = require("path");
-console.log(path.join(__dirname, "public"))
+//console.log(path.join(__dirname, "public"));
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "MDBootstrap")));
 app.get("/", function(req, res){
     res.writeHead(200, {"content-type": "text/html"});
     res.end(fs.readFileSync(__dirname + "/index.html"))
