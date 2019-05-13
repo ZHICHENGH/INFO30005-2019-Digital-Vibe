@@ -49,6 +49,12 @@ app.get("/", function(req, res){
     res.writeHead(200, {"content-type": "text/html"});
     res.end(fs.readFileSync(__dirname + "/index.html"))
 })
+
+app.get("/indexLogin", function(req, res){
+    res.writeHead(200, {"content-type": "text/html"});
+    res.end(fs.readFileSync(__dirname + "/index-login.html"))
+})
+
 app.get("/login", function(req, res){
     res.writeHead(200, {"content-type": "text/html"});
     res.end(fs.readFileSync(__dirname + "/page-login.html"))
@@ -114,7 +120,7 @@ app.post('/login',
       failureFlash: true
  }),
   function(req, res) {
-    res.redirect('/?username=' + req.user.user_name);
+    res.redirect('/indexLogin?username=' + req.user.user_name);
   });
 
 // Start the server
