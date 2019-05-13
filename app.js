@@ -68,10 +68,10 @@ app.get('/GetAccPlaces', function(request, response){
     response.sendfile('GetAccPlaces.html');
 });
 
-/*app.get('/logout', function(req, res){
+app.get('/logout', function(req, res){
     req.logout();
     res.redirect('/');
-});*/
+});
 
 //login
 
