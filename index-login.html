@@ -516,6 +516,7 @@
             var comments = [];
             var j=0;
             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
+                alert(JSON.stringify(result));
                 $.each(result, function(i, field){
                     var comment_id=field.comment_id
                     var comment_placeid=field.place_id;
@@ -529,7 +530,7 @@
                     }
                 });   
             });
-            alert(JSON.stringify(result));
+            
             }
             else{
              alert("fail");   
