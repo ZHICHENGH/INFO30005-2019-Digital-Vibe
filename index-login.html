@@ -577,15 +577,12 @@
             });
             }
             else{
-                alert("fail");
+                alert("fail")
             }
         }
-        function getusername()
-        {
-       var query = window.location.search.substring(1);
-        var pair = vars[i].split("=");
-        return pair[1];
-        }
+        var getusername = function(req, res){
+         var Name = req.params.username;
+            return Name;}
         function show_popupex(pannel, target, manual) {
             var pos = target.position();
             var height = target.outerHeight();
