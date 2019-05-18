@@ -511,21 +511,22 @@
     </script>
      <script>
         function show_comments(){
-            var username="test1_name";
+            var username=GetRequest().username;
             if(username!=false){
             var comments = [];
-            var j=0;
+            var j=-1;
             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
                 $.each(result, function(i, field){
                     var comment_id=field.comment_id
                     var comment_placeid=field.place_id;
                     var comment_text=field.text;
                     if(field.user_name==username){
+                        j++;
                         comments[j]={"Comment ID":comment_id,
                                 "place ID":comment_placeid,
                                 "Your Comment":comment_text,
                                 };
-                    j++;
+                    
                     }
                 });   
             });
@@ -533,7 +534,7 @@
             else{
              alert("fail");   
             }
-            alert(JSON.stringify(comments));
+            alert(comments);
         }
         function getusername()
         {
