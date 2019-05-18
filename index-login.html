@@ -509,19 +509,28 @@
             // Bar Chart #flotBarChart End
         });
     </script>
-    <script>
+     <script>
         function show_comments(){
-            var username=test1_name;
+           
+            var username=getusername();
             if(username!=false){
             var comments = [];
+            var kkk=[];
             var j=0;
-            $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(jsonData) {
-                for(var i=0;i<jsonData.length;i++){
-                    if(data.user_id==username){
-                        comments[j]=jsonData[i];
-                        j++;
-                    }
-                }
+            $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
+                $.each(result, function(i, field){
+                    var comment_id=field.comment_id
+                    var comment_placeid=field.place_id;
+                    var comment_text=field.text;
+                    var comment_time=field.timestamp;
+                    if(field.user)
+                    comments[j]={"Comment ID":comment_id,
+                                "place ID":comment_placeid,
+                                "Your Comment":comment_text,
+                                };
+                    document.write("<div>"+alert(JSON.stringify(field[j])+"</div>"));
+                    j++;
+                });   
             });
             }
         }
