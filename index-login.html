@@ -165,7 +165,7 @@
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+                            <a class="nav-link" href="#" onclick="show_comments()><i class="fa fa- user"></i>My comments<span class="count">13</span></a>
 
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
@@ -500,4 +500,58 @@
         });
     </script>
 </body>
+ <script>
+        function show_comments(){
+           
+            var username=getusername();
+            if(username!=false){
+            var comments = [];
+            var kkk=[];
+            var j=0;
+            $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
+                $.each(result, function(i, field){
+                    var comment_id=field.comment_id
+                    var comment_placeid=field.place_id;
+                    var comment_text=field.text;
+                    var comment_time=field.timestamp;
+                    if(field.user)
+                    comments[j]={"Comment ID":comment_id,
+                                "place ID":comment_placeid,
+                                "Your Comment":comment_text,
+                                };
+                    document.write("<div>"+alert(JSON.stringify(field[j])+"</div>"));
+                    j++;
+                });   
+            });
+            }
+        }
+        function getusername()
+        {
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == username){return pair[1];}
+       }
+       return(false);
+        }
+        function show_popupex(pannel, target, manual) {
+            var pos = target.position();
+            var height = target.outerHeight();
+            pannel.css('left', pos.left + 'px');
+            pannel.css('top', pos.top + height + 'px');
+             pannel.show();
+            if (!manual) {
+                 pannel.mouseleave(function() { pannel.hide(); });
+              }
+        }
+        function show_popup(pannel_id, target_id, manual) {
+        var target = $(target_id);
+        var pannel = $(pannel_id);
+        show_popupex(pannel, target, manual);
+        }
+        function hide_popup(pannel_id) {
+        $(pannel_id).hide();
+        }
+    </script>
 </html>
