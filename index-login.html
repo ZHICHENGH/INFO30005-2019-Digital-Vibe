@@ -512,7 +512,8 @@
      <script>
         function show_comments(){
            
-            var username=document.querySelector("#username");
+            var username=getusername();
+            alert(username);
             if(username!=false){
             var comments = [];
             var j=0;
