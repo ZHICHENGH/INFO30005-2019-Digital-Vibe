@@ -520,7 +520,6 @@
                     var comment_id=field.comment_id
                     var comment_placeid=field.place_id;
                     var comment_text=field.text;
-                    var comment_time=field.timestamp;
                     if(field.user_name==username){
                         comments[j]={"Comment ID":comment_id,
                                 "place ID":comment_placeid,
@@ -530,7 +529,7 @@
                     }
                 });   
             });
-            alert(JSON.stringify(comments));
+            alert(JSON.stringify(result));
             }
             else{
              alert("fail");   
