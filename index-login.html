@@ -514,13 +514,14 @@
                     var comment_placeid=field.place_id;
                     var comment_text=field.text;
                     var comment_time=field.timestamp;
-                    if(field.user)
-                    comments[j]={"Comment ID":comment_id,
+                    if(field.user_name==username){
+                        comments[j]={"Comment ID":comment_id,
                                 "place ID":comment_placeid,
                                 "Your Comment":comment_text,
                                 };
                     document.write("<div>"+alert(JSON.stringify(field[j])+"</div>"));
                     j++;
+                    }
                 });   
             });
             }
