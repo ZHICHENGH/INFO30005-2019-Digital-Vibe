@@ -521,12 +521,12 @@
                     var comment_placeid=field.place_id;
                     var comment_text=field.text;
                     if(field.user_name==username){
+                        alert("111");
                         j++;
                         comments[j]={"Comment ID":comment_id,
                                 "place ID":comment_placeid,
                                 "Your Comment":comment_text,
                                 };
-                    
                     }
                 });   
             });
@@ -534,7 +534,6 @@
             else{
              alert("fail");   
             }
-            alert(comments);
         }
         function getusername()
         {
