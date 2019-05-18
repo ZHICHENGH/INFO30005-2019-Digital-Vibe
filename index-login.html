@@ -515,7 +515,6 @@
             var username=getusername();
             if(username!=false){
             var comments = [];
-            var kkk=[];
             var j=0;
             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
                 $.each(result, function(i, field){
@@ -528,10 +527,13 @@
                                 "place ID":comment_placeid,
                                 "Your Comment":comment_text,
                                 };
-                    document.write("<div>"+alert(JSON.stringify(field[j])+"</div>"));
                     j++;
                 });   
             });
+            alert(JSON.stringify(comments));
+            }
+            else{
+             alert("fail");   
             }
         }
         function getusername()
