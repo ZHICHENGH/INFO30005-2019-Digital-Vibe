@@ -584,8 +584,7 @@
         {
        var query = window.location.search.substring(1);
         var pair = vars[i].split("=");
-        if(pair[0] == username){return pair[1];}
-       return(false);
+        return pair[1];
         }
         function show_popupex(pannel, target, manual) {
             var pos = target.position();
