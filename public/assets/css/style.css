@@ -347,13 +347,13 @@ Googel Fonts  */
 
 body {
   display: table;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Courgette', cursive;
   font-size: 16px;
   width: 100%; }
 
 p {
   font-size: 16px;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Courgette', cursive;
   font-weight: 400;
   line-height: 24px;
   color: #878787; }
@@ -597,7 +597,7 @@ aside.left-panel {
     color: #41434d;
     clear: both;
     display: block;
-    font-family: 'Open Sans';
+    font-family: 'Courgette', cursive;
     font-size: 14px;
     font-weight: 700;
     line-height: 50px;
@@ -823,7 +823,7 @@ aside.left-panel {
 /* Right panel */
 .right-panel {
   background: #f1f2f7;
-  margin-left: 280px;
+  margin-left: 400px;
   margin-top: 55px; }
   .right-panel .top-left {
     width: 350px;
@@ -886,7 +886,7 @@ aside.left-panel {
 .right-panel .navbar-brand {
   line-height: 42px; }
   .right-panel .navbar-brand img {
-    max-width: 145px; }
+    max-width: 210px; }
   .right-panel .navbar-brand.hidden {
     display: none; }
 
@@ -1132,7 +1132,7 @@ header .form-inline {
     background: #d9534f;
     border-radius: 50%;
     color: #fff;
-    font-family: 'Open Sans';
+    font-family: 'Courgette', cursive;
     font-size: 9px;
     font-weight: 700;
     float: right;
@@ -2428,7 +2428,7 @@ d\
       padding-bottom: 70px; }
 
   .left-panel {
-    display: none; }
+    display: inherit; }
 
   aside.left-panel {
     overflow: scroll; }
