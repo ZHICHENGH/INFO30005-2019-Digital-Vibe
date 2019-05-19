@@ -127,10 +127,11 @@
     font-size: 300%;
     text-align: center;}
 .comment_text{
-    font-size:200%;
+    font-size:100%;
+    font-weight:bold;
 }
 .comment_time{
-    right:5px;
+    font-size:50%;
 }
     </style>
 </head>
@@ -573,15 +574,18 @@
             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
                 $.each(result, function(i, field){
                     if(field.user_name==username){
-                        var div=document.createElement('div');
+                        var commentid=document.createElement('comment_time');
                         var contenttext=document.createElement('div');
                         contenttext.className='comment_text';
-                        var commentplaceid=document.createElement('div');
+                        var commenttime=document.createElement('comment_time');
+                        var commentplaceid=document.createElement('comment_time');
                         var text=document.createElement('div');
                         text.textContent="Comment content: ";
                         j++;
-                        div.textContent="Your comment No: "+j;
+                        commentid.textContent="Comment No: "+field.comment_id;
                         commentcontent.appendChild(div);
+                        commenttime.textContent="Comment time: "+field.timestamp;
+                        commentcontent.appendChild(commenttime);
                         commentplaceid.textContent="Place ID: "+field.place_id;
                         commentcontent.appendChild(commentplaceid);
                         commentcontent.appendChild(text);
