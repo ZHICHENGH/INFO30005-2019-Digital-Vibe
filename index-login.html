@@ -93,10 +93,56 @@
 		body {
 		  height: 100%;
 		}
+    #dropback {
+        position: absolute;
+        height: 100%;
+        width:100%;
+        background: #444;
+        z-index: 1000;
+        opacity: 0.9;
+        display: none;
+}
+#commentform {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    border:1px solid rgb(240, 230, 230);
+    display: none;
+    z-index: 100;
+    color:#666;
+    border-radius: 4px;
+    z-index: 1020;
+    background: #fff;
+}
+.close {
+    position: relative;
+    float:right;
+    top:3px;
+    right:5px;
+    padding:5px;
+    cursor: pointer;
+}
+.comment_head {
+    font-size: 300%;
+    text-align: center;}
+.comment_text{
+    font-size:200%;
+}
+.comment_time{
+    right:5px;
+}
     </style>
 </head>
 
 <body>
+    <div id="dropback">
+    <div id="commentform">
+           <form action="">
+                   <div class="comment_head">My Comment</div>
+                   <commentcontent id="commentcontent"></commentcontent>
+           </form>
+       </div>
+    </div>
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
@@ -115,9 +161,7 @@
                                 <p style="padding: 10px" >Toilet <input type="checkbox" id="Acc_Toilet_Check" onclick="initMap()">
                                     Carpark <input type="checkbox" id="Acc_Carpark_Check" onclick="initMap()">
                                     Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </p>
-
                             </form>
-                        
 				  </div>
                   <li class="menu-title">Name(university of melbourne)</li><!-- /.menu-title -->
                     <a  style="padding: 10px" href="#" > <em  style="padding: 10px" class="fa fa-location-arrow"></em> address: dsa</a>
@@ -512,21 +556,35 @@
      <script>
         function show_comments(){
             var username=GetRequest().username;
+            var screen = document.getElementById('dropback');
+            var commentform=document.getElementById('commentform');
+            var commentcontent=document.getElementById('commentcontent');
+            var top = (document.documentElement.clientHeight - 250) / 2 - 150;
+            var left = (document.documentElement.clientWidth - 300) / 2;
+            var div=document.createElement('div');
+            var contenttext=document.createElement('div');
+            contenttext.className='comment_text';
+            var commentplaceid=document.createElement('div');
+            var text=document.createElement('div');
+            text.textContent="Comment content: ";
+            commentform.style.left = left + 'px';
+            commentform.style.top = top + 'px';
+            screen.style.display = 'block';
+            commentform.style.display='block';
             if(username!=false){
             var comments = [];
-            var j=-1;
+            var j=0;
             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
                 $.each(result, function(i, field){
-                    var comment_id=field.comment_id
-                    var comment_placeid=field.place_id;
-                    var comment_text=field.text;
                     if(field.user_name==username){
-                        alert("111");
                         j++;
-                        comments[j]={"Comment ID":comment_id,
-                                "place ID":comment_placeid,
-                                "Your Comment":comment_text,
-                                };
+                        div.textContent="Your comment No: "+j;
+                        commentcontent.appendChild(div);
+                        commentplaceid.textContent="Place ID: "+field.place_id;
+                        commentcontent.appendChild(commentplaceid);
+                        commentcontent.appendChild(text);
+                        contenttext.textContent=field.text;
+                        commentcontent.appendChild(contenttext);
                     }
                 });   
             });
@@ -534,16 +592,6 @@
             else{
              alert("fail");   
             }
-        }
-        function getusername()
-        {
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == username){return pair[1];}
-       }
-       return(false);
         }
         function show_popupex(pannel, target, manual) {
             var pos = target.position();
