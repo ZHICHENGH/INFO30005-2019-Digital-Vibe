@@ -584,6 +584,8 @@
                         commentplaceid.className='comment_time';
                         var text=document.createElement('div');
                         text.className='comment_time';
+                        var nullstring=document.createElement('div');
+                        nullstring.textContent="";
                         text.textContent="Comment content: ";
                         j++;
                         commentid.textContent="Comment No: "+field.comment_id;
@@ -595,9 +597,9 @@
                         commentcontent.appendChild(text);
                         contenttext.textContent=field.text;
                         commentcontent.appendChild(contenttext);
-                        commentcontent.appendChild(document.createElement('div'));
-                        commentcontent.appendChild(document.createElement('div'));
-                        commentcontent.appendChild(document.createElement('div'));
+                        commentcontent.appendChild(nullstring);
+                        commentcontent.appendChild(nullstring);
+                        commentcontent.appendChild(nullstring);
                     }
                 });   
             });
