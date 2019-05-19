@@ -568,8 +568,9 @@
             commentform.style.top = top + 'px';
             screen.style.display = 'block';
             commentform.style.display='block';
+            var nullstring=document.createElement('div');
+            nullstring.textContent="\n";
             if(username!=false){
-            var comments = [];
             var j=0;
             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
                 $.each(result, function(i, field){
@@ -584,8 +585,6 @@
                         commentplaceid.className='comment_time';
                         var text=document.createElement('div');
                         text.className='comment_time';
-                        var nullstring=document.createElement('div');
-                        nullstring.textContent="";
                         text.textContent="Comment content: ";
                         j++;
                         commentid.textContent="Comment No: "+field.comment_id;
