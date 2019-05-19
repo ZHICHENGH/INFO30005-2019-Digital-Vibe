@@ -141,7 +141,7 @@
            <form action="">
                    <div onclick="closecommentform()">back</div>
                    <div class="comment_head">My Comment</div>
-                   <commentcontent id="commentcontent"></commentcontent>
+                   
            </form>
        </div>
     </div>
@@ -563,6 +563,9 @@
             var commentcontent=document.getElementById('commentcontent');
             var top = (document.documentElement.clientHeight - 250) / 2 - 150;
             var left = (document.documentElement.clientWidth - 300) / 2;
+            var start=document.createElement('start');
+            start.id='start';
+            commentcontent.appendChild(start);
             commentform.style.left = left + 'px';
             commentform.style.top = top + 'px';
             screen.style.display = 'block';
@@ -581,12 +584,12 @@
                         text.textContent="Comment content: ";
                         j++;
                         div.textContent="Your comment No: "+j;
-                        commentcontent.appendChild(div);
+                        start.appendChild(div);
                         commentplaceid.textContent="Place ID: "+field.place_id;
-                        commentcontent.appendChild(commentplaceid);
-                        commentcontent.appendChild(text);
+                        start.appendChild(commentplaceid);
+                        start.appendChild(text);
                         contenttext.textContent=field.text;
-                        commentcontent.appendChild(contenttext);
+                        start.appendChild(contenttext);
                     }
                 });   
             });
@@ -601,6 +604,8 @@
         var commentform=document.getElementById('commentform');
         screen.style.display = 'none';
         commentform.style.display='none';
+        var commentcontent=document.getElementById('commentcontent');
+        commentcontent.removeChild(start);
        }
     </script>
 </body>
