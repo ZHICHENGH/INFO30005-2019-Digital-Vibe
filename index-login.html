@@ -139,6 +139,7 @@
     <div id="dropback">
     <div id="commentform">
            <form action="">
+                   <div onclick="closecommentform()">back</div>
                    <div class="comment_head">My Comment</div>
                    <commentcontent id="commentcontent"></commentcontent>
            </form>
@@ -594,6 +595,13 @@
              alert("fail");   
             }
         }
+       function closecommentform()
+       {
+        var screen = document.getElementById('dropback');
+        var commentform=document.getElementById('commentform');
+        screen.style.display = 'none';
+        commentform.style.display='none';
+       }
     </script>
 </body>
 </html>
