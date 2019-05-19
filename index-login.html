@@ -574,11 +574,14 @@
             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
                 $.each(result, function(i, field){
                     if(field.user_name==username){
-                        var commentid=document.createElement('comment_time');
+                        var commentid=document.createElement('div');
+                        commentid.className='comment_time';
                         var contenttext=document.createElement('div');
                         contenttext.className='comment_text';
-                        var commenttime=document.createElement('comment_time');
-                        var commentplaceid=document.createElement('comment_time');
+                        var commenttime=document.createElement('div');
+                        commenttime.className='comment_time';
+                        var commentplaceid=document.createElement('div');
+                        commentplaceid.className='comment_time';
                         var text=document.createElement('div');
                         text.textContent="Comment content: ";
                         j++;
@@ -591,6 +594,9 @@
                         commentcontent.appendChild(text);
                         contenttext.textContent=field.text;
                         commentcontent.appendChild(contenttext);
+                        commentcontent.appendChild(document.createElement('div'));
+                        commentcontent.appendChild(document.createElement('div'));
+                        commentcontent.appendChild(document.createElement('div'));
                     }
                 });   
             });
