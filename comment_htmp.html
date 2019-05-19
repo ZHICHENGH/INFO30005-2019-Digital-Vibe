@@ -1,0 +1,155 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> 
+
+<html style= "height:100%" class="no-js" lang=""> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Digital Vibe</title>
+    <meta name="description" content="Digital Vibe">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="apple-touch-icon" href="/images/logo.png">
+    <link rel="shortcut icon" href="/images/logo.png">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+
+   <style>
+    #weatherWidget .currentDesc {
+        color: #ffffff!important;
+    }
+        .traffic-chart {
+            min-height: 335px;
+        }
+	   .search-btn ,.toggle-btn{
+			background-color: #FDC600;
+			color: #333;
+			font-size: 16px;
+			border: 1px solid #EAE9E9;
+			width: 40px;
+			height: 40px;
+			color: #FFF;
+			transition: all 0.3s ease 0s; 
+			padding: 0px;
+		}
+        .popup {
+             position: absolute;
+             z-index: 200;
+             left: 0px;
+             top: 0px;
+             border: 1px solid #666;
+             background: white;
+             padding: 8px 5px 5px;
+             margin: 10px 5px;
+            }
+        #flotPie1  {
+            height: 150px;
+        }
+        #flotPie1 td {
+            padding:3px;
+        }
+        #flotPie1 table {
+            top: 20px!important;
+            right: -10px!important;
+        }
+        .chart-container {
+            display: table;
+            min-width: 270px ;
+            text-align: left;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        #flotLine5  {
+             height: 105px;
+        }
+
+        #flotBarChart {
+            height: 150px;
+        }
+        #cellPaiChart{
+            height: 160px;
+        }
+	    #map {
+			height: 100%;
+		  }
+		body {
+		  height: 100%;
+		}
+    </style>
+</head>
+ 
+ <body> 
+        <a class="nav-link" href="#" onclick="show_comments()"><i class="fa fa- user"></i>My comments</a>
+ </body>
+    <script>
+        function show_comments(){
+           
+            var username=getusername();
+            if(username!=false){
+            var comments = [];
+            var kkk=[];
+            var j=0;
+            $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
+                $.each(result, function(i, field){
+                    var comment_id=field.comment_id
+                    var comment_placeid=field.place_id;
+                    var comment_text=field.text;
+                    var comment_time=field.timestamp;
+                    if(field.user)
+                    comments[j]={"Comment ID":comment_id,
+                                "place ID":comment_placeid,
+                                "Your Comment":comment_text,
+                                };
+                    document.write("<div>"+alert(JSON.stringify(field[j])+"</div>"));
+                    j++;
+                });   
+            });
+            }
+        }
+        function getusername()
+        {
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == username){return pair[1];}
+       }
+       return(false);
+        }
+        function show_popupex(pannel, target, manual) {
+            var pos = target.position();
+            var height = target.outerHeight();
+            pannel.css('left', pos.left + 'px');
+            pannel.css('top', pos.top + height + 'px');
+             pannel.show();
+            if (!manual) {
+                 pannel.mouseleave(function() { pannel.hide(); });
+              }
+        }
+        function show_popup(pannel_id, target_id, manual) {
+        var target = $(target_id);
+        var pannel = $(pannel_id);
+        show_popupex(pannel, target, manual);
+        }
+        function hide_popup(pannel_id) {
+        $(pannel_id).hide();
+        }
+    </script>
