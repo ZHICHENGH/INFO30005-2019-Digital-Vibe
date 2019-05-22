@@ -7,19 +7,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
 
     <!-- JQuery -->
-    <script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
+    <script type="text/javascript" src="MDBootstrap/js/jquery-3.4.0.min.js"></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="MDBootstrap/js/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="MDBootstrap/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script type="text/javascript" src="MDBootstrap/js/mdb.min.js"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="MDBootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
+    <link href="MDBootstrap/css/mdb.min.css" rel="stylesheet">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -89,10 +89,10 @@
 <body>
 
 <div class="mt-3">
-    <!--Grid column-->
+
     <div class="row mx-auto">
     <div class="col-lg-6 mb-4">
-        <!--Form with header-->
+
         <div class="card">
             <div class="card-body">
                 <div class="md-form">
@@ -122,28 +122,11 @@
     <div class="col-lg-12 mb-4">
         <!--Google map-->
         <div id="map" class="z-depth-1-half map-container-6" style="height: 100%">
-            <iframe id="map" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <iframe frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
     </div>
-
-<!--Grid column-->
 </div>
 
-<!--
-<div class="container">
-    <div id="search" class="search">
-        <input id="pac-input" type="text" placeholder="Place name or address">
-
-        <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
-        <p>Toilet <input type="checkbox" id="Acc_Toilet_Check" onclick="initMap()">
-            Carpark <input type="checkbox" id="Acc_Carpark_Check" onclick="initMap()">
-            Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()">
-        </p>
-    </div>
-    <div id="map" class="map" style="height: 100%"></div>
-    <div id="PlaceDetails" class="PlaceDetails"></div>
-</div>
--->
 
 <script>
     var markers = [];
@@ -159,7 +142,11 @@
 
         document.getElementById("PlaceDetails").innerHTML = "";
         document.getElementById("pac-input").value = "";
+        var toiletSaveData = false;
+        var carparkSaveData = false;
+        var liftSaveData = false;
 
+        // allows clicking on anywhere on map to get position info, used only in beginning for POC
         /*
         map.addListener('click', function(e) {
             var exist = false;
@@ -202,6 +189,23 @@
             document.getElementById("Acc_Lift_Check").checked = false;
         }
 
+        function saveAccData() {
+
+        }
+
+        function restoreAccData() {
+            if (toiletSaveData == true) {
+                document.getElementById("acc_toilet_input").checked = true;
+            }
+            if (carparkSaveData == true) {
+                document.getElementById("acc_carpark_input").checked = true;
+            }
+            if (liftSaveData == true) {
+                document.getElementById("acc_lift_input").checked = true;
+            }
+        }
+
+
         deleteMarkers();
         $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function(jsonData) {
             $.each(jsonData, function(key,data) {
@@ -210,15 +214,19 @@
                 var acc_toilet = data.acc_toilet;
                 var acc_carpark = data.acc_carpark;
                 var acc_lift = data.acc_lift;
+                var place_id = data.place_id;
                 var point = new google.maps.LatLng(
                     parseFloat(data.lat),
                     parseFloat(data.lng));
 
-                console.log("place_name = " + place_name + "\naddress = " + address + "\nacc_toilet = " + acc_toilet +
-                    "\nacc_carpark = " + acc_carpark + "\nacc_lift = " + acc_lift + "\npoint = " + point + "\nToilet Check = " +
-                    document.getElementById("Acc_Toilet_Check").checked + "\nCarpark Check = " + document.getElementById("Acc_Carpark_Check").checked +
+                console.log("place_name = " + place_name + "\nplace_id = " + place_id +
+                    "\naddress = " + address + "\nacc_toilet = " + acc_toilet +
+                    "\nacc_carpark = " + acc_carpark + "\nacc_lift = " + acc_lift + "\npoint = " + point +
+                    "\nToilet Check = " + document.getElementById("Acc_Toilet_Check").checked + "\nCarpark Check = " +
+                    document.getElementById("Acc_Carpark_Check").checked +
                     "\nLift Check = " + document.getElementById("Acc_Lift_Check").checked);
 
+                // create markers based on radio button filters
                 if ((document.getElementById("Acc_Toilet_Check").checked == true && acc_toilet == true) ||
                 (document.getElementById("Acc_Carpark_Check").checked == true && acc_carpark == true) ||
                 (document.getElementById("Acc_Lift_Check").checked == true && acc_lift == true)) {
@@ -257,11 +265,18 @@
                         title: place_name,
                         address: address,
                         map: map,
-                        position: point
+                        position: point,
+                        id: place_id,
                         //label: icon.label
                     });
+
+                    // When clicked on marker, generate pop-up text and HTML code in "PlaceDetails" div
                     marker.addListener('click', function () {
                         document.getElementById("PlaceDetails").innerHTML = "";
+                        toiletSaveData = false;
+                        carparkSaveData = false;
+                        liftSaveData = false;
+
                         //document.body.style = "white-space: pre;";
                         var para = document.createElement("p");
                         var node1 = document.createTextNode("Name: " + marker.title);
@@ -270,8 +285,11 @@
                         var node2 = document.createTextNode("Address: " + marker.address);
                         para.appendChild(node2);
                         para.appendChild(document.createElement('br'));
-                        var node3 = document.createTextNode("Position = " + marker.position);
+                        var node3 = document.createTextNode("Position: " + marker.position);
                         para.appendChild(node3);
+                        para.appendChild(document.createElement('br'));
+                        var node4 = document.createTextNode("Place ID: " + marker.id);
+                        para.appendChild(node4);
                         para.appendChild(document.createElement('br'));
 
                         para.appendChild(document.createTextNode(' Toilet '));
@@ -300,13 +318,30 @@
 
                         if (acc_toilet == true) {
                             document.getElementById("acc_toilet_input").checked = true;
+                            toiletSaveData = true;
                         }
                         if (acc_carpark == true) {
                             document.getElementById("acc_carpark_input").checked = true;
+                            carparkSaveData = true;
                         }
                         if (acc_lift == true) {
                             document.getElementById("acc_lift_input").checked = true;
+                            liftSaveData = false;
                         }
+
+                        para.appendChild(document.createElement('br'));
+                        var applyBtn = document.createElement('input');
+                        applyBtn.type = "button";
+                        applyBtn.value = "Apply";
+                        applyBtn.onclick = saveAccData();
+                        para.appendChild(applyBtn);
+
+
+                        var cancelBtn = document.createElement('input');
+                        cancelBtn.type = "button";
+                        cancelBtn.value = "Cancel";
+                        cancelBtn.onclick = restoreAccData();
+                        para.appendChild(cancelBtn);
 
                         var infoWindow = new google.maps.InfoWindow({
                             content: infowincontent
@@ -376,11 +411,13 @@
                     icon: icon,
                     title: place.name,
                     position: place.geometry.location,
-                    address:place.formatted_address
+                    address:place.formatted_address,
+                    id: place.place_id
                 });
 
                 var infoWindow2 = new google.maps.InfoWindow();
 
+                // When clicked on marker, generate pop-up text and HTML code in "PlaceDetails" div
                 google.maps.event.addListener(marker2,'click',(function(marker2, map) {
                     return function () {
                         document.getElementById("PlaceDetails").innerHTML = "";
@@ -394,8 +431,11 @@
                         var node2 = document.createTextNode("Address: " + marker2.address +  "\n");
                         para.appendChild(node2);
                         para.appendChild(document.createElement('br'));
-                        var node3 = document.createTextNode("Position = " + marker2.position + "\n");
+                        var node3 = document.createTextNode("Position: " + marker2.position + "\n");
                         para.appendChild(node3);
+                        para.appendChild(document.createElement('br'));
+                        var node4 = document.createTextNode("Place ID: " + marker2.id + "\n");
+                        para.appendChild(node4);
                         para.appendChild(document.createElement('br'));
 
                         para.appendChild(document.createTextNode(' Toilet '));
@@ -434,6 +474,7 @@
                         $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function(jsonData) {
                             $.each(jsonData, function (key, data) {
                                 var place_name = data.place_name;
+                                var place_id = data.place_id;
                                 var address = data.address;
                                 var acc_toilet = data.acc_toilet;
                                 var acc_carpark = data.acc_carpark;
@@ -441,9 +482,13 @@
                                 var lat = parseFloat(data.lat);
                                 var lng = parseFloat(data.lng);
 
-                                console.log("place_name = " + place_name + "\naddress = " + address + "\nacc_toilet = " + acc_toilet +
-                                    "\nacc_carpark = " + acc_carpark + "\nacc_lift = " + acc_lift + "\npoint lat = " + lat + "\npoint lng = " +
-                                        lng + "\nMarker lat = " + marker2.position.lat() + "\nMarker lng = " + marker2.position.lng());
+                                console.log("Data from MongoDB:" +
+                                    "\nplace_name = " + place_name + "\nplace_id = " + place_id +
+                                    "\naddress = " + address + "\nacc_toilet = " + acc_toilet +
+                                    "\nacc_carpark = " + acc_carpark + "\nacc_lift = " + acc_lift + "\npoint lat = " +
+                                    lat + "\npoint lng = " +
+                                    lng + "\nMarker lat = " + marker2.position.lat() + "\nMarker lng = " +
+                                    marker2.position.lng());
 
                                 // If this Google Map Places API marker corresponds to an existing location in our
                                 // database that has accessibility info, we display the accessibility info as well
