@@ -131,6 +131,7 @@
 <script>
     var markers = [];
     var markers2 = [];
+    var infoWindows2 = [];
 
     function initMap() {
         var bounds = new google.maps.LatLngBounds();
@@ -232,6 +233,9 @@
                             alert("Creation failed.")
                         }*/
                     }
+                    toiletSaveData = document.getElementById("acc_toilet_input").checked;
+                    carparkSaveData = document.getElementById("acc_carpark_input").checked;
+                    liftSaveData = document.getElementById("acc_lift_input").checked;
                 }
             )
         }
@@ -489,6 +493,7 @@
                         toiletSaveData = false;
                         carparkSaveData = false;
                         liftSaveData = false;
+                        while(infoWindows2.length) { infoWindows2.pop().setMap(null); } // to close all infowindows
 
                         var infowincontent = document.createElement('div');
 
@@ -611,6 +616,7 @@
                         });
                         infoWindow2.setContent(infowincontent);
                         infoWindow2.open(map, marker2);
+                        infoWindows2.push(infoWindow2);
                     }
                 }) (marker2, map, place));
 
