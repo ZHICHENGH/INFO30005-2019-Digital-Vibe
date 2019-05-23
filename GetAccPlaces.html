@@ -389,7 +389,7 @@
                         var applyBtn = document.createElement('input');
                         applyBtn.type = "button";
                         applyBtn.value = "Apply";
-                        applyBtn.onclick = function() {saveAccData(marker)};
+                        applyBtn.onclick = function() {saveAccData(marker); initMap()};
                         para.appendChild(applyBtn);
 
                         para.appendChild(document.createTextNode (" "));
@@ -470,6 +470,7 @@
             markers2 = [];
             deleteMarkers();
             uncheckFilters();
+            document.getElementById("PlaceDetails").innerHTML = "";
 
             // For each place, get the icon, name and location.
             var bounds = new google.maps.LatLngBounds();
@@ -602,7 +603,7 @@
                                         document.getElementById("acc_toilet_input").checked = true;
                                         var acctext_toilet = document.createElement('text');
                                         infowincontent.appendChild(document.createElement('br'));
-                                        acctext_toilet.textContent = "Accessible toilet. ";
+                                        acctext_toilet.textContent = "Accessible toilet";
                                         infowincontent.appendChild(acctext_toilet);
                                         toiletSaveData = true;
                                     }
@@ -611,7 +612,7 @@
                                         document.getElementById("acc_carpark_input").checked = true;
                                         var acctext_carpark = document.createElement('text');
                                         infowincontent.appendChild(document.createElement('br'));
-                                        acctext_carpark.textContent = "Accessible carpark. ";
+                                        acctext_carpark.textContent = "Accessible carpark";
                                         infowincontent.appendChild(acctext_carpark);
                                         carparkSaveData = true;
                                     }
