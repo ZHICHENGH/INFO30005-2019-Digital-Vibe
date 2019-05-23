@@ -32,7 +32,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.$blurAreas = $("body > *");
 
         this.defaults = {
-            overflow:auto,
             content: "", // 内容可以传入，纯文本和类名
             target: "body", // 把弹出层添加到的目标节点
             to: "top", // 向哪个方向展开
@@ -82,7 +81,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 'left': content_position.left,
                 'color': this.options.color,
                 'background-color': this.options.backgroundColor,
-                'transition': 'all ' + this.options.speed / 1000 + 's'
+                'transition': 'all ' + this.options.speed / 1000 + 's',
+                'overflow':auto
             });
         },
         attachElems: function attachElems() {
