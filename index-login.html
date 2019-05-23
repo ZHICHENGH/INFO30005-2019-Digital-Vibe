@@ -199,7 +199,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="assets/js/jquery.popuplayer.js"></script>
 <script type="text/javascript">
-    function show_comments(){
         $(function() {
         // from right to left
         $('#test2').PopupLayer({
@@ -208,6 +207,9 @@
             blur:true
         });
     });
+</script>
+<script>
+    function show_comments(){
         var username=GetRequest().username;
         //var screen = document.getElementById('dropback');
         var commentform=document.getElementById('commentform');
@@ -266,9 +268,7 @@
     commentform.style.display='none';
     commentcontent.innerHTML="";
    }
-  
-</script>
-    
+  </script>
     
     <script>
         var markers = [];
