@@ -7,19 +7,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
 
     <!-- JQuery -->
-    <script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
+    <script type="text/javascript" src="MDBootstrap/js/jquery-3.4.0.min.js"></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="MDBootstrap/js/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="MDBootstrap/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script type="text/javascript" src="MDBootstrap/js/mdb.min.js"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="MDBootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
+    <link href="MDBootstrap/css/mdb.min.css" rel="stylesheet">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -190,29 +190,30 @@
         }
 
         function saveAccData() {
-
+            console.log("-> Inside saveAccData!");
         }
 
         function restoreAccData() {
-            if (toiletSaveData == true) {
+            console.log("toiletSaveData = " + toiletSaveData + "\ncarparkSaveData = " + carparkSaveData +
+                        "\nliftSaveData = " + liftSaveData);
+
+            if (toiletSaveData) {
                 document.getElementById("acc_toilet_input").checked = true;
             } else {
                 document.getElementById("acc_toilet_input").checked = false;
             }
 
-            if (carparkSaveData == true) {
+            if (carparkSaveData) {
                 document.getElementById("acc_carpark_input").checked = true;
             } else {
                 document.getElementById("acc_carpark_input").checked = false;
             }
 
-            if (liftSaveData == true) {
+            if (liftSaveData) {
                 document.getElementById("acc_lift_input").checked = true;
             } else {
                 document.getElementById("acc_lift_input").checked = false;
             }
-
-            console.log(" -> Entered restoreAccData function!");
         }
 
 
@@ -282,6 +283,7 @@
 
                     // When clicked on marker, generate pop-up text and HTML code in "PlaceDetails" div
                     marker.addListener('click', function () {
+
                         document.getElementById("PlaceDetails").innerHTML = "";
                         toiletSaveData = false;
                         carparkSaveData = false;
@@ -323,6 +325,20 @@
                         acc_lift_input.value = "value";
                         para.appendChild(acc_lift_input);
 
+                        para.appendChild(document.createElement('br'));
+                        var applyBtn = document.createElement('input');
+                        applyBtn.type = "button";
+                        applyBtn.value = "Apply";
+                        applyBtn.onclick = function() {saveAccData()};
+                        para.appendChild(applyBtn);
+
+                        para.appendChild(document.createTextNode (" "));
+                        var cancelBtn = document.createElement('input');
+                        cancelBtn.type = "button";
+                        cancelBtn.value = "Cancel";
+                        cancelBtn.onclick = function() {restoreAccData()};
+                        para.appendChild(cancelBtn);
+
                         var element = document.getElementById("PlaceDetails");
                         element.appendChild(para);
 
@@ -336,28 +352,24 @@
                         }
                         if (acc_lift == true) {
                             document.getElementById("acc_lift_input").checked = true;
-                            liftSaveData = false;
+                            liftSaveData = true;
                         }
 
-                        para.appendChild(document.createElement('br'));
-                        var applyBtn = document.createElement('input');
-                        applyBtn.type = "button";
-                        applyBtn.value = "Apply";
-                        applyBtn.onclick = saveAccData();
-                        para.appendChild(applyBtn);
+                        var i;
+                        var sameMarker = false;
+                        for (i=0;i<markers.length;i++){
+                            if (markers[i].id == marker.id) {
+                                sameMarker = true;
+                            }
+                        }
 
-                        para.appendChild(document.createTextNode (" "));
-                        var cancelBtn = document.createElement('input');
-                        cancelBtn.type = "button";
-                        cancelBtn.value = "Cancel";
-                        cancelBtn.onclick = restoreAccData();
-                        para.appendChild(cancelBtn);
-
-                        var infoWindow = new google.maps.InfoWindow({
-                            content: infowincontent
-                        });
-                        //infoWindow.setContent(infowincontent);
-                        infoWindow.open(map, marker);
+                        if (sameMarker == false) {
+                            var infoWindow = new google.maps.InfoWindow({
+                                content: infowincontent
+                            });
+                            //infoWindow.setContent(infowincontent);
+                            infoWindow.open(map, marker);
+                        }
                     });
 
                     //extend the bounds to include each marker's position
