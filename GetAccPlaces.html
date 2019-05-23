@@ -189,8 +189,35 @@
             document.getElementById("Acc_Lift_Check").checked = false;
         }
 
-        function saveAccData() {
+        function saveAccData(marker) {
             console.log("-> Inside saveAccData!");
+
+            $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + marker.place_id, function(jsonData) {
+                    if (jsonData.length) {
+                        $.post('https://joyaccess.herokuapp.com/places/placeAPI/update/', {
+                            "place_id": marker.place_id,
+                            "acc_toilet": document.getElementById("acc_toilet_input").checked,
+                            "acc_carpark": document.getElementById("acc_carpark_input").checked,
+                            "acc_lift": document.getElementById("acc_lift_input").checked,
+                            "last_mod_by": 'test1_user'},
+                            function(data, textStatus){}, "json");
+                    }
+                    else {
+                        $.post('https://joyaccess.herokuapp.com/places/placeAPI/', {
+                            "place_id": marker.place_id,
+                            "place_name": marker.place_name,
+                            "address": marker.address,
+                            "lat": marker.position.lat,
+                            "lng": marker.position.lng,
+                            "acc_toilet": document.getElementById("acc_toilet_input").checked,
+                            "acc_carpark": document.getElementById("acc_carpark_input").checked,
+                            "acc_lift": document.getElementById("acc_lift_input").checked,
+                            "created_by": 'test1_user',
+                            "last_mod_by": 'test1_user'},
+                            function(data, textStatus){}, "json");
+                    }
+                }
+            )
         }
 
         function restoreAccData() {
@@ -329,7 +356,7 @@
                         var applyBtn = document.createElement('input');
                         applyBtn.type = "button";
                         applyBtn.value = "Apply";
-                        applyBtn.onclick = function() {saveAccData()};
+                        applyBtn.onclick = function() {saveAccData(marker)};
                         para.appendChild(applyBtn);
 
                         para.appendChild(document.createTextNode (" "));
@@ -443,6 +470,10 @@
                 google.maps.event.addListener(marker2,'click',(function(marker2, map) {
                     return function () {
                         document.getElementById("PlaceDetails").innerHTML = "";
+                        toiletSaveData = false;
+                        carparkSaveData = false;
+                        liftSaveData = false;
+
                         var infowincontent = document.createElement('div');
 
                         //document.body.style = "white-space: pre;";
@@ -480,6 +511,20 @@
                         acc_lift_input.id = 'acc_lift_input';
                         acc_lift_input.value = "value";
                         para.appendChild(acc_lift_input);
+
+                        para.appendChild(document.createElement('br'));
+                        var applyBtn = document.createElement('input');
+                        applyBtn.type = "button";
+                        applyBtn.value = "Apply";
+                        applyBtn.onclick = function() {saveAccData()};
+                        para.appendChild(applyBtn);
+
+                        para.appendChild(document.createTextNode (" "));
+                        var cancelBtn = document.createElement('input');
+                        cancelBtn.type = "button";
+                        cancelBtn.value = "Cancel";
+                        cancelBtn.onclick = function() {restoreAccData()};
+                        para.appendChild(cancelBtn);
 
                         var element = document.getElementById("PlaceDetails");
                         element.appendChild(para);
@@ -525,6 +570,7 @@
                                         infowincontent.appendChild(document.createElement('br'));
                                         acctext_toilet.textContent = "Accessible Toilet. ";
                                         infowincontent.appendChild(acctext_toilet);
+                                        toiletSaveData = true;
                                     }
 
                                     if (acc_carpark == true) {
@@ -533,6 +579,7 @@
                                         infowincontent.appendChild(document.createElement('br'));
                                         acctext_carpark.textContent = "Accessible Carpark. ";
                                         infowincontent.appendChild(acctext_carpark);
+                                        carparkSaveData = true;
                                     }
 
                                     if (acc_lift == true) {
@@ -541,6 +588,7 @@
                                         infowincontent.appendChild(document.createElement('br'));
                                         acctext_lift.textContent = "Accessible lift";
                                         infowincontent.appendChild(acctext_lift);
+                                        liftSaveData = true;
                                     }
                                 }
                             });
