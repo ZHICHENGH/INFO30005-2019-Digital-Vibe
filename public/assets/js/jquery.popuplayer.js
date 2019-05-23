@@ -116,8 +116,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         close: function close() {
             this.$mask.fadeOut(this.options.speed);
             this.$content.css(_defineProperty({}, this.options.to, "100%"));
-            var commentcontent=document.getElementById('commentcontent');
-            commentcontent.innerHTML="";
+
             if (this.options.blur) {
                 this.$blurAreas.removeClass('popup-layer-blur');
             }
