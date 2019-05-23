@@ -55,7 +55,6 @@ const createPlace = (req, res) => {
   place.save(function (err, newPlace) {
     if (err) {
       res.sendStatus(500);
-      alert("updatePlaceByID error: " + err);
     } else {
       res.send(newPlace);
     }
@@ -83,7 +82,6 @@ const updatePlaceById = (req, res) => {
         }, function(err,doc) {
             if (err) {
                 res.sendStatus(500);
-                alert("updatePlaceByID error: " + err);
             } else {
                 res.send(doc);
             }
