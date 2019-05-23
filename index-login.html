@@ -152,7 +152,7 @@
 
                 // from right to left
                 $('#test2').PopupLayer({
-                    content:'<title style="margin-top: 80px" class="text-center">My Comments</title><div id="commentcontent"></div>',
+                    content:'<title style="margin-top: 80px" class="text-center">My Comments</title>',
                     to: 'left',
                     blur:true
                 });
@@ -217,7 +217,7 @@
     function show_comments(){
         var username=GetRequest().username;
         var screen = document.getElementById('dropback');
-        var commentform=document.getElementById('test2');
+        var commentform=document.getElementById('commentform');
         var commentcontent=document.getElementById('commentcontent');
         var top = (document.documentElement.clientHeight - 250) / 2 - 150;
         var left = (document.documentElement.clientWidth - 300) / 2;
