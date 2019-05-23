@@ -65,9 +65,9 @@ const createPlace = (req, res) => {
 // Update a place by place_id
 const updatePlaceById = (req, res) => {
     var req_place_id = req.body.place_id;
-    var req_toilet = req.body.toilet;
-    var req_carpark = req.body.carpark;
-    var req_lift = req.body.lift;
+    var req_toilet = req.body.acc_toilet;
+    var req_carpark = req.body.acc_carpark;
+    var req_lift = req.body.acc_lift;
     var req_last_mod_by = req.body.last_mod_by;
 
     Place.findOneAndUpdate(
