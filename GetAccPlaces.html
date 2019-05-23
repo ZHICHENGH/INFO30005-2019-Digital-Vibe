@@ -190,31 +190,47 @@
         }
 
         function saveAccData(marker) {
+            var textStatus = "";
+
             console.log("-> Inside saveAccData!");
 
-            $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + marker.place_id, function(jsonData) {
+            $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + marker.id, function(jsonData) {
                     if (jsonData.length) {
                         $.post('https://joyaccess.herokuapp.com/places/placeAPI/update/', {
-                            "place_id": marker.place_id,
+                            "place_id": marker.id,
                             "acc_toilet": document.getElementById("acc_toilet_input").checked,
                             "acc_carpark": document.getElementById("acc_carpark_input").checked,
                             "acc_lift": document.getElementById("acc_lift_input").checked,
-                            "last_mod_by": 'test1_user'},
-                            function(data, textStatus){}, "json");
+                            "last_mod_by": 'test1_name'},
+                            function(data, textStatus){alert("Update status: " + textStatus);}, "json");
+
+                        /*
+                        if (textStatus == "200") {
+                            alert("Successfully updated.")
+                        } else {
+                            alert("Update failed.")
+                        }*/
                     }
                     else {
                         $.post('https://joyaccess.herokuapp.com/places/placeAPI/', {
-                            "place_id": marker.place_id,
-                            "place_name": marker.place_name,
+                            "place_id": marker.id,
+                            "place_name": marker.title,
                             "address": marker.address,
                             "lat": marker.position.lat,
                             "lng": marker.position.lng,
                             "acc_toilet": document.getElementById("acc_toilet_input").checked,
                             "acc_carpark": document.getElementById("acc_carpark_input").checked,
                             "acc_lift": document.getElementById("acc_lift_input").checked,
-                            "created_by": 'test1_user',
-                            "last_mod_by": 'test1_user'},
-                            function(data, textStatus){}, "json");
+                            "created_by": 'test1_name',
+                            "last_mod_by": 'test1_name'},
+                            function(data, textStatus){alert("Creation status: " + textStatus);}, "json");
+
+                        /*
+                        if (textStatus == "200") {
+                            alert("Successfully created.")
+                        } else {
+                            alert("Creation failed.")
+                        }*/
                     }
                 }
             )

@@ -55,6 +55,7 @@ const createPlace = (req, res) => {
   place.save(function (err, newPlace) {
     if (err) {
       res.sendStatus(500);
+      alert("updatePlaceByID error: " + err);
     } else {
       res.send(newPlace);
     }
@@ -74,7 +75,6 @@ const updatePlaceById = (req, res) => {
         {"place_id": req_place_id},
         {
             $set: {
-                "place_id": req_place_id,
                 "acc_toilet": req_toilet,
                 "acc_carpark": req_carpark,
                 "acc_lift": req_lift,
@@ -83,6 +83,7 @@ const updatePlaceById = (req, res) => {
         }, function(err,doc) {
             if (err) {
                 res.sendStatus(500);
+                alert("updatePlaceByID error: " + err);
             } else {
                 res.send(doc);
             }
