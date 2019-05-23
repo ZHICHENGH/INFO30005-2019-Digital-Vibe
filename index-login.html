@@ -59,6 +59,45 @@
 		body {
 		  height: 100%;
 		}
+        #dropback {
+        position: absolute;
+        height: 100%;
+        width:100%;
+        background: #444;
+        z-index: 1000;
+        opacity: 0.9;
+        display: none;
+        }
+        #commentform {
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            border:1px solid rgb(240, 230, 230);
+            display: none;
+            z-index: 100;
+            color:#666;
+            border-radius: 4px;
+            z-index: 1020;
+            background: #fff;
+            overflow:auto;
+        }
+        .close {
+        position: relative;
+            float:right;
+    top:3px;
+    right:5px;
+    padding:5px;
+    cursor: pointer;
+}
+.comment_head {
+    font-size: 300%;
+    text-align: center;}
+.comment_text{
+    font-size:200%;
+}
+.comment_time{
+    right:5px;
+}
     </style>
 </head>
 
@@ -126,7 +165,7 @@
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
 
-                            <a class="nav-link" id="test2" href="#" onclick="show_comments()"><i class="fa fa- user"></i>My comments</a>
+                            <a class="nav-link" href="#" onclick="show_comments()"><i class="fa fa- user"></i></a>
 
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
@@ -216,46 +255,35 @@
 <script>
     function show_comments(){
         var username=GetRequest().username;
-        //var screen = document.getElementById('dropback');
+        var screen = document.getElementById('dropback');
         var commentform=document.getElementById('commentform');
         var commentcontent=document.getElementById('commentcontent');
-        //var top = (document.documentElement.clientHeight - 250) / 2 - 150;
-        //var left = (document.documentElement.clientWidth - 300) / 2;
-        //commentform.style.left = left + 'px';
-        //commentform.style.top = top + 'px';
-        //screen.style.display = 'block';
-        //commentform.style.display='block';
-        var nullstring=document.createElement('div');
-        nullstring.textContent="\n";
+        var top = (document.documentElement.clientHeight - 250) / 2 - 150;
+        var left = (document.documentElement.clientWidth - 300) / 2;
+        commentform.style.left = left + 'px';
+        commentform.style.top = top + 'px';
+        screen.style.display = 'block';
+        commentform.style.display='block';
         if(username!=false){
+        var comments = [];
         var j=0;
         $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
             $.each(result, function(i, field){
                 if(field.user_name==username){
-                    var commentid=document.createElement('div');
-                    commentid.className='comment_time';
+                    var div=document.createElement('div');
                     var contenttext=document.createElement('div');
                     contenttext.className='comment_text';
-                    var commenttime=document.createElement('div');
-                    commenttime.className='comment_time';
                     var commentplaceid=document.createElement('div');
-                    commentplaceid.className='comment_time';
                     var text=document.createElement('div');
-                    text.className='comment_time';      
                     text.textContent="Comment content: ";
                     j++;
-                    commentid.textContent="Comment No: "+field.comment_id;
-                    commentcontent.appendChild(commentid);
-                    commenttime.textContent="Comment time: "+field.timestamp;
-                    commentcontent.appendChild(commenttime);
+                    div.textContent="Your comment No: "+j;
+                    commentcontent.appendChild(div);
                     commentplaceid.textContent="Place ID: "+field.place_id;
                     commentcontent.appendChild(commentplaceid);
                     commentcontent.appendChild(text);
                     contenttext.textContent=field.text;
                     commentcontent.appendChild(contenttext);
-                    commentcontent.appendChild(nullstring);
-                    commentcontent.appendChild(nullstring);
-                    commentcontent.appendChild(nullstring);
                 }
             });   
         });
@@ -264,15 +292,6 @@
          alert("fail");   
         }
     }
-   function closecommentform()
-   {
-    var screen = document.getElementById('dropback');
-    var commentform=document.getElementById('commentform');
-    var commentcontent=document.getElementById('commentcontent');
-    screen.style.display = 'none';
-    commentform.style.display='none';
-    commentcontent.innerHTML="";
-   }
 </script>
     <script>
         var markers = [];
