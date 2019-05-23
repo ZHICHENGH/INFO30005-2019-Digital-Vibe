@@ -195,49 +195,56 @@
 
             console.log("-> Inside saveAccData!");
 
-            $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + marker.id, function(jsonData) {
-                    if (jsonData.length) {
-                        $.post('https://joyaccess.herokuapp.com/places/placeAPI/update/', {
-                            "place_id": marker.id,
-                            "acc_toilet": document.getElementById("acc_toilet_input").checked,
-                            "acc_carpark": document.getElementById("acc_carpark_input").checked,
-                            "acc_lift": document.getElementById("acc_lift_input").checked,
-                            "last_mod_by": 'test1_name'},
-                            function(data, textStatus){alert("Update status: " + textStatus);}, "json");
+            if (confirm("Are you sure you wish to proceed with the update?")) {
+                $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + marker.id, function (jsonData) {
+                        if (jsonData.length) {
+                            $.post('https://joyaccess.herokuapp.com/places/placeAPI/update/', {
+                                    "place_id": marker.id,
+                                    "acc_toilet": document.getElementById("acc_toilet_input").checked,
+                                    "acc_carpark": document.getElementById("acc_carpark_input").checked,
+                                    "acc_lift": document.getElementById("acc_lift_input").checked,
+                                    "last_mod_by": 'test1_name'
+                                },
+                                function (data, textStatus) {
+                                    alert("Update status: " + textStatus);
+                                }, "json");
 
-                        /*
-                        if (textStatus == "200") {
-                            alert("Successfully updated.")
+                            /*
+                            if (textStatus == "200") {
+                                alert("Successfully updated.")
+                            } else {
+                                alert("Update failed.")
+                            }*/
                         } else {
-                            alert("Update failed.")
-                        }*/
-                    }
-                    else {
-                        $.post('https://joyaccess.herokuapp.com/places/placeAPI/', {
-                            "place_id": marker.id,
-                            "place_name": marker.title,
-                            "address": marker.address,
-                            "lat": marker.position.lat,
-                            "lng": marker.position.lng,
-                            "acc_toilet": document.getElementById("acc_toilet_input").checked,
-                            "acc_carpark": document.getElementById("acc_carpark_input").checked,
-                            "acc_lift": document.getElementById("acc_lift_input").checked,
-                            "created_by": 'test1_name',
-                            "last_mod_by": 'test1_name'},
-                            function(data, textStatus){alert("Creation status: " + textStatus);}, "json");
+                            $.post('https://joyaccess.herokuapp.com/places/placeAPI/', {
+                                    "place_id": marker.id,
+                                    "place_name": marker.title,
+                                    "address": marker.address,
+                                    "lat": marker.position.lat,
+                                    "lng": marker.position.lng,
+                                    "acc_toilet": document.getElementById("acc_toilet_input").checked,
+                                    "acc_carpark": document.getElementById("acc_carpark_input").checked,
+                                    "acc_lift": document.getElementById("acc_lift_input").checked,
+                                    "created_by": 'test1_name',
+                                    "last_mod_by": 'test1_name'
+                                },
+                                function (data, textStatus) {
+                                    alert("Creation status: " + textStatus);
+                                }, "json");
 
-                        /*
-                        if (textStatus == "200") {
-                            alert("Successfully created.")
-                        } else {
-                            alert("Creation failed.")
-                        }*/
+                            /*
+                            if (textStatus == "200") {
+                                alert("Successfully created.")
+                            } else {
+                                alert("Creation failed.")
+                            }*/
+                        }
+                        toiletSaveData = document.getElementById("acc_toilet_input").checked;
+                        carparkSaveData = document.getElementById("acc_carpark_input").checked;
+                        liftSaveData = document.getElementById("acc_lift_input").checked;
                     }
-                    toiletSaveData = document.getElementById("acc_toilet_input").checked;
-                    carparkSaveData = document.getElementById("acc_carpark_input").checked;
-                    liftSaveData = document.getElementById("acc_lift_input").checked;
-                }
-            )
+                )
+            }
         }
 
         function restoreAccData() {
@@ -318,14 +325,21 @@
                         infowincontent.appendChild(acctext_lift);
                     }
 
-                    //var icon = customLabel[type] || {};
+                    var icon = {
+                        url: 'http://www.clker.com/cliparts/f/n/B/5/3/T/hotel-icon-wheelchair-access-clip-art-red-white-md.png',
+                        size: new google.maps.Size(71, 71),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(30, 30)
+                    };
+                    
                     var marker = new google.maps.Marker({
                         title: place_name,
                         address: address,
                         map: map,
                         position: point,
                         id: place_id,
-                        //label: icon.label
+                        icon: icon
                     });
 
                     // When clicked on marker, generate pop-up text and HTML code in "PlaceDetails" div
