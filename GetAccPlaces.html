@@ -142,7 +142,7 @@
         });
 
         document.getElementById("PlaceDetails").innerHTML = "";
-        document.getElementById("pac-input").value = "";
+        //document.getElementById("pac-input").value = "";
         var toiletSaveData = false;
         var carparkSaveData = false;
         var liftSaveData = false;
@@ -270,7 +270,6 @@
             }
         }
 
-
         deleteMarkers();
         $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function(jsonData) {
             $.each(jsonData, function(key,data) {
@@ -309,19 +308,19 @@
                     if (acc_toilet == true){
                         var acctext_toilet = document.createElement('text');
                         infowincontent.appendChild(document.createElement('br'));
-                        acctext_toilet.textContent = "Accessible Toilet";
+                        acctext_toilet.textContent = "Accessible toilet";
                         infowincontent.appendChild(acctext_toilet);
                     }
                     if (acc_carpark == true){
                         var acctext_carpark = document.createElement('text');
                         infowincontent.appendChild(document.createElement('br'));
-                        acctext_carpark.textContent = "Accessible Carpark";
+                        acctext_carpark.textContent = "Accessible carpark";
                         infowincontent.appendChild(acctext_carpark);
                     }
                     if (acc_lift == true){
                         var acctext_lift = document.createElement('text');
                         infowincontent.appendChild(document.createElement('br'));
-                        acctext_lift.textContent = "Accessible Lift";
+                        acctext_lift.textContent = "Accessible lift";
                         infowincontent.appendChild(acctext_lift);
                     }
 
@@ -332,7 +331,7 @@
                         anchor: new google.maps.Point(17, 34),
                         scaledSize: new google.maps.Size(30, 30)
                     };
-                    
+
                     var marker = new google.maps.Marker({
                         title: place_name,
                         address: address,
@@ -594,7 +593,7 @@
 
                                 // If this Google Map Places API marker corresponds to an existing location in our
                                 // database that has accessibility info, we display the accessibility info as well
-                                if ((lat == marker2.position.lat() && lng == marker2.position.lng()) &&
+                                if ((place_id == marker2.id) &&
                                     ((acc_toilet == true) || (acc_carpark == true) ||
                                     (acc_lift == true))) {
                                     console.log("Matching location found! Accessibility info should be visible!");
@@ -603,7 +602,7 @@
                                         document.getElementById("acc_toilet_input").checked = true;
                                         var acctext_toilet = document.createElement('text');
                                         infowincontent.appendChild(document.createElement('br'));
-                                        acctext_toilet.textContent = "Accessible Toilet. ";
+                                        acctext_toilet.textContent = "Accessible toilet. ";
                                         infowincontent.appendChild(acctext_toilet);
                                         toiletSaveData = true;
                                     }
@@ -612,7 +611,7 @@
                                         document.getElementById("acc_carpark_input").checked = true;
                                         var acctext_carpark = document.createElement('text');
                                         infowincontent.appendChild(document.createElement('br'));
-                                        acctext_carpark.textContent = "Accessible Carpark. ";
+                                        acctext_carpark.textContent = "Accessible carpark. ";
                                         infowincontent.appendChild(acctext_carpark);
                                         carparkSaveData = true;
                                     }
