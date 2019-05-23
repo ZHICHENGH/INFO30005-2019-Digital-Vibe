@@ -190,30 +190,29 @@
         }
 
         function saveAccData() {
-            console.log("-> Inside saveAccData!");
+
         }
 
         function restoreAccData() {
-            console.log("toiletSaveData = " + toiletSaveData + "\ncarparkSaveData = " + carparkSaveData +
-                        "\nliftSaveData = " + liftSaveData);
-
-            if (toiletSaveData) {
+            if (toiletSaveData == true) {
                 document.getElementById("acc_toilet_input").checked = true;
             } else {
                 document.getElementById("acc_toilet_input").checked = false;
             }
 
-            if (carparkSaveData) {
+            if (carparkSaveData == true) {
                 document.getElementById("acc_carpark_input").checked = true;
             } else {
                 document.getElementById("acc_carpark_input").checked = false;
             }
 
-            if (liftSaveData) {
+            if (liftSaveData == true) {
                 document.getElementById("acc_lift_input").checked = true;
             } else {
                 document.getElementById("acc_lift_input").checked = false;
             }
+
+            console.log(" -> Entered restoreAccData function!");
         }
 
 
@@ -283,7 +282,6 @@
 
                     // When clicked on marker, generate pop-up text and HTML code in "PlaceDetails" div
                     marker.addListener('click', function () {
-
                         document.getElementById("PlaceDetails").innerHTML = "";
                         toiletSaveData = false;
                         carparkSaveData = false;
@@ -325,20 +323,6 @@
                         acc_lift_input.value = "value";
                         para.appendChild(acc_lift_input);
 
-                        para.appendChild(document.createElement('br'));
-                        var applyBtn = document.createElement('input');
-                        applyBtn.type = "button";
-                        applyBtn.value = "Apply";
-                        applyBtn.onclick = function() {saveAccData()};
-                        para.appendChild(applyBtn);
-
-                        para.appendChild(document.createTextNode (" "));
-                        var cancelBtn = document.createElement('input');
-                        cancelBtn.type = "button";
-                        cancelBtn.value = "Cancel";
-                        cancelBtn.onclick = function() {restoreAccData()};
-                        para.appendChild(cancelBtn);
-
                         var element = document.getElementById("PlaceDetails");
                         element.appendChild(para);
 
@@ -352,24 +336,28 @@
                         }
                         if (acc_lift == true) {
                             document.getElementById("acc_lift_input").checked = true;
-                            liftSaveData = true;
+                            liftSaveData = false;
                         }
 
-                        var i;
-                        var sameMarker = false;
-                        for (i=0;i<markers.length;i++){
-                            if (markers[i].id == marker.id) {
-                                sameMarker = true;
-                            }
-                        }
+                        para.appendChild(document.createElement('br'));
+                        var applyBtn = document.createElement('input');
+                        applyBtn.type = "button";
+                        applyBtn.value = "Apply";
+                        applyBtn.onclick = saveAccData();
+                        para.appendChild(applyBtn);
 
-                        if (sameMarker == false) {
-                            var infoWindow = new google.maps.InfoWindow({
-                                content: infowincontent
-                            });
-                            //infoWindow.setContent(infowincontent);
-                            infoWindow.open(map, marker);
-                        }
+                        para.appendChild(document.createTextNode (" "));
+                        var cancelBtn = document.createElement('input');
+                        cancelBtn.type = "button";
+                        cancelBtn.value = "Cancel";
+                        cancelBtn.onclick = restoreAccData();
+                        para.appendChild(cancelBtn);
+
+                        var infoWindow = new google.maps.InfoWindow({
+                            content: infowincontent
+                        });
+                        //infoWindow.setContent(infowincontent);
+                        infoWindow.open(map, marker);
                     });
 
                     //extend the bounds to include each marker's position
