@@ -153,9 +153,9 @@ function(username, password, done) {
             // save the user
             user.save(function(err, newUser) {
                 if(!err){
-                    res.send(newUser);
+                    return done(null, newUser)
                 }else{
-                    res.sendStatus(400);
+                    return done(err);
                 }
             });
         }
