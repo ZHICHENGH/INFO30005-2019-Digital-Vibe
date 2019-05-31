@@ -110,10 +110,10 @@ passport.use('local-login', new LocalStrategy(
             return done(err);
         } 
         if (!user){
-            return done(null, false, {message: 'Invalid user'});
+            return done(null, false, {message: 'Invalid Username or Password'});
         }
         if (user.password != password){
-            return done(null, false, {message: 'Invalid password'});
+            return done(null, false, {message: 'Invalid Username or Password'});
         }
         return done(null, user);
     })
