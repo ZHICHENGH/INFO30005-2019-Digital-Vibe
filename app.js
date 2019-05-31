@@ -151,9 +151,9 @@ function(username, password, done) {
                 "password":password
             });
             // save the user
-            user.save(function(err, newUser) {
+            user.save(function(err) {
                 if(!err){
-                    return done(null, newUser)
+                    return done(null, user)
                 }else{
                     return done(err);
                 }
