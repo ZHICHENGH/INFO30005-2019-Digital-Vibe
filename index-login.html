@@ -586,7 +586,7 @@
                         var btn=document.createElement("BUTTON");
                         btn.onclick=function (){ 
                             $.post('https://joyaccess.herokuapp.com/comment/commentAPI/deleteid/',{ "comment_id":field.comment_id});
-                                alert(field.comment_id);
+                                alert("comment "+field.comment_id+"delete success!");
                                 closecommentform();}
                         var t=document.createTextNode("Delete");
                         btn.appendChild(t);

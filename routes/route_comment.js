@@ -20,6 +20,6 @@ router.get('/commentAPI/placeid/:place_id', controller.getCommentByplaceid);
 router.get('/commentAPI/commentid/:comment_id', controller.getCommentBycommentid);
 
 // delete comment by commentid
-router.delete('/commentAPI/deleteid/', controller.deleteCommentBycommentid)
+router.delete('/commentAPI/deleteid/:comment_id', controller.deleteCommentBycommentid)
 
 module.exports = router;
