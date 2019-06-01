@@ -334,7 +334,7 @@
     </script>
 
 <!-- Map Stuff -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
     <script>
     var markers = [];
     var markers2 = [];
@@ -606,7 +606,6 @@
                                 saveAccData(marker)
                             };
                             para.appendChild(applyBtn);
-
                             para.appendChild(document.createTextNode(" "));
                             var cancelBtn = document.createElement('input');
                             cancelBtn.type = "button";
@@ -615,6 +614,14 @@
                                 restoreAccData()
                             };
                             para.appendChild(cancelBtn);
+                            
+
+
+
+
+                           
+
+
 
                             var element = document.getElementById("PlaceDetails");
                             element.appendChild(para);
