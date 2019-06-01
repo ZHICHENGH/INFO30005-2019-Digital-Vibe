@@ -122,7 +122,7 @@ passport.use('local-login', new LocalStrategy(
 
 app.post('/login', 
   passport.authenticate('local-login', { 
-      failureRedirect: '/login',
+      failureRedirect: ('/page-login-error'),
       failureFlash: true
  }),
   function(req, res) {
@@ -166,7 +166,7 @@ function(username, password, done) {
 
 app.post('/signup', 
   passport.authenticate('local-signup', { 
-      failureRedirect: '/signup',
+      failureRedirect: '/signup', 
       failureFlash: true
  }),
   function(req, res) {
