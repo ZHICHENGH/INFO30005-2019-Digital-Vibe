@@ -575,7 +575,6 @@
                         commentplaceid.className='comment_time';
                         var text=document.createElement('div');
                         text.className='comment_time';
-                        
                         text.textContent="Comment content: ";
                         j++;
                         commentid.textContent="Comment No: "+field.comment_id;
@@ -586,6 +585,10 @@
                         commentcontent.appendChild(commentplaceid);
                         commentcontent.appendChild(text);
                         contenttext.textContent=field.text;
+                        var btn=document.createElement("BUTTON");
+                        var t=document.createTextNode("Delete");
+                        btn.appendChild(t);
+                        commentcontent.appendChild(btn);
                         commentcontent.appendChild(contenttext);
                         commentcontent.appendChild(nullstring);
                         commentcontent.appendChild(nullstring);
