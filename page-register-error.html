@@ -6,13 +6,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Digital Vibe - Login</title>
-    <meta name="description" content="Login">
+    <title>Digital Vibe - Sign Up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	
-    <link rel="apple-touch-icon" href="/images/logo.png">
+
+
+	<link rel="apple-touch-icon" href="/images/logo.png">
     <link rel="shortcut icon" href="/images/logo.png">
-	
+    
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
@@ -26,18 +27,18 @@
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 </head>
-<body>
+<body class="bg-white">
 
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
-            <div class="login-content border-dark">
+            <div class="login-content">
                 <div class="login-logo">
-                    <a href="https://joyaccess.herokuapp.com">
-                        <img style="padding: 70px" class="align-content" src="images/logo3.png" alt="">
+                    <a href="https://joyaccess.herokuapp.com/">
+                        <img class="align-content" src="images/logo3.png" alt="">
                     </a>
                 </div>
-                <div class="login-form">
-                    <form name="login" action="/login" method="post">
+                <div class="signup-form">
+                    <form name="signup" action="/signup" method="post">
                         <div class="form-group">
                             <label>Username</label>
                             <input type="text" class="form-control" name="username" placeholder="username">
@@ -47,28 +48,29 @@
                             <input type="password" class="form-control" name="password" placeholder="Password">
                         </div>
                         <div class="checkbox">
+                            <label class="pull-right">
+                                <p style="color:red;">Your username has already been registered. </p>
+                            </label>
                             <label>
                                 <a href="https://joyaccess.herokuapp.com">back</a>
                             </label>
-                            <label class="pull-right">
-                                <p style="color:red;">Your username or password is invalid!</p>
-                            </label>
                         </div>
-                        <button type="submit"  class="btn btn-success btn-flat m-b-30 m-t-30">Log in</button>
-                      
+                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
+
                         <div class="register-link m-t-15 text-center">
-                            <p>Don't have account ? <a href="https://joyaccess.herokuapp.com/signup"> Sign Up Here</a></p>
+                            <p>Already have account ? <a href="https://joyaccess.herokuapp.com/login"> login</a></p>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="assets/js/main.js"></script>
-    <script type="text/javascript" src="./controllers/controller_user.js"></script>
-        </body>
+
+</body>
 </html>

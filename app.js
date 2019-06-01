@@ -71,6 +71,11 @@ app.get("/signup", function(req, res){
     res.end(fs.readFileSync(__dirname + "/page-register.html"))
 })
 
+app.get("/signupError", function(req, res){
+    res.writeHead(200, {"content-type": "text/html"});
+    res.end(fs.readFileSync(__dirname + "/page-register-error.html"))
+})
+
 app.get('/GetAccPlaces', function(request, response){
     response.sendfile('GetAccPlaces.html');
 });
@@ -172,7 +177,7 @@ function(username, password, done) {
 
 app.post('/signup', 
   passport.authenticate('local-signup', { 
-      failureRedirect: '/signup', 
+      failureRedirect: '/signupError', 
       failureFlash: true
  }),
   function(req, res) {
