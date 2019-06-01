@@ -17,10 +17,8 @@ var placeSchema = mongoose.Schema(
 
 var userSchema = mongoose.Schema(
     {
-        "user_id":String,
         "user_name":String,
-        "password":String,
-        "email":String
+        "password":String
     }
 );
 

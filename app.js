@@ -60,9 +60,20 @@ app.get("/login", function(req, res){
     res.writeHead(200, {"content-type": "text/html"});
     res.end(fs.readFileSync(__dirname + "/page-login.html"))
 })
+
+app.get("/loginError", function(req, res){
+    res.writeHead(200, {"content-type": "text/html"});
+    res.end(fs.readFileSync(__dirname + "/page-login-error.html"))
+})
+
 app.get("/signup", function(req, res){
     res.writeHead(200, {"content-type": "text/html"});
     res.end(fs.readFileSync(__dirname + "/page-register.html"))
+})
+
+app.get("/signupError", function(req, res){
+    res.writeHead(200, {"content-type": "text/html"});
+    res.end(fs.readFileSync(__dirname + "/page-register-error.html"))
 })
 
 app.get('/GetAccPlaces', function(request, response){
@@ -101,7 +112,7 @@ passport.deserializeUser(function(id, cb) {
 });
 
 var LocalStrategy = require('passport-local').Strategy;
-passport.use(new LocalStrategy(
+passport.use('local-login', new LocalStrategy(
   function(username, password, done) {
     User.findOne({
         user_name:username
@@ -110,10 +121,10 @@ passport.use(new LocalStrategy(
             return done(err);
         } 
         if (!user){
-            return done(null, false, {message: 'Invalid user'});
+            return done(null, false, {message: 'Invalid Username or Password'});
         }
         if (user.password != password){
-            return done(null, false, {message: 'Invalid password'});
+            return done(null, false, {message: 'Invalid Username or Password'});
         }
         return done(null, user);
     })
@@ -121,8 +132,52 @@ passport.use(new LocalStrategy(
 ));
 
 app.post('/login', 
-  passport.authenticate('local', { 
-      failureRedirect: '/login',
+  passport.authenticate('local-login', { 
+      failureRedirect: '/loginError',
+      failureFlash: true
+ }),
+  function(req, res) {
+    res.redirect('/indexLogin?username=' + req.user.user_name);
+  });
+
+//register
+
+passport.use('local-signup', new LocalStrategy(
+function(username, password, done) {
+    // we are checking to see if the user trying to login already exists
+    User.findOne({user_name: username}, function(err, user) {
+        // if there are any errors, return the error
+        if (err){
+            return done(err);
+        }
+        // check to see if theres already a user with that username
+        if (user) {
+            return done(null, false, {message: 'Username is taken'});
+        } else {
+            // if there is no user with that email
+            // create the user
+            // set the user's local credentials
+            var user = new User({
+                "user_name":username,
+                "password":password
+            });
+            // save the user
+            user.save(function(err) {
+                if(!err){
+                    return done(null, user)
+                }else{
+                    return done(err);
+                }
+            });
+        }
+
+    });    
+
+}));
+
+app.post('/signup', 
+  passport.authenticate('local-signup', { 
+      failureRedirect: '/signupError', 
       failureFlash: true
  }),
   function(req, res) {
