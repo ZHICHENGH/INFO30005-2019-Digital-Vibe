@@ -630,9 +630,6 @@
                                 restoreAccData()
                             };
                             para.appendChild(cancelBtn);
-                            
-
-
                             var pointcommentBtn = document.createElement('input');
                             pointcommentBtn.type = "button";
                             pointcommentBtn.value = "comments";
@@ -643,7 +640,7 @@
                             var nullstring=document.createElement('div');
                             nullstring.textContent="\n";
                             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult) {
-                                if(!placeresult){
+                                if(placeresult){
                                     var nocomment=document.createElement('div');
                                         nocomment.className='comment_time';
                                         nocomment.textContent="There are no comment for this point";
@@ -652,6 +649,7 @@
                                 else{
                                     var j=1;
                                     $.each(placeresult, function(i, field){
+                                        alert(field.user_name);
                                         var commentid=document.createElement('div');
                                         commentid.className='comment_time';
                                         commentid.textContent="Comment No: "+j;
@@ -675,8 +673,6 @@
                                 }
                                 });
                             };
-
-
                             var elementAcc = document.getElementById("PlaceAccessibility");
                             elementAcc.appendChild(para);
 
