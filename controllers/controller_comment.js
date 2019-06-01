@@ -66,7 +66,7 @@ var getCommentBycommentid = function(req, res){
 
 var deleteCommentBycommentid = function(req, res){
     var commentid = req.params.comment_id;
-    Comment.deleteOne({comment_id:commentid},function(err,comment){
+    Comment.deleteOne({"comment_id":commentid},function(err,comment){
         if(!err){
             res.send(comment);
         }else{
