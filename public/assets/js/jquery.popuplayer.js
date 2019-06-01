@@ -81,7 +81,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 'left': content_position.left,
                 'color': this.options.color,
                 'background-color': this.options.backgroundColor,
-                'transition': 'all ' + this.options.speed / 1000 + 's',
+                'transition': 'all ' + this.options.speed / 1000 + 's'
             });
         },
         attachElems: function attachElems() {
