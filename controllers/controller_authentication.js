@@ -1,4 +1,5 @@
 var passport = require('passport');
+const mongoose = require('mongoose');
 var User = mongoose.model('user');
 
 
