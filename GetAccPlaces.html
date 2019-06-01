@@ -7,18 +7,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
 
     <!-- JQuery -->
-    <script type="text/javascript" src="MDBootstrap/js/jquery-3.4.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="MDBootstrap/js/popper.min.js"></script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="MDBootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!-- Bootstrap core CSS -->
-    <link href="MDBootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="MDBootstrap/css/mdb.min.css" rel="stylesheet">
+    <link href="css/mdb.min.css" rel="stylesheet">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -127,7 +127,7 @@
 </div>
 
 <!-- MDB core JavaScript -->
-<script type="text/javascript" src="MDBootstrap/js/mdb.min.js"></script>
+<script type="text/javascript" src="js/mdb.min.js"></script>
 
 <script>
     var markers = [];
@@ -502,6 +502,32 @@
                     address:place.formatted_address,
                     id: place.place_id
                 });
+
+                // go through MongoDB to find any matching places and change its marker icon to wheelchair
+                $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function(jsonData) {
+                    $.each(jsonData, function (key, data) {
+                        var place_id = data.place_id;
+                        var acc_toilet = data.acc_toilet;
+                        var acc_carpark = data.acc_carpark;
+                        var acc_lift = data.acc_lift;
+
+                        if ((place_id == marker2.id) &&
+                            ((acc_toilet == true) || (acc_carpark == true) ||
+                                (acc_lift == true))) {
+                            // change icon to wheelchair if this place has accessibility data
+                            var icon2 = {
+                                url: 'http://www.clker.com/cliparts/f/n/B/5/3/T/hotel-icon-wheelchair-access-clip-art-red-white-md.png',
+                                size: new google.maps.Size(71, 71),
+                                origin: new google.maps.Point(0, 0),
+                                anchor: new google.maps.Point(17, 34),
+                                scaledSize: new google.maps.Size(30, 30)
+                            };
+
+                            marker2.setIcon(icon2);
+                        }
+                    });
+                });
+
 
                 var infoWindow2 = new google.maps.InfoWindow();
 
