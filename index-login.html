@@ -564,14 +564,20 @@
             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
                 $.each(result, function(i, field){
                     if(field.user_name==username){
+                        $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + field.place_id, function (jsonData) {
+                            var placename=jsonDate.place_name;
+                            var placeaddress=jsonData.address;
+                        })
                         var commentid=document.createElement('div');
                         commentid.className='comment_time';
                         var contenttext=document.createElement('div');
                         contenttext.className='comment_text';
                         var commenttime=document.createElement('div');
                         commenttime.className='comment_time';
-                        var commentplaceid=document.createElement('div');
-                        commentplaceid.className='comment_time';
+                        var commentplacename=document.createElement('div');
+                        commentplacename.className='comment_time';
+                        var commentplaceaddress=document.createElement('div');
+                        commentplaceaddress.className='comment_time';
                         var text=document.createElement('div');
                         text.className='comment_time';
                         text.textContent="Comment content: ";
@@ -579,8 +585,10 @@
                         commentcontent.appendChild(commentid);
                         commenttime.textContent="Comment time: "+field.timestamp;
                         commentcontent.appendChild(commenttime);
-                        commentplaceid.textContent="Place ID: "+field.place_id;
-                        commentcontent.appendChild(commentplaceid);
+                        commentplacename.textContent="Place Name: "+placename;
+                        commentcontent.appendChild(commentplacename);
+                        commentplaceaddress.textContent="Place Name: "+placeaddress;
+                        commentcontent.appendChild(commentplaceaddress);
                         commentcontent.appendChild(text);
                         contenttext.textContent=field.text;
                         var btn=document.createElement("BUTTON");
