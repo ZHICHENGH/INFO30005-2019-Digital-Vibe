@@ -93,34 +93,31 @@
         <div style="padding-top: 25px; padding-left: 10px; padding-right: 10px; height: 650px" data-wow-delay="0.8s">
         <input type="text" style="width: 100%;" id="pac-input" class="form-control" placeholder="Place name or address">
 
-            <th style="margin-left: 20px;">Toilet <input type="checkbox" id="Acc_Toilet_Check" onclick="initMap()">
+            <th>Toilet <input type="checkbox" id="Acc_Toilet_Check" onclick="initMap()">
                           Carpark <input type="checkbox" id="Acc_Carpark_Check" onclick="initMap()">
                           Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </th>
 
+            <div class="menu-title" id="PlaceDetails">S</div>
             <table class="table" style="margin-top: 20px;">
                 <thead>
                 <tr>
                     <th scope="col" style="vertical-align: top;">Name:</th>
-                    <td scope="col">the university of melbourne</td>
+                    <td scope="col" id="PlaceName">the university of melbourne</td>
 
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <th scope="row" style="vertical-align: top;">Address:</th>
-                    <td></td>
+                    <td id="PlaceAddress"></td>
 
                 </tr>
                 <tr>
                     <th scope="row" style="vertical-align: top;">Facilitys:</th>
-                    <td>lift, toliet</td>
+                    <td id="PlaceFacilitys"></td>
                 </tr>
                 </tbody>
             </table>
-
-            <com>
-                <h4 class="text-center shadow-sm">Comments:</h4>
-            </com>
 	    </div>
 
 		<!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
