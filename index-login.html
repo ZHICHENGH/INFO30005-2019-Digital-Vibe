@@ -561,32 +561,34 @@
             var nullstring=document.createElement('div');
             nullstring.textContent="\n";
             if(username!=false){
-            $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
-                $.each(result, function(i, field){
-                    if(field.user_name==username){
-                        $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + field.place_id, function (jsonData) {
-                            if(jsonData.length){
-                                $.each(jsonData, function( key, val) {
-                                    var placename=val.place_name;
-                              
-                                    var placeaddress=val.address;
-                                })
+            
+                $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
+                    $.each(result, function(i, field){
+                        if(field.user_name==username){
+                            $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + field.place_id, function (jsonData) {
+                                if(jsonData.length){
+                                    $.each( jsonData, function( key, val) {
+                                        var commentplacename=document.createElement('div');
+                                        commentplacename.className='comment_time';
+                                        commentplacename.textContent="Place Name: "+val.place_name;
+                                        commentcontent.appendChild(commentplacename);
+                                        var commentplaceaddress=document.createElement('div');
+                                        commentplaceaddress.className='comment_time';
+                                        commentplaceaddress.textContent="Place Name: "+val.address;
+                                        commentcontent.appendChild(commentplaceaddress);
+                                    })
+                                    }
+                                    else{
+                                    alert("ERROR");
                                 }
-                                else{
-                                alert("ERROR");
-                            }
-                        });
-                        alert(placename);
+                            });
                         var commentid=document.createElement('div');
                         commentid.className='comment_time';
                         var contenttext=document.createElement('div');
                         contenttext.className='comment_text';
                         var commenttime=document.createElement('div');
                         commenttime.className='comment_time';
-                        var commentplacename=document.createElement('div');
-                        commentplacename.className='comment_time';
-                        var commentplaceaddress=document.createElement('div');
-                        commentplaceaddress.className='comment_time';
+                       
                         var text=document.createElement('div');
                         text.className='comment_time';
                         text.textContent="Comment content: ";
@@ -594,10 +596,8 @@
                         commentcontent.appendChild(commentid);
                         commenttime.textContent="Comment time: "+field.timestamp;
                         commentcontent.appendChild(commenttime);
-                        commentplacename.textContent="Place Name: "+placename;
-                        commentcontent.appendChild(commentplacename);
-                        commentplaceaddress.textContent="Place Name: "+placeaddress;
-                        commentcontent.appendChild(commentplaceaddress);
+                        
+                       
                         commentcontent.appendChild(text);
                         contenttext.textContent=field.text;
                         var btn=document.createElement("BUTTON");
