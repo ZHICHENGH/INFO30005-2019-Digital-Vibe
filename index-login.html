@@ -566,9 +566,9 @@
                     if(field.user_name==username){
                         $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + field.place_id, function (jsonData) {
                             if(jsonData.length){
-                                $.each( jsonData, function( key, val) {
+                                $.each(jsonData, function( key, val) {
                                     var placename=val.place_name;
-                                    alert(placename);
+                              
                                     var placeaddress=val.address;
                                 })
                                 }
@@ -576,6 +576,7 @@
                                 alert("ERROR");
                             }
                         });
+                        alert(placename);
                         var commentid=document.createElement('div');
                         commentid.className='comment_time';
                         var contenttext=document.createElement('div');
