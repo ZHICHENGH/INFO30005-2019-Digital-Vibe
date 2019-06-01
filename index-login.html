@@ -155,14 +155,12 @@
 
                 // from right to left
                 $('#test2').PopupLayer({
-                    content:'<title style="margin-top: 75px" class="text-center h4">My Comments</title>' +
-                            '<bottom class="close" style="margin-right: 5%;">close</bottom>' +
-                        '<div class="lyk">\n' +
-                        '<textarea name="" rows="" cols="" ng-model="areaVal"></textarea>\n' +
-                        '<button ng-click="qk()">clean</button>\n' +
-                        '<button ng-click="pl()">comment</button>\n' +
+                    content:'<title style="margin-top: 75px" class="text-center h4",id="commentform">My Comments</title>' +
+                            '<bottom class="close",id="commentclosebottom",style="margin-right: 5%;">close</bottom>' +
+                        '<div id="commentcontent">\n' +
                         '</div>',
-                    to: 'left'
+                    to: 'left',
+                    closeBtn:document.getElementById('commentclosebottom')
                 });
             });
         </script>
@@ -273,37 +271,61 @@
         var nullstring=document.createElement('div');
         nullstring.textContent="\n";
         if(username!=false){
-        var j=0;
-        $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
-            $.each(result, function(i, field){
-                if(field.user_name==username){
-                    var commentid=document.createElement('div');
-                    commentid.className='comment_time';
-                    var contenttext=document.createElement('div');
-                    contenttext.className='comment_text';
-                    var commenttime=document.createElement('div');
-                    commenttime.className='comment_time';
-                    var commentplaceid=document.createElement('div');
-                    commentplaceid.className='comment_time';
-                    var text=document.createElement('div');
-                    text.className='comment_time';      
-                    text.textContent="Comment content: ";
-                    j++;
-                    commentid.textContent="Comment No: "+field.comment_id;
-                    commentcontent.appendChild(commentid);
-                    commenttime.textContent="Comment time: "+field.timestamp;
-                    commentcontent.appendChild(commenttime);
-                    commentplaceid.textContent="Place ID: "+field.place_id;
-                    commentcontent.appendChild(commentplaceid);
-                    commentcontent.appendChild(text);
-                    contenttext.textContent=field.text;
-                    commentcontent.appendChild(contenttext);
-                    commentcontent.appendChild(nullstring);
-                    commentcontent.appendChild(nullstring);
-                    commentcontent.appendChild(nullstring);
-                }
-            });   
-        });
+            $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
+                    $.each(result, function(i, field){
+                        if(field.user_name==username){
+                            $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + field.place_id, function (jsonData) {
+                                if(jsonData.length){
+                                    $.each( jsonData, function( key, val) {
+                                        var commentplacename=document.createElement('div');
+                                        commentplacename.className='comment_time';
+                                        commentplacename.textContent="Place Name: "+val.place_name;
+                                        commentcontent.appendChild(commentplacename);
+                                        var commentplaceaddress=document.createElement('div');
+                                        commentplaceaddress.className='comment_time';
+                                        commentplaceaddress.textContent="Place Address: "+val.address;
+                                        commentcontent.appendChild(commentplaceaddress);
+                                        var commentid=document.createElement('div');
+                                        commentid.className='comment_time';
+                                        var contenttext=document.createElement('div');
+                                        contenttext.className='comment_text';
+                                        var commenttime=document.createElement('div');
+                                        commenttime.className='comment_time';
+                                        var text=document.createElement('div');
+                                        text.className='comment_time';
+                                        text.textContent="Comment content: ";
+                                        commentid.textContent="Comment No: "+field._id;
+                                        commentcontent.appendChild(commentid);
+                                        commenttime.textContent="Comment time: "+field.timestamp;
+                                        commentcontent.appendChild(commenttime);
+                                        commentcontent.appendChild(text);
+                                        contenttext.textContent=field.text;
+                                        var btn=document.createElement("BUTTON");
+                                        var t=document.createTextNode("Delete");
+                                        btn.appendChild(t);
+                                        btn.onclick=function (){ 
+                                            $.ajax({
+                                                url: 'https://joyaccess.herokuapp.com/comment/commentAPI/deleteid/'+field._id,
+                                                type: 'DELETE',
+                                                success: function(result) {}
+                                            });
+                                            alert("comment delete success!");
+                                            closecommentform();
+                                        }
+                                        commentcontent.appendChild(contenttext);
+                                        commentcontent.appendChild(btn);
+                                        commentcontent.appendChild(nullstring);
+                                        commentcontent.appendChild(nullstring);
+                                        commentcontent.appendChild(nullstring);
+                                    })
+                                    }
+                                    else{
+                                    alert("ERROR");
+                                }
+                            });
+                    }
+                });   
+            });
         }
         else{
          alert("fail");   
