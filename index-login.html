@@ -584,12 +584,16 @@
                         commentcontent.appendChild(text);
                         contenttext.textContent=field.text;
                         var btn=document.createElement("BUTTON");
-                        btn.onclick=function (){ 
-                            $.post('https://joyaccess.herokuapp.com/comment/commentAPI/deleteid/',{"comment_id":field.comment_id});
-                                alert("comment "+field.comment_id+"delete success!");
-                                closecommentform();}
                         var t=document.createTextNode("Delete");
                         btn.appendChild(t);
+                        btn.onclick=function (){ 
+                            $.ajax({
+                                url: 'https://joyaccess.herokuapp.com/comment/commentAPI/deleteid/'+field.comment_id,
+                                type: 'DELETE',
+                                success: function(result) {
+                                    alert("comment "+field.comment_id+"delete success!");
+                                    closecommentform();}
+                            });
                         commentcontent.appendChild(btn);
                         commentcontent.appendChild(contenttext);
                         commentcontent.appendChild(nullstring);
