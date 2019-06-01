@@ -30,6 +30,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.$mask = $("<div class='popup-layer'></div>");
         this.$content = $("<div class='popup-layer-content'></div>");
         this.$blurAreas = $("body > *");
+
         this.defaults = {
             content: "", // 内容可以传入，纯文本和类名
             target: "body", // 把弹出层添加到的目标节点
@@ -39,13 +40,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             blur: false, // 是否开启毛玻璃效果
             speed: 200, // 动画速度
             color: "#000", // 文本颜色
-            defaultClose: true,
             backgroundColor: "#fff", // 背景颜色
             contentToggle: false, // 点击content是否关闭弹出层
             closeBtn: null, // 指定关闭按钮
             openCallback: null, // 展开的回调
-            closeCallback: null, // 关闭的回调
-            overflow:auto
+            closeCallback: null // 关闭的回调
         };
 
         // 合并默认参数和自定义参数
@@ -82,8 +81,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 'left': content_position.left,
                 'color': this.options.color,
                 'background-color': this.options.backgroundColor,
-                'overflow':auto,
-                'transition': 'all ' + this.options.speed / 1000 + 's'
+                'transition': 'all ' + this.options.speed / 1000 + 's',
             });
         },
         attachElems: function attachElems() {
