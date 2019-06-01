@@ -71,6 +71,7 @@
     <aside id="left-panel" class="left-panel shadow-lg">
 
         <div style="padding-top: 25px; padding-left: 10px; padding-right: 10px; height: 650px" data-wow-delay="0.8s">
+            <p>Type a place type (e.g. cafe) or place name or address to start</p>
             <input type="text" style="width: 100%;" id="pac-input" class="form-control" placeholder="Place name or address">
 
             <th>Toilet <input type="checkbox" id="Acc_Toilet_Check" onclick="initMap()">
@@ -415,7 +416,7 @@
                                         "acc_toilet": document.getElementById("acc_toilet_input").checked,
                                         "acc_carpark": document.getElementById("acc_carpark_input").checked,
                                         "acc_lift": document.getElementById("acc_lift_input").checked,
-                                        "last_mod_by": 'test1_name'
+                                        "last_mod_by": document.querySelector("#username")
                                     },
                                     function (data, textStatus) {
                                         alert("Update status: " + textStatus);
@@ -437,8 +438,8 @@
                                         "acc_toilet": document.getElementById("acc_toilet_input").checked,
                                         "acc_carpark": document.getElementById("acc_carpark_input").checked,
                                         "acc_lift": document.getElementById("acc_lift_input").checked,
-                                        "created_by": 'test1_name',
-                                        "last_mod_by": 'test1_name'
+                                        "created_by": document.querySelector("#username"),
+                                        "last_mod_by": document.querySelector("#username")
                                     },
                                     function (data, textStatus) {
                                         alert("Creation status: " + textStatus);

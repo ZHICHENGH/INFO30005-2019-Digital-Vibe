@@ -91,6 +91,7 @@
     <aside id="left-panel" class="left-panel shadow-lg">
 
         <div style="padding-top: 25px; padding-left: 10px; padding-right: 10px; height: 650px" data-wow-delay="0.8s">
+            <p>Type a place type (e.g. cafe) or place name or address to start</p>
         <input type="text" style="width: 100%;" id="pac-input" class="form-control" placeholder="Place name or address">
 
             <th>Toilet <input type="checkbox" id="Acc_Toilet_Check" onclick="initMap()">
@@ -450,7 +451,7 @@
                             acc_toilet_input.type = 'checkbox';
                             acc_toilet_input.id = 'acc_toilet_input';
                             acc_toilet_input.value = "value";
-                            acc_toilet_input.enabled = false;
+                            acc_toilet_input.disabled = true;
                             para.appendChild(acc_toilet_input);
 
                             para.appendChild(document.createTextNode(' Carpark '));
@@ -458,7 +459,7 @@
                             acc_carpark_input.type = 'checkbox';
                             acc_carpark_input.id = 'acc_carpark_input';
                             acc_carpark_input.value = "value";
-                            acc_carpark_input.enabled = false;
+                            acc_carpark_input.disabled = true;
                             para.appendChild(acc_carpark_input);
 
                             para.appendChild(document.createTextNode(' Lift '));
@@ -466,7 +467,7 @@
                             acc_lift_input.type = 'checkbox';
                             acc_lift_input.id = 'acc_lift_input';
                             acc_lift_input.value = "value";
-                            acc_lift_input.enabled = false;
+                            acc_lift_input.disabled = true;
                             para.appendChild(acc_lift_input);
 
                             /*
@@ -703,7 +704,7 @@
                             acc_toilet_input.type = 'checkbox';
                             acc_toilet_input.id = 'acc_toilet_input';
                             acc_toilet_input.value = "value";
-                            acc_toilet_input.enabled = false;
+                            acc_toilet_input.disabled = true;
                             para.appendChild(acc_toilet_input);
 
                             para.appendChild(document.createTextNode(' Carpark '));
@@ -711,7 +712,7 @@
                             acc_carpark_input.type = 'checkbox';
                             acc_carpark_input.id = 'acc_carpark_input';
                             acc_carpark_input.value = "value";
-                            acc_carpark_input.enabled = false;
+                            acc_carpark_input.disabled = true;
                             para.appendChild(acc_carpark_input);
 
                             para.appendChild(document.createTextNode(' Lift '));
@@ -719,7 +720,7 @@
                             acc_lift_input.type = 'checkbox';
                             acc_lift_input.id = 'acc_lift_input';
                             acc_lift_input.value = "value";
-                            acc_lift_input.enabled = false;
+                            acc_lift_input.disabled = true;
                             para.appendChild(acc_lift_input);
 
                             /*
