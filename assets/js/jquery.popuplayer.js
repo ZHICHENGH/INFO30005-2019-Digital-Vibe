@@ -44,6 +44,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             closeBtn: null, // 指定关闭按钮
             openCallback: null, // 展开的回调
             closeCallback: null, // 关闭的回调
+            overflow:auto
         };
 
         // 合并默认参数和自定义参数
