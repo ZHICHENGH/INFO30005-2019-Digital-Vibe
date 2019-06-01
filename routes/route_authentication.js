@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('../controllers/controller_authentication.js');
 
 
-app.post('/signup', 
+router.post('/signup', 
   passport.authenticate('local-signup', { 
       failureRedirect: '/signupError', 
       failureFlash: true
@@ -12,7 +12,7 @@ app.post('/signup',
     res.redirect('/indexLogin?username=' + req.user.user_name);
     });
 
-app.post('/login', 
+router.post('/login', 
     passport.authenticate('local-login', { 
         failureRedirect: '/loginError',
         failureFlash: true
