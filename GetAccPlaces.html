@@ -7,18 +7,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
 
     <!-- JQuery -->
-    <script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
+    <script type="text/javascript" src="MDBootstrap/js/jquery-3.4.0.min.js"></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="MDBootstrap/js/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="MDBootstrap/js/bootstrap.min.js"></script>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="MDBootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
+    <link href="MDBootstrap/css/mdb.min.css" rel="stylesheet">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -127,7 +127,7 @@
 </div>
 
 <!-- MDB core JavaScript -->
-<script type="text/javascript" src="js/mdb.min.js"></script>
+<script type="text/javascript" src="MDBootstrap/js/mdb.min.js"></script>
 
 <script>
     var markers = [];
@@ -137,6 +137,8 @@
     var toiletSaveData = false;
     var carparkSaveData = false;
     var liftSaveData = false;
+
+    var j = 0;
 
     function initMap() {
         var bounds = new google.maps.LatLngBounds();
@@ -275,178 +277,225 @@
         }
 
         deleteMarkers();
-        $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function(jsonData) {
-            $.each(jsonData, function(key,data) {
-                var place_name = data.place_name;
-                var address = data.address;
-                var acc_toilet = data.acc_toilet;
-                var acc_carpark = data.acc_carpark;
-                var acc_lift = data.acc_lift;
-                var place_id = data.place_id;
-                var point = new google.maps.LatLng(
-                    parseFloat(data.lat),
-                    parseFloat(data.lng));
 
-                console.log("place_name = " + place_name + "\nplace_id = " + place_id +
-                    "\naddress = " + address + "\nacc_toilet = " + acc_toilet +
-                    "\nacc_carpark = " + acc_carpark + "\nacc_lift = " + acc_lift + "\npoint = " + point +
-                    "\nToilet Check = " + document.getElementById("Acc_Toilet_Check").checked + "\nCarpark Check = " +
-                    document.getElementById("Acc_Carpark_Check").checked +
-                    "\nLift Check = " + document.getElementById("Acc_Lift_Check").checked);
+        //if (document.getElementById("pac-input").value == "") {
+            $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function (jsonData) {
+                $.each(jsonData, function (key, data) {
+                    var place_name = data.place_name;
+                    var address = data.address;
+                    var acc_toilet = data.acc_toilet;
+                    var acc_carpark = data.acc_carpark;
+                    var acc_lift = data.acc_lift;
+                    var place_id = data.place_id;
+                    var point = new google.maps.LatLng(
+                        parseFloat(data.lat),
+                        parseFloat(data.lng));
 
-                // create markers based on radio button filters
-                if ((document.getElementById("Acc_Toilet_Check").checked == true && acc_toilet == true) ||
-                (document.getElementById("Acc_Carpark_Check").checked == true && acc_carpark == true) ||
-                (document.getElementById("Acc_Lift_Check").checked == true && acc_lift == true)) {
-                    console.log("Found place with accessibility!");
-                    var infowincontent = document.createElement('div');
-                    var strong = document.createElement('strong');
-                    strong.textContent = place_name;
-                    infowincontent.appendChild(strong);
-                    infowincontent.appendChild(document.createElement('br'));
+                    console.log("place_name = " + place_name + "\nplace_id = " + place_id +
+                        "\naddress = " + address + "\nacc_toilet = " + acc_toilet +
+                        "\nacc_carpark = " + acc_carpark + "\nacc_lift = " + acc_lift + "\npoint = " + point +
+                        "\nToilet Check = " + document.getElementById("Acc_Toilet_Check").checked + "\nCarpark Check = " +
+                        document.getElementById("Acc_Carpark_Check").checked +
+                        "\nLift Check = " + document.getElementById("Acc_Lift_Check").checked);
 
-                    var text = document.createElement('text');
-                    text.textContent = address;
-                    infowincontent.appendChild(text);
-
-                    if (acc_toilet == true){
-                        var acctext_toilet = document.createElement('text');
+                    // create markers based on checkbox filters
+                    if ((document.getElementById("Acc_Toilet_Check").checked == true && acc_toilet == true) ||
+                        (document.getElementById("Acc_Carpark_Check").checked == true && acc_carpark == true) ||
+                        (document.getElementById("Acc_Lift_Check").checked == true && acc_lift == true)) {
+                        console.log("Found place with accessibility!");
+                        var infowincontent = document.createElement('div');
+                        var strong = document.createElement('strong');
+                        strong.textContent = place_name;
+                        infowincontent.appendChild(strong);
                         infowincontent.appendChild(document.createElement('br'));
-                        acctext_toilet.textContent = "Accessible toilet";
-                        infowincontent.appendChild(acctext_toilet);
-                    }
-                    if (acc_carpark == true){
-                        var acctext_carpark = document.createElement('text');
-                        infowincontent.appendChild(document.createElement('br'));
-                        acctext_carpark.textContent = "Accessible carpark";
-                        infowincontent.appendChild(acctext_carpark);
-                    }
-                    if (acc_lift == true){
-                        var acctext_lift = document.createElement('text');
-                        infowincontent.appendChild(document.createElement('br'));
-                        acctext_lift.textContent = "Accessible lift";
-                        infowincontent.appendChild(acctext_lift);
-                    }
 
-                    var icon = {
-                        url: 'http://www.clker.com/cliparts/f/n/B/5/3/T/hotel-icon-wheelchair-access-clip-art-red-white-md.png',
-                        size: new google.maps.Size(71, 71),
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(17, 34),
-                        scaledSize: new google.maps.Size(30, 30)
-                    };
-
-                    var marker = new google.maps.Marker({
-                        title: place_name,
-                        address: address,
-                        map: map,
-                        position: point,
-                        id: place_id,
-                        icon: icon
-                    });
-
-                    // When clicked on marker, generate pop-up text and HTML code in "PlaceDetails" div
-                    marker.addListener('click', function () {
-
-                        document.getElementById("PlaceDetails").innerHTML = "";
-
-                        toiletSaveData = false;
-                        carparkSaveData = false;
-                        liftSaveData = false;
-
-                        //document.body.style = "white-space: pre;";
-                        var para = document.createElement("p");
-                        var node1 = document.createTextNode("Name: " + marker.title);
-                        para.appendChild(node1);
-                        para.appendChild(document.createElement('br'));
-                        var node2 = document.createTextNode("Address: " + marker.address);
-                        para.appendChild(node2);
-                        para.appendChild(document.createElement('br'));
-                        var node3 = document.createTextNode("Position: " + marker.position);
-                        para.appendChild(node3);
-                        para.appendChild(document.createElement('br'));
-                        var node4 = document.createTextNode("Place ID: " + marker.id);
-                        para.appendChild(node4);
-                        para.appendChild(document.createElement('br'));
-
-                        para.appendChild(document.createTextNode(' Toilet '));
-                        var acc_toilet_input = document.createElement('input');
-                        acc_toilet_input.type = 'checkbox';
-                        acc_toilet_input.id = 'acc_toilet_input';
-                        acc_toilet_input.value = "value";
-                        para.appendChild(acc_toilet_input);
-
-                        para.appendChild(document.createTextNode(' Carpark '));
-                        var acc_carpark_input = document.createElement('input');
-                        acc_carpark_input.type = 'checkbox';
-                        acc_carpark_input.id = 'acc_carpark_input';
-                        acc_carpark_input.value = "value";
-                        para.appendChild(acc_carpark_input);
-
-                        para.appendChild(document.createTextNode(' Lift '));
-                        var acc_lift_input = document.createElement('input');
-                        acc_lift_input.type = 'checkbox';
-                        acc_lift_input.id = 'acc_lift_input';
-                        acc_lift_input.value = "value";
-                        para.appendChild(acc_lift_input);
-
-                        para.appendChild(document.createElement('br'));
-                        var applyBtn = document.createElement('input');
-                        applyBtn.type = "button";
-                        applyBtn.value = "Apply";
-                        applyBtn.onclick = function() {saveAccData(marker)};
-                        para.appendChild(applyBtn);
-
-                        para.appendChild(document.createTextNode (" "));
-                        var cancelBtn = document.createElement('input');
-                        cancelBtn.type = "button";
-                        cancelBtn.value = "Cancel";
-                        cancelBtn.onclick = function() {restoreAccData()};
-                        para.appendChild(cancelBtn);
-
-                        var element = document.getElementById("PlaceDetails");
-                        element.appendChild(para);
+                        var text = document.createElement('text');
+                        text.textContent = address;
+                        infowincontent.appendChild(text);
 
                         if (acc_toilet == true) {
-                            document.getElementById("acc_toilet_input").checked = true;
-                            toiletSaveData = true;
+                            var acctext_toilet = document.createElement('text');
+                            infowincontent.appendChild(document.createElement('br'));
+                            acctext_toilet.textContent = "Accessible toilet";
+                            infowincontent.appendChild(acctext_toilet);
                         }
                         if (acc_carpark == true) {
-                            document.getElementById("acc_carpark_input").checked = true;
-                            carparkSaveData = true;
+                            var acctext_carpark = document.createElement('text');
+                            infowincontent.appendChild(document.createElement('br'));
+                            acctext_carpark.textContent = "Accessible carpark";
+                            infowincontent.appendChild(acctext_carpark);
                         }
                         if (acc_lift == true) {
-                            document.getElementById("acc_lift_input").checked = true;
-                            liftSaveData = true;
+                            var acctext_lift = document.createElement('text');
+                            infowincontent.appendChild(document.createElement('br'));
+                            acctext_lift.textContent = "Accessible lift";
+                            infowincontent.appendChild(acctext_lift);
                         }
 
-                        var i;
-                        var sameMarker = false;
-                        for (i=0;i<markers.length;i++){
-                            if (markers[i].id == marker.id) {
-                                sameMarker = true;
+                        var icon = {
+                            url: 'http://www.clker.com/cliparts/f/n/B/5/3/T/hotel-icon-wheelchair-access-clip-art-red-white-md.png',
+                            size: new google.maps.Size(71, 71),
+                            origin: new google.maps.Point(0, 0),
+                            anchor: new google.maps.Point(17, 34),
+                            scaledSize: new google.maps.Size(30, 30)
+                        };
+
+                        var marker = new google.maps.Marker({
+                            title: place_name,
+                            address: address,
+                            map: map,
+                            position: point,
+                            id: place_id,
+                            icon: icon
+                        });
+
+                        // When clicked on marker, generate pop-up text and HTML code in "PlaceDetails" div
+                        marker.addListener('click', function () {
+
+                            document.getElementById("PlaceDetails").innerHTML = "";
+
+                            toiletSaveData = false;
+                            carparkSaveData = false;
+                            liftSaveData = false;
+
+                            //document.body.style = "white-space: pre;";
+                            var para = document.createElement("p");
+                            var node1 = document.createTextNode("Name: " + marker.title);
+                            para.appendChild(node1);
+                            para.appendChild(document.createElement('br'));
+                            var node2 = document.createTextNode("Address: " + marker.address);
+                            para.appendChild(node2);
+                            para.appendChild(document.createElement('br'));
+                            /*var node3 = document.createTextNode("Position: " + marker.position);
+                            para.appendChild(node3);
+                            para.appendChild(document.createElement('br'));
+                            var node4 = document.createTextNode("Place ID: " + marker.id);
+                            para.appendChild(node4);
+                            para.appendChild(document.createElement('br'));*/
+
+                            para.appendChild(document.createTextNode(' Toilet '));
+                            var acc_toilet_input = document.createElement('input');
+                            acc_toilet_input.type = 'checkbox';
+                            acc_toilet_input.id = 'acc_toilet_input';
+                            acc_toilet_input.value = "value";
+                            para.appendChild(acc_toilet_input);
+
+                            para.appendChild(document.createTextNode(' Carpark '));
+                            var acc_carpark_input = document.createElement('input');
+                            acc_carpark_input.type = 'checkbox';
+                            acc_carpark_input.id = 'acc_carpark_input';
+                            acc_carpark_input.value = "value";
+                            para.appendChild(acc_carpark_input);
+
+                            para.appendChild(document.createTextNode(' Lift '));
+                            var acc_lift_input = document.createElement('input');
+                            acc_lift_input.type = 'checkbox';
+                            acc_lift_input.id = 'acc_lift_input';
+                            acc_lift_input.value = "value";
+                            para.appendChild(acc_lift_input);
+
+                            para.appendChild(document.createElement('br'));
+                            var applyBtn = document.createElement('input');
+                            applyBtn.type = "button";
+                            applyBtn.value = "Apply";
+                            applyBtn.onclick = function () {
+                                saveAccData(marker)
+                            };
+                            para.appendChild(applyBtn);
+
+                            para.appendChild(document.createTextNode(" "));
+                            var cancelBtn = document.createElement('input');
+                            cancelBtn.type = "button";
+                            cancelBtn.value = "Cancel";
+                            cancelBtn.onclick = function () {
+                                restoreAccData()
+                            };
+                            para.appendChild(cancelBtn);
+
+                            var element = document.getElementById("PlaceDetails");
+                            element.appendChild(para);
+
+                            if (acc_toilet == true) {
+                                document.getElementById("acc_toilet_input").checked = true;
+                                toiletSaveData = true;
+                            }
+                            if (acc_carpark == true) {
+                                document.getElementById("acc_carpark_input").checked = true;
+                                carparkSaveData = true;
+                            }
+                            if (acc_lift == true) {
+                                document.getElementById("acc_lift_input").checked = true;
+                                liftSaveData = true;
+                            }
+
+                            var i;
+                            var sameMarker = false;
+                            for (i = 0; i < markers.length; i++) {
+                                if (markers[i].id == marker.id) {
+                                    sameMarker = true;
+                                }
+                            }
+
+                            if (sameMarker == false) {
+                                var infoWindow = new google.maps.InfoWindow({
+                                    content: infowincontent
+                                });
+                                //infoWindow.setContent(infowincontent);
+                                infoWindow.open(map, marker);
+                            }
+                        });
+
+                        //extend the bounds to include each marker's position
+                        bounds.extend(marker.position);
+                        //now fit the map to the newly inclusive bounds
+                        map.fitBounds(bounds);
+                        //map.setZoom(16);
+
+                        markers.push(marker);
+                    }
+                });
+            });
+
+        /*} else {
+
+            markers2.forEach (function(marker2) {
+                $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function (jsonData) {
+                    $.each(jsonData, function (key, data) {
+                        var place_id2 = data.place_id;
+                        var acc_toilet2 = data.acc_toilet;
+                        var acc_carpark2 = data.acc_carpark;
+                        var acc_lift2 = data.acc_lift;
+
+                        console.log("marker2 place name = " + marker2.title + "\n");
+                        if (place_id2 == marker2.id) {
+                            if ((document.getElementById("Acc_Toilet_Check").checked == true && acc_toilet2 == true) ||
+                                (document.getElementById("Acc_Carpark_Check").checked == true && acc_carpark2 == true) ||
+                                (document.getElementById("Acc_Lift_Check").checked == true && acc_lift2 == true)) {
+                                // change icon to blue wheelchair if this place has matching accessibility data
+                                var icon3 = {
+                                    url: 'https://www.wpclipart.com/signs_symbol/handicap/wheelchair/wheelchair_symbol_blue.png',
+                                    size: new google.maps.Size(71, 71),
+                                    origin: new google.maps.Point(0, 0),
+                                    anchor: new google.maps.Point(17, 34),
+                                    scaledSize: new google.maps.Size(30, 30)
+                                };
+                                marker2.setIcon(icon3);
+                            } else {
+                                // reset icon to red wheelchair if this place does not have matching accessibility data
+                                var icon3 = {
+                                    url: 'http://www.clker.com/cliparts/f/n/B/5/3/T/hotel-icon-wheelchair-access-clip-art-red-white-md.png',
+                                    size: new google.maps.Size(71, 71),
+                                    origin: new google.maps.Point(0, 0),
+                                    anchor: new google.maps.Point(17, 34),
+                                    scaledSize: new google.maps.Size(30, 30)
+                                };
+                                marker2.setIcon(icon3);
                             }
                         }
-
-                        if (sameMarker == false) {
-                            var infoWindow = new google.maps.InfoWindow({
-                                content: infowincontent
-                            });
-                            //infoWindow.setContent(infowincontent);
-                            infoWindow.open(map, marker);
-                        }
                     });
-
-                    //extend the bounds to include each marker's position
-                    bounds.extend(marker.position);
-                    //now fit the map to the newly inclusive bounds
-                    map.fitBounds(bounds);
-                    //map.setZoom(16);
-
-                    markers.push(marker);
-                }
+                });
             });
-        });
+        }*/
 
 
         // Create the search box and link it to the UI element.
@@ -465,6 +514,14 @@
             var places = searchBox.getPlaces();
 
             if (places.length == 0) {
+                // Clear out the old markers.
+                markers2.forEach(function(marker2) {
+                    marker2.setMap(null);
+                });
+                markers2 = [];
+                deleteMarkers();
+                uncheckFilters();
+                document.getElementById("PlaceDetails").innerHTML = "";
                 return;
             }
 
@@ -503,7 +560,7 @@
                     id: place.place_id
                 });
 
-                // go through MongoDB to find any matching places and change its marker icon to wheelchair
+                // go through MongoDB to find any matching places
                 $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function(jsonData) {
                     $.each(jsonData, function (key, data) {
                         var place_id = data.place_id;
@@ -522,7 +579,6 @@
                                 anchor: new google.maps.Point(17, 34),
                                 scaledSize: new google.maps.Size(30, 30)
                             };
-
                             marker2.setIcon(icon2);
                         }
                     });
@@ -550,12 +606,12 @@
                         var node2 = document.createTextNode("Address: " + marker2.address +  "\n");
                         para.appendChild(node2);
                         para.appendChild(document.createElement('br'));
-                        var node3 = document.createTextNode("Position: " + marker2.position + "\n");
+                        /*var node3 = document.createTextNode("Position: " + marker2.position + "\n");
                         para.appendChild(node3);
                         para.appendChild(document.createElement('br'));
                         var node4 = document.createTextNode("Place ID: " + marker2.id + "\n");
                         para.appendChild(node4);
-                        para.appendChild(document.createElement('br'));
+                        para.appendChild(document.createElement('br'));*/
 
                         para.appendChild(document.createTextNode(' Toilet '));
                         var acc_toilet_input = document.createElement('input');
