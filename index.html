@@ -97,23 +97,23 @@
                           Carpark <input type="checkbox" id="Acc_Carpark_Check" onclick="initMap()">
                           Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </th>
 
-            <div class="menu-title" id="PlaceDetails">S</div>
+            <div class="menu-title" id="PlaceDetails"></div>
             <table class="table" style="margin-top: 20px;">
                 <thead>
                 <tr>
                     <th scope="col" style="vertical-align: top;">Name:</th>
-                    <td scope="col" id="PlaceName">the university of melbourne</td>
+                    <td scope="col" id="PlaceName"></td>
 
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <th scope="row" style="vertical-align: top;">Address:</th>
+                    <th scope="row" style="vertical-align: top;">Address: </th>
                     <td id="PlaceAddress"></td>
 
                 </tr>
                 <tr>
-                    <th scope="row" style="vertical-align: top;">Facilitys:</th>
+                    <th scope="row" style="vertical-align: top;">Accessibility: </th>
                     <td id="PlaceAccessibility"></td>
                 </tr>
                 </tbody>
@@ -210,7 +210,9 @@
                 zoom: 16
             });
 
-            document.getElementById("PlaceDetails").innerHTML = "";
+            document.getElementById("PlaceName").innerHTML = "";
+            document.getElementById("PlaceAddress").innerHTML = "";
+            document.getElementById("PlaceAccessibility").innerHTML = "";
             document.getElementById("pac-input").value = "";
 
 
@@ -414,7 +416,9 @@
                         // When clicked on marker, generate pop-up text and HTML code in "PlaceDetails" div
                         marker.addListener('click', function () {
 
-                            document.getElementById("PlaceDetails").innerHTML = "";
+                            document.getElementById("PlaceName").innerHTML = "";
+                            document.getElementById("PlaceAddress").innerHTML = "";
+                            document.getElementById("PlaceAccessibility").innerHTML = "";
 
                             toiletSaveData = false;
                             carparkSaveData = false;
@@ -423,12 +427,12 @@
                             //document.body.style = "white-space: pre;";
                             //var para = document.createElement("p");
 
-                            var node1 = document.createTextNode("Name: " + marker.title);
+                            var node1 = document.createTextNode(marker.title);
                             var elementName = document.getElementById("PlaceName");
                             elementName.appendChild(node1);
 
                             //para.appendChild(document.createElement('br'));
-                            var node2 = document.createTextNode("Address: " + marker.address);
+                            var node2 = document.createTextNode(marker.address);
                             var elementAddress = document.getElementById("PlaceAddress");
                             elementAddress.appendChild(node2);
 
@@ -600,7 +604,9 @@
                 markers2 = [];
                 deleteMarkers();
                 uncheckFilters();
-                document.getElementById("PlaceDetails").innerHTML = "";
+                document.getElementById("PlaceName").innerHTML = "";
+                document.getElementById("PlaceAddress").innerHTML = "";
+                document.getElementById("PlaceAccessibility").innerHTML = "";
 
                 // For each place, get the icon, name and location.
                 var bounds = new google.maps.LatLngBounds();
@@ -658,7 +664,9 @@
                     // When clicked on marker, generate pop-up text and HTML code in "PlaceDetails" div
                     google.maps.event.addListener(marker2,'click',(function(marker2, map) {
                         return function () {
-                            document.getElementById("PlaceDetails").innerHTML = "";
+                            document.getElementById("PlaceName").innerHTML = "";
+                            document.getElementById("PlaceAddress").innerHTML = "";
+                            document.getElementById("PlaceAccessibility").innerHTML = "";
                             toiletSaveData = false;
                             carparkSaveData = false;
                             liftSaveData = false;
@@ -667,12 +675,12 @@
                             var infowincontent = document.createElement('div');
 
                             //document.body.style = "white-space: pre;";
-                            var node1 = document.createTextNode("Name: " + marker2.title);
+                            var node1 = document.createTextNode(marker2.title);
                             var elementName = document.getElementById("PlaceName");
                             elementName.appendChild(node1);
 
                             //para.appendChild(document.createElement('br'));
-                            var node2 = document.createTextNode("Address: " + marker2.address);
+                            var node2 = document.createTextNode(marker2.address);
                             var elementAddress = document.getElementById("PlaceAddress");
                             elementAddress.appendChild(node2);
 

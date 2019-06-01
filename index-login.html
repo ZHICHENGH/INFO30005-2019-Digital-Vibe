@@ -626,7 +626,9 @@
                             var commentcontent=document.getElementById('commentcontent');
                             var nullstring=document.createElement('div');
                             nullstring.textContent="\n";
+                                
                                 $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function commentbypointid(result) {
+                                    alert(marker.id);
                                 if(result.length==0){
                                     var nocomment=document.createElement('div');
                                         nocomment.className='comment_time';
