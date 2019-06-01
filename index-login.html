@@ -622,15 +622,13 @@
                             var pointcommentBtn = document.createElement('input');
                             pointcommentBtn.type = "button";
                             pointcommentBtn.value = "comments";
-                            pointcommentBtn.onclick = function () {
-                                showcommentbypoint();
-                            };
                             para.appendChild(pointcommentBtn);
+                            pointcommentBtn.onclick = function () {
                             var commentform=document.getElementById('commentform');
                             var commentcontent=document.getElementById('commentcontent');
                             var nullstring=document.createElement('div');
                             nullstring.textContent="\n";
-                            $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function commentbypointid(result) {
+                                $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function commentbypointid(result) {
                                 if(result.length==0){
                                     var nocomment=document.createElement('div');
                                         nocomment.className='comment_time';
@@ -662,7 +660,7 @@
                                      });   
                                 }
                                 });
-
+                            };
 
 
 
