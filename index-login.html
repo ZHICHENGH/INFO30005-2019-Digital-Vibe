@@ -590,10 +590,10 @@
                             $.ajax({
                                 url: 'https://joyaccess.herokuapp.com/comment/commentAPI/deleteid/'+field.comment_id,
                                 type: 'DELETE',
-                                success: function(result) {
-                                    alert("comment "+field.comment_id+"delete success!");
-                                    closecommentform();}
+                                success: function(result) {}
                             });
+                            alert("comment "+field.comment_id+"delete success!");
+                            closecommentform();
                         }
                         commentcontent.appendChild(btn);
                         commentcontent.appendChild(contenttext);
