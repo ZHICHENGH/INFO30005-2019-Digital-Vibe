@@ -626,9 +626,8 @@
                             var commentcontent=document.getElementById('commentcontent');
                             var nullstring=document.createElement('div');
                             nullstring.textContent="\n";
-                                
-                                $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function commentbypointid(result) {
-                                if(2>3){
+                            $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult) {
+                                if(!placeresult){
                                     var nocomment=document.createElement('div');
                                         nocomment.className='comment_time';
                                         nocomment.textContent="There are no comment for this point";
@@ -636,7 +635,7 @@
                                 }
                                 else{
                                     var j=1;
-                                    $.each(result, function(i, field){
+                                    $.each(placeresult, function(i, field){
                                         var commentid=document.createElement('div');
                                         commentid.className='comment_time';
                                         commentid.textContent="Comment No: "+j;
