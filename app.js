@@ -60,6 +60,12 @@ app.get("/login", function(req, res){
     res.writeHead(200, {"content-type": "text/html"});
     res.end(fs.readFileSync(__dirname + "/page-login.html"))
 })
+
+app.get("/loginError", function(req, res){
+    res.writeHead(200, {"content-type": "text/html"});
+    res.end(fs.readFileSync(__dirname + "/page-login-error.html"))
+})
+
 app.get("/signup", function(req, res){
     res.writeHead(200, {"content-type": "text/html"});
     res.end(fs.readFileSync(__dirname + "/page-register.html"))
@@ -122,7 +128,7 @@ passport.use('local-login', new LocalStrategy(
 
 app.post('/login', 
   passport.authenticate('local-login', { 
-      failureRedirect: ('/page-login-error'),
+      failureRedirect: '/loginError',
       failureFlash: true
  }),
   function(req, res) {
