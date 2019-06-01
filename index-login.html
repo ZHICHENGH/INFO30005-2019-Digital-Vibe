@@ -622,8 +622,7 @@
                             nullstring.textContent="\n";
                                 
                                 $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function commentbypointid(result) {
-                                    alert(marker.id);
-                                if(result.length==0){
+                                if(2>3){
                                     var nocomment=document.createElement('div');
                                         nocomment.className='comment_time';
                                         nocomment.textContent="There are no comment for this point";
