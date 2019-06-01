@@ -564,10 +564,11 @@
             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
                 $.each(result, function(i, field){
                     if(field.user_name==username){
-                        $.get('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + field.place_id, function (jsonData) {
+                        $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + field.place_id, function (jsonData) {
                             if(jsonData.length){
                                 $.each( jsonData, function( key, val) {
                                     var placename=val.place_name;
+                                    alert(placename);
                                     var placeaddress=val.address;
                                 })
                                 }
