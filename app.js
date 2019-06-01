@@ -39,9 +39,6 @@ app.use('/users', user_route);
 var comment_route = require('./routes/route_comment');
 app.use('/comment', comment_route);
 
-var authentication_route = require('./routes/route_authentication');
-app.use('/', authentication_route);
-
 // HTML files
 var fs = require("fs");
 var path = require("path");
@@ -103,7 +100,7 @@ app.use(session({ secret: "cats" }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-/*
+
 passport.serializeUser(function(user, cb) {
     cb(null, user.id);
   });
@@ -185,7 +182,7 @@ app.post('/signup',
  }),
   function(req, res) {
     res.redirect('/indexLogin?username=' + req.user.user_name);
-  });*/
+  });
 
 // Start the server
 const PORT = process.env.PORT || 3000;
