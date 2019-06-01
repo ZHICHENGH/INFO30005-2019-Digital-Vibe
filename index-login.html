@@ -565,9 +565,14 @@
                 $.each(result, function(i, field){
                     if(field.user_name==username){
                         $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + field.place_id, function (jsonData) {
+                            if(jsonData.length){
                             var placename=jsonDate.place_name;
                             var placeaddress=jsonData.address;
                             alert(placename);
+                            }
+                            else{
+                                alert("ERROR");
+                            }
                         })
                         var commentid=document.createElement('div');
                         commentid.className='comment_time';
