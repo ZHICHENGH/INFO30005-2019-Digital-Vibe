@@ -567,6 +567,7 @@
                         $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + field.place_id, function (jsonData) {
                             var placename=jsonDate.place_name;
                             var placeaddress=jsonData.address;
+                            alert(placename);
                         })
                         var commentid=document.createElement('div');
                         commentid.className='comment_time';
