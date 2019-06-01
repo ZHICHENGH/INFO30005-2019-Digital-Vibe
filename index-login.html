@@ -561,10 +561,9 @@
             var nullstring=document.createElement('div');
             nullstring.textContent="\n";
             if(username!=false){
-            var j=0;
             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
                 $.each(result, function(i, field){
-                    if(field.user_name==username){
+                    if(field.user_name==username&&field.showable==0){
                         var commentid=document.createElement('div');
                         commentid.className='comment_time';
                         var contenttext=document.createElement('div');
@@ -576,7 +575,6 @@
                         var text=document.createElement('div');
                         text.className='comment_time';
                         text.textContent="Comment content: ";
-                        j++;
                         commentid.textContent="Comment No: "+field.comment_id;
                         commentcontent.appendChild(commentid);
                         commenttime.textContent="Comment time: "+field.timestamp;
@@ -586,6 +584,10 @@
                         commentcontent.appendChild(text);
                         contenttext.textContent=field.text;
                         var btn=document.createElement("BUTTON");
+                        btn.onclick=function (){ 
+                        field.showable=1;
+                        alert("delete success");
+                        closecommentform();}
                         var t=document.createTextNode("Delete");
                         btn.appendChild(t);
                         commentcontent.appendChild(btn);
@@ -600,6 +602,9 @@
             else{
              alert("fail");   
             }
+        }
+        function deletecommentbyid(comment_id){
+
         }
        function closecommentform()
        {
