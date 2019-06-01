@@ -1,5 +1,7 @@
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /**
@@ -10,27 +12,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * MIT licensed
  */
 
-;(function ($) {
+;;(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD
+        define(factory);
+    } else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {
+        // CommonJS
+        module.exports = factory;
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+})(function ($) {
 
     var PopupLayer = function PopupLayer(elem, opt) {
         this.$elem = $(elem);
-        this.$mask = $('<div class="popup-layer-overlay"></div>');
-        this.$content = $('<div class="popup-layer-content"></div>');
+        this.$mask = $("<div class='popup-layer'></div>");
+        this.$content = $("<div class='popup-layer-content'></div>");
         this.$blurAreas = $("body > *");
-        this.fromTo = 0;
+
         this.defaults = {
-            content: "", // 内容
+            content: "", // 内容可以传入，纯文本和类名
             target: "body", // 把弹出层添加到的目标节点
-            from: "bottom", // 向哪个方向展开
+            to: "top", // 向哪个方向展开
+            screenRatio: 0.3, // 占屏幕百分比
+            heightOrWidth: 300, // 当且仅当screenRatio为0时生效
             blur: false, // 是否开启毛玻璃效果
-            speed: 150, // 动画速度
+            speed: 200, // 动画速度
             color: "#000", // 文本颜色
-            background: "#fff", // 背景颜色
-            overlayBackground: 'rgba(0, 0, 0, 0.2)',
-            defaultClose: false, // 显示默认关闭按钮  TODO
+            backgroundColor: "#fff", // 背景颜色
+            contentToggle: false, // 点击content是否关闭弹出层
             closeBtn: null, // 指定关闭按钮
-            beforeOpen: null, // 展开前事件
-            afterClose: null // 关闭后事件
+            openCallback: null, // 展开的回调
+            closeCallback: null // 关闭的回调
         };
 
         // 合并默认参数和自定义参数
@@ -44,70 +58,85 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             this.bindEvents();
         },
         updateContent: function updateContent() {
-            if ($(this.options.content).length > 0) {
-                this.$content.html($(this.options.content));
-            } else {
-                this.$content.html(this.options.content);
-            }
+            this.$content.html($(this.options.content));
 
             var that = this;
-
             $(function () {
                 that.$content.children().show();
             });
 
-            var content_style = {};
-            content_style['color'] = that.options.color;
-            content_style['background'] = that.options.background;
-            that.$content.css(content_style);
-            that.$mask.css({ 'background': that.options.overlayBackground });
+            var content_position = {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
+            };
+
+            content_position[this.options.to] = "100%";
+
+            this.$content.css({
+                'top': content_position.top,
+                'right': content_position.right,
+                'bottom': content_position.bottom,
+                'left': content_position.left,
+                'color': this.options.color,
+                'background-color': this.options.backgroundColor,
+                'transition': 'all ' + this.options.speed / 1000 + 's',
+            });
         },
         attachElems: function attachElems() {
+            this.$content.appendTo(this.$mask);
             this.$mask.appendTo($(this.options.target));
-            this.$content.appendTo(this.options.target);
         },
         open: function open() {
-            var that = this;
-
-            if (this.options.beforeOpen) {
-                this.options.beforeOpen();
-            }
-
             this.$mask.fadeIn(this.options.speed);
 
-            this.$content.animate(_defineProperty({}, that.options.from, 0), this.options.speed, function () {
+            // 如果screenRatio为0那么根据屏幕宽高计算占比
+            if (this.options.screenRatio != 0) {
+                this.$content.css(_defineProperty({}, this.options.to, (1 - this.options.screenRatio) * 100 + "%"));
+            } else {
+                var ratio = 0;
 
-                if (that.options.from == 'top' || that.options.from == 'bottom') {
-                    that.fromTo = that.$content.outerHeight();
+                if (this.options.to == "left" || this.options.to == "right") {
+                    ratio = this.options.heightOrWidth / $(window).outerWidth();
                 } else {
-                    that.fromTo = that.$content.outerWidth();
+                    ratio = this.options.heightOrWidth / $(window).outerHeight();
                 }
-            });
+                this.$content.css(_defineProperty({}, this.options.to, (1 - ratio) * 100 + "%"));
+            }
 
             if (this.options.blur) {
                 this.$blurAreas.addClass('popup-layer-blur');
             }
+
+            if (this.options.openCallback) {
+                this.options.openCallback();
+            }
         },
         close: function close() {
-            var that = this;
-
             this.$mask.fadeOut(this.options.speed);
-            this.$content.animate(_defineProperty({}, that.options.from, 0 - that.fromTo), this.options.speed);
+            this.$content.css(_defineProperty({}, this.options.to, "100%"));
 
             if (this.options.blur) {
                 this.$blurAreas.removeClass('popup-layer-blur');
             }
 
-            if (this.options.afterClose) {
-                this.options.afterClose();
+            if (this.options.closeCallback) {
+                this.options.closeCallback();
             }
         },
         bindEvents: function bindEvents() {
             var that = this;
-
             this.$elem.click(function () {
                 that.open();
             });
+
+            // 阻止点击content时冒泡到上层
+            if (!this.options.contentToggle) {
+                this.$content.click(function (event) {
+                    event.stopPropagation();
+                });
+            }
 
             this.$mask.click(function () {
                 that.close();
@@ -126,4 +155,4 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             new PopupLayer(this, options).init();
         });
     };
-})(jQuery);
+});
