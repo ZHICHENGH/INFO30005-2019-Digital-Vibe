@@ -113,7 +113,7 @@
 
                 </tr>
                 <tr>
-                    <th scope="row" style="vertical-align: top;">Facilitys:</th>
+                    <th scope="row" style="vertical-align: top;">Accessibility:</th>
                     <td id="PlaceAccessibility"></td>
                 </tr>
                 </tbody>
@@ -423,12 +423,12 @@
                             //document.body.style = "white-space: pre;";
                             //var para = document.createElement("p");
 
-                            var node1 = document.createTextNode("Name: " + marker.title);
+                            var node1 = document.createTextNode(marker.title);
                             var elementName = document.getElementById("PlaceName");
                             elementName.appendChild(node1);
 
                             //para.appendChild(document.createElement('br'));
-                            var node2 = document.createTextNode("Address: " + marker.address);
+                            var node2 = document.createTextNode(marker.address);
                             var elementAddress = document.getElementById("PlaceAddress");
                             elementAddress.appendChild(node2);
 
@@ -667,12 +667,12 @@
                             var infowincontent = document.createElement('div');
 
                             //document.body.style = "white-space: pre;";
-                            var node1 = document.createTextNode("Name: " + marker2.title);
+                            var node1 = document.createTextNode(marker2.title);
                             var elementName = document.getElementById("PlaceName");
                             elementName.appendChild(node1);
 
                             //para.appendChild(document.createElement('br'));
-                            var node2 = document.createTextNode("Address: " + marker2.address);
+                            var node2 = document.createTextNode(marker2.address);
                             var elementAddress = document.getElementById("PlaceAddress");
                             elementAddress.appendChild(node2);
 
