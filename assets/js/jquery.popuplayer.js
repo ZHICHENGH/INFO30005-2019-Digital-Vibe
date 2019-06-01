@@ -39,6 +39,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             blur: false, // 是否开启毛玻璃效果
             speed: 200, // 动画速度
             color: "#000", // 文本颜色
+            defaultClose: true,
             backgroundColor: "#fff", // 背景颜色
             contentToggle: false, // 点击content是否关闭弹出层
             closeBtn: null, // 指定关闭按钮

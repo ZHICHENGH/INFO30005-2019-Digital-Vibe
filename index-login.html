@@ -110,7 +110,6 @@
             </div>
             <div class="top-right">
                 <div class="header-menu">
-
 					<a href="#"><div style="padding: 18px"  class="header-left">
 						<h5>About Us</h5>
 					</div></a>
@@ -126,12 +125,7 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
-
                             <a class="nav-link" id="test2" href="#" onclick="show_comments()"><i class="fa fa- user"></i>My comments</a>
-
-                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-
                             <a class="nav-link" href="https://joyaccess.herokuapp.com/logout"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
@@ -152,15 +146,11 @@
         <script src="assets/js/angular.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript">
             $(function() {
-
                 // from right to left
                 $('#test2').PopupLayer({
                     content:'<title style="margin-top: 75px" class="text-center h4",id="commentform">My Comments</title>' +
-                            '<bottom class="close",id="commentclosebottom",style="margin-right: 5%;">close</bottom>' +
-                        '<div id="commentcontent">\n' +
-                        '</div>',
+                        '<div id="commentcontent"></div>',
                     to: 'left',
-                    closeBtn:document.getElementById('commentclosebottom')
                 });
             });
         </script>
