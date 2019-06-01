@@ -30,7 +30,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.$mask = $("<div class='popup-layer'></div>");
         this.$content = $("<div class='popup-layer-content'></div>");
         this.$blurAreas = $("body > *");
-
         this.defaults = {
             content: "", // 内容可以传入，纯文本和类名
             target: "body", // 把弹出层添加到的目标节点
@@ -45,7 +44,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             closeBtn: null, // 指定关闭按钮
             openCallback: null, // 展开的回调
             closeCallback: null, // 关闭的回调
-            overflow:auto
         };
 
         // 合并默认参数和自定义参数
@@ -82,6 +80,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 'left': content_position.left,
                 'color': this.options.color,
                 'background-color': this.options.backgroundColor,
+                'overflow':auto,
                 'transition': 'all ' + this.options.speed / 1000 + 's'
             });
         },
