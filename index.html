@@ -32,7 +32,7 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
 
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-	
+    <link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet">	
    <style>
        .comment_text{
     font-size:100%;
@@ -126,18 +126,19 @@
                     <td id="PlaceAccessibility"></td>
 
                 </tr>
-                
+                <tr>
+                        <td colspan="2">Log in to contribute and update accessibility information</td>
+                    </tr>
                 <tr>
                         <th colspan="2">Comments</th>
                     </tr>
+                        <tr id=pointcommentform>
+                                <th id=pointcommenttext></th>
+                        </tr>
+
                 </tbody>
-                <tr id=pointcommentform>
-                        <tr id=pointcommenttext></tr>
-                </tr>
             </table>
-		<tr>
-                    <td colspan="2">Log in to contribute and update accessibility information</td>
-                </tr>
+	
 		<!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
 
     </aside>
@@ -161,10 +162,10 @@
 					<a href="#"><div style="padding: 18px"  class="header-left"> 
 						<h5></h5>
                     </div></a>
-                    <a href="https://joyaccess.herokuapp.com/login"><div style="padding: 10px"  class="header-left">
+                    <a href="https://joyaccess.herokuapp.com/login"><div style="padding: 10px; font-family: 'Courgette', cursive;"  class="header-left">
 						<h4>Login</h4>
                     </div></a>
-                    <a href="https://joyaccess.herokuapp.com/signup"><div style="padding: 10px"  class="header-left">
+                    <a href="https://joyaccess.herokuapp.com/signup"><div style="padding: 10px; font-family: 'Courgette', cursive;"  class="header-left">
 						<h4>SignUp</h4>
                 	</div></a>
 				</div>
@@ -581,7 +582,7 @@ function show_commentsbypoint(marker) {
                             };
                             para.appendChild(cancelBtn);
                             */
-
+                            show_commentsbypoint(marker);
                             var elementAcc = document.getElementById("PlaceAccessibility");
                             elementAcc.appendChild(para);
                             
@@ -815,7 +816,6 @@ function show_commentsbypoint(marker) {
                             acc_lift_input.value = "value";
                             acc_lift_input.disabled = true;
                             para.appendChild(acc_lift_input);
-                            show_commentsbypoint(marker2);
                             /*
                             para.appendChild(document.createElement('br'));
                             var applyBtn = document.createElement('input');
