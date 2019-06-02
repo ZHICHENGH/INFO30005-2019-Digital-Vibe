@@ -126,18 +126,18 @@
                     <td id="PlaceAccessibility"></td>
 
                 </tr>
+                
                 <tr>
-                    <td colspan="2">Log in to contribute and update accessibility information</td>
-                </tr>
-                <tr>
-                        <td colspan="2">Comments of point</td>
+                        <th colspan="2">Comments</th>
                     </tr>
                 </tbody>
                 <tr id=pointcommentform>
                         <tr id=pointcommenttext></tr>
                 </tr>
             </table>
-
+		<tr>
+                    <td colspan="2">Log in to contribute and update accessibility information</td>
+                </tr>
 		<!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
 
     </aside>
@@ -512,7 +512,7 @@ function show_commentsbypoint(marker) {
                             document.getElementById("PlaceName").innerHTML = "";
                             document.getElementById("PlaceAddress").innerHTML = "";
                             document.getElementById("PlaceAccessibility").innerHTML = "";
-
+                            document.getElementById("pointcommenttext").innerHTML="";
                             toiletSaveData = false;
                             carparkSaveData = false;
                             liftSaveData = false;
@@ -705,7 +705,7 @@ function show_commentsbypoint(marker) {
                 document.getElementById("PlaceName").innerHTML = "";
                 document.getElementById("PlaceAddress").innerHTML = "";
                 document.getElementById("PlaceAccessibility").innerHTML = "";
-
+                document.getElementById("pointcommenttext").innerHTML="";
                 // For each place, get the icon, name and location.
                 var bounds = new google.maps.LatLngBounds();
 
@@ -765,6 +765,7 @@ function show_commentsbypoint(marker) {
                             document.getElementById("PlaceName").innerHTML = "";
                             document.getElementById("PlaceAddress").innerHTML = "";
                             document.getElementById("PlaceAccessibility").innerHTML = "";
+                            document.getElementById("pointcommenttext").innerHTML="";
                             toiletSaveData = false;
                             carparkSaveData = false;
                             liftSaveData = false;
@@ -781,7 +782,7 @@ function show_commentsbypoint(marker) {
                             var node2 = document.createTextNode(marker2.address);
                             var elementAddress = document.getElementById("PlaceAddress");
                             elementAddress.appendChild(node2);
-
+                            
                             //para.appendChild(document.createElement('br'));
                             /*var node3 = document.createTextNode("Position: " + marker.position);
                             para.appendChild(node3);
@@ -814,7 +815,7 @@ function show_commentsbypoint(marker) {
                             acc_lift_input.value = "value";
                             acc_lift_input.disabled = true;
                             para.appendChild(acc_lift_input);
-
+                            show_commentsbypoint(marker2);
                             /*
                             para.appendChild(document.createElement('br'));
                             var applyBtn = document.createElement('input');
