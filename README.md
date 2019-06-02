@@ -1,7 +1,7 @@
 # INFO30005-2019-DV
 
-Function:       1 - Login
-Description:    Allows user to perform login to and logout of the website, along with session cookie to maintain the 
+Function:       1 - authentication 
+Description:    Allows user to perform signup, login to and logout of the website, along with session cookie to maintain the 
                 login session through third-party middleware passport.js.
 Files:          index.html (default homepage before login)
                 page-login.html (page with login form)
