@@ -222,7 +222,7 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#" onclick="show_comments()"><i class="fa fa- user"></i>My comment</a>
+                            <a class="nav-link" href="#" onclick="show_commentsbyuser()"><i class="fa fa- user"></i>My comment</a>
                             <a class="nav-link" href="https://joyaccess.herokuapp.com/logout"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
@@ -345,7 +345,59 @@
     </script>
 
 <script>
-    function show_comments(){
+    function addcomment(marker,commentinput){
+        $.post('https://joyaccess.herokuapp.com/comment/commentAPI/createcomment',{  
+            "place_id": marker.id,
+            "text": commentinput,
+            "user_name":GetRequest().username,
+            "place_name": marker.place_name,
+            "place_address":marker.address
+        },
+        function (data, textStatus) {
+            alert("Update status: " + textStatus);}, "json");
+    }
+    function show_commentsbypoint(marker) {
+                                var commentform=document.getElementById('commentform');
+                                var commentcontent=document.getElementById('commentcontent');
+                                var nullstring=document.createElement('div');
+                                nullstring.textContent="\n";
+                                $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult){
+                                    if(placeresult.length==0){
+                                            var nocomment=document.createElement('div');
+                                            nocomment.className='comment_time';
+                                            nocomment.textContent="There are no comment for this point";
+                                            commentcontent.appendChild(nocomment);
+                                    }
+                                    else{
+                                        var j=1;
+                                        $.each(placeresult, function(i, field){
+                                        var commentid=document.createElement('div');
+                                        commentid.className='comment_time';
+                                        commentid.textContent="Comment No: "+j;
+                                        commentcontent.appendChild(commentid);
+                                        j++;
+                                        var contenttext=document.createElement('div');
+                                        contenttext.className='comment_text';
+                                        var commenttime=document.createElement('div');
+                                        commenttime.className='comment_time';
+                                        var text=document.createElement('div');
+                                        text.className='comment_time';
+                                        text.textContent="Comment content: ";
+                                        commenttime.textContent="Comment time: "+field.timestamp;
+                                        commentcontent.appendChild(commenttime);
+                                        commentcontent.appendChild(text);
+                                        contenttext.textContent=field.text;
+                                        commentcontent.appendChild(contenttext);
+                                        commentcontent.appendChild(btn);
+                                        commentcontent.appendChild(nullstring);
+                                     });   
+                                }
+                                });
+                            };
+
+
+
+    function show_commentsbyuser(){
         var username=GetRequest().username;
         var screen = document.getElementById('dropback');
         var commentform=document.getElementById('commentform');
@@ -359,7 +411,6 @@
         var nullstring=document.createElement('div');
         nullstring.textContent="\n";
         if(username!=false){
-        
             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
                 $.each(result, function(i, field){
                     if(field.user_name==username){
@@ -421,7 +472,6 @@
         }
     }
     function deletecommentbyid(comment_id){
-
     }
    function closecommentform()
    {
@@ -734,22 +784,23 @@
                             pointcommentBtn.type = "button";
                             pointcommentBtn.value = "comments";
                             para.appendChild(pointcommentBtn);
-                            pointcommentBtn.onclick = function () {
-                            var commentform=document.getElementById('commentform');
-                            var commentcontent=document.getElementById('commentcontent');
-                            var nullstring=document.createElement('div');
-                            nullstring.textContent="\n";
-                            $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult){
-                                if(2>3){
-                                    var nocomment=document.createElement('div');
-                                        nocomment.className='comment_time';
-                                        nocomment.textContent="There are no comment for this point";
-                                        commentcontent.appendChild(nocomment);
-                                }
-                                else{
-                                    var j=1;
-                                    $.each(placeresult, function(i, field){
 
+
+                                pointcommentBtn.onclick = function show_commentsbypoint(marker) {
+                                var commentform=document.getElementById('commentform');
+                                var commentcontent=document.getElementById('commentcontent');
+                                var nullstring=document.createElement('div');
+                                nullstring.textContent="\n";
+                                $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult){
+                                    if(placeresult.length==0){
+                                            var nocomment=document.createElement('div');
+                                            nocomment.className='comment_time';
+                                            nocomment.textContent="There are no comment for this point";
+                                            commentcontent.appendChild(nocomment);
+                                    }
+                                    else{
+                                        var j=1;
+                                        $.each(placeresult, function(i, field){
                                         var commentid=document.createElement('div');
                                         commentid.className='comment_time';
                                         commentid.textContent="Comment No: "+j;
