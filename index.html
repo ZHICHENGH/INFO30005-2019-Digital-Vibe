@@ -127,9 +127,8 @@
             <comtable ng-app="myapp" ng-controller="con">
                 <div id="wrop">
                     <title>Comments</title>
-                    
-                    <div>
-                        <p  id="emptycommentpoint" class="pl">Be the first one to leave a comment!</p>
+                    <div ng-class="plnr<1?'plq':'plqk' ">
+                        <p  ng-show="plnr<1" id="emptycommentpoint" class="pl">Be the first one to leave a comment!</p>
                         <div id=commentcontent ng-repeat="i in plnr|limitTo:isShow?ary.length:2 ">
 
                             <h1 id=username>user：{{i.name}}</h1>
@@ -137,19 +136,22 @@
                             <span ng-bind="i.sj|date:'yyyy.MM.dd.HH.mm.ss秒' "></span>
                         </div>
                     </div>
-
+                    <div class="zk" ng-show="plnr.length>2">
+                            <button ng-show="!isShow" ng-click="isShow=true">show all the comments<tton>
+                                <button ng-hide="!isShow" ng-click="isShow=false">close all the comments<tton>
+                        </div>
       
 
                     <hr />
                     <div class="lyk">
                         <p>user：<input type="text" ng-model="textVal"/></p>
                         <textarea name="" rows="" cols="" ng-model="areaVal"></textarea>
-                        <button >clean</button>
-                        <button>commit</button>
+                        <button ng-click="qk()">clean</button>
+                        <button ng-click="pl()">commit</button>
                     </div>
                 </div>
             </comtable>
-	    </div>
+	
 
 		<!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
 
