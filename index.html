@@ -92,7 +92,10 @@
 		body {
 		  height: 100%;
         }
-        
+       comments{
+           border: 2px solid grey;
+       }
+
     </style>
 </head>
 
@@ -107,39 +110,39 @@
             <a> Carpark <input type="checkbox" id="Acc_Carpark_Check" onclick="initMap()"></a>
             <a> Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"</a>
 
-            <table class="table" style="margin-top: 10px;">
+            <table class="table" style="margin-top: 10px;" >
 
                 <tr>
-                    <th scope="col" style="vertical-align: top;">Name:</th>
+                    <th scope="col" style="vertical-align: top;font-family: 'Courgette', cursive"">Name:</th>
                     <td scope="col" id="PlaceName"></td>
 
                 </tr>
 
                 <tbody>
                 <tr>
-                    <th scope="row" style="vertical-align: top;">Address: </th>
+                    <th scope="row" style="vertical-align: top;font-family: 'Courgette', cursive"">Address: </th>
                     <td id="PlaceAddress"></td>
 
                 </tr>
                 <tr>
-                    <th scope="row" style="vertical-align: top;">Accessibility: </th>
+                    <th scope="row" style="vertical-align: top;font-family: 'Courgette', cursive"">Accessibility: </th>
                     <td id="PlaceAccessibility"></td>
 
                 </tr>
                 <tr>
-                        <td colspan="2">Log in to contribute and update accessibility information</td>
-                    </tr>
+                    <td colspan="2">Log in to contribute and update accessibility information</td>
+                </tr>
                 <tr>
-                        <th colspan="2">Comments</th>
-                    </tr>
-                        <tr id=pointcommentform>
-                                <th id=pointcommenttext></th>
-                        </tr>
+                    <th colspan="2" style="font-family: 'Courgette', cursive"">Comments:</th>
+                </tr>
+                <tr >
 
+                </tr>
                 </tbody>
             </table>
-	
-		<!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
+            <h3 style="margin-left: 15%;" id='pointcommenttext'></h3>
+
+            <!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
 
     </aside>
     <!-- /#left-panel -->
@@ -182,13 +185,12 @@
     
     <script language="javascript">
 function show_commentsbypoint(marker) {
-                                var commentform=document.getElementById('pointcommentform');
                                 var commentcontent=document.getElementById('pointcommenttext');
                                 var nullstring=document.createElement('div');
                                 nullstring.textContent="\n";
                                 $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult){
                                     if(placeresult.length==0){
-                                            var nocomment=document.createElement('div');
+                                            var nocomment=document.createElement('h5');
                                             nocomment.className='comment_text';
                                             nocomment.textContent="There are no comment for this point";
                                             commentcontent.appendChild(nocomment);
@@ -196,16 +198,16 @@ function show_commentsbypoint(marker) {
                                     else{
                                         var j=1;
                                         $.each(placeresult, function(i, field){
-                                        var commentid=document.createElement('div');
+                                        var commentid=document.createElement('comments');
                                         commentid.className='comment_time';
-                                        commentid.textContent="Comment No: "+j;
+                                        commentid.textContent="No."+j;
                                         commentcontent.appendChild(commentid);
                                         j++;
-                                        var contenttext=document.createElement('div');
+                                        var contenttext=document.createElement('h5');
                                         contenttext.className='comment_text';
-                                        var commenttime=document.createElement('div');
+                                        var commenttime=document.createElement('h5');
                                         commenttime.className='comment_time';
-                                        var text=document.createElement('div');
+                                        var text=document.createElement('h5');
                                         text.className='comment_time';
                                         text.textContent="Comment content: ";
                                         commenttime.textContent="Comment time: "+field.timestamp;
