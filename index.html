@@ -201,7 +201,7 @@
                                 $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult){
                                     if(placeresult.length==0){}
                                     else{
-                                        emptycomment.innerHTML=""
+                                        
                                         $.each(placeresult, function(i, field){
                                         var comment_username=document.createElement('h1');
                                         comment_username.textContent="user："+placeresult.user_name;
