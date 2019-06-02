@@ -581,7 +581,7 @@ aside.left-panel {
   scrollbar-width: none;}
 
 .small-device .right-panel {
-  margin-left: 350px; }
+  margin-left: 155px; }
 
 .navbar {
   background: #fff;
@@ -2218,17 +2218,16 @@ footer.site-footer {
       padding-bottom: 70px; }
 
   .left-panel {
-
     display: inherit; }
 
   aside.left-panel {
     overflow: scroll; }
 
   .small-device .right-panel {
-    margin-left: 350px; }
+    margin-left: 155px; }
 
   #left-panel {
-    max-width: 350px;
+    max-width: 155px;
     width: 100%; }
     #left-panel .navbar .navbar-nav li > a {
       max-width: inherit;
