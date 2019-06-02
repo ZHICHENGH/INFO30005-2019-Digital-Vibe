@@ -25,7 +25,7 @@ Files:          GetAccPlaces.html
                 app.js
                 
 Function:      3 - Comment Management 
-Description:   Allow logged users to make comments on places on the map, so that all users can see the comments about the                places. A user can see his own comments in his profile, and he can delete any of his comments if he wants.
+Description:   Allow all users(logged or not）to see the comments on places. A user can see his own comments in his profile, and he can delete any of his comments if he wants. We worked on how to allow logged users to add comments for POI, but we do not have enough time to finish it. 
 Files:         index-login.html 
                controller_comment.js
                route_comment.js 
