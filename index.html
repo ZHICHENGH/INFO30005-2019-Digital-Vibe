@@ -129,13 +129,11 @@
                 <tr>
                     <td colspan="2">Log in to contribute and update accessibility information</td>
                 </tr>
-
+                <div id=pointcommentform>
+                        <div id=pointcommenttext></div>
+                    </div>
                 </tbody>
             </table>
-            <div id=pointcommentform>
-                <div id=pointcommenttext></div>
-            </div>
-	
 
 		<!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
 
@@ -180,8 +178,8 @@
     
     <script language="javascript">
 function show_commentsbypoint(marker) {
-                                var commentform=document.getElementById('commentform');
-                                var commentcontent=document.getElementById('commentcontent');
+                                var commentform=document.getElementById('pointcommentform');
+                                var commentcontent=document.getElementById('pointcommenttext');
                                 var nullstring=document.createElement('div');
                                 nullstring.textContent="\n";
                                 $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult){
