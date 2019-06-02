@@ -563,7 +563,7 @@ aside.left-panel {
   height: 100%;
   padding: 0;
   vertical-align: top;
-  width: 300px;
+  width: 350px;
   position:absolute;
   -webkit-box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
           box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
@@ -573,13 +573,15 @@ aside.left-panel {
   top: 55px;
   z-index: 999; }
   aside.left-panel:hover {
-    overflow-x: inherit; }
+    overflow-x: auto;
+    }
 
 .open aside.left-panel:hover {
-  overflow-x: inherit; }
+  overflow-x: auto;
+  scrollbar-width: none;}
 
 .small-device .right-panel {
-  margin-left: 300px; }
+  margin-left: 350px; }
 
 .navbar {
   background: #fff;
@@ -738,8 +740,8 @@ aside.left-panel {
     display: none; }
 
 .open aside.left-panel {
-  max-width: 300px;
-  width: 300px; }
+  max-width: 350px;
+  width: 350px; }
   .open aside.left-panel .navbar .navbar-header {
     padding: 0; }
   .open aside.left-panel .navbar .navbar-brand {
@@ -822,9 +824,9 @@ aside.left-panel {
 
 /* Right panel */
 .right-panel {
-  min-width: 300px;
+  min-width: 350px;
   background: #f1f2f7;
-  margin-left: 300px;
+  margin-left: 350px;
   margin-top: 55px; }
   .right-panel .top-left {
     width: 350px;
@@ -1902,7 +1904,7 @@ header .form-inline {
 
 .map, .vmap {
   width: 100%;
-  height: 300px; }
+  height: 350px; }
 
 .btn-toolbar {
   float: left !important; }
@@ -2223,10 +2225,10 @@ footer.site-footer {
     overflow: scroll; }
 
   .small-device .right-panel {
-    margin-left: 300px; }
+    margin-left: 350px; }
 
   #left-panel {
-    max-width: 300px;
+    max-width: 350px;
     width: 100%; }
     #left-panel .navbar .navbar-nav li > a {
       max-width: inherit;

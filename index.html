@@ -14,8 +14,9 @@
 	
 	<link rel="apple-touch-icon" href="/images/logo.png">
     <link rel="shortcut icon" href="/images/logo.png">
-
+    <link rel="stylesheet" type="text/css" href="assets/css/new_file.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="assets/js/angular.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
@@ -91,23 +92,21 @@
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel shadow-lg">
 
-        <div style="padding-top: 25px; padding-left: 10px; padding-right: 10px; height: 650px" data-wow-delay="0.8s">
+        <div style="padding-top: 10px; padding-left: 10px; padding-right: 10px; height: 650px" data-wow-delay="0.8s">
             <p>Type a place type (e.g. cafe) or place name or address to start</p>
-        <input type="text" style="width: 100%;" id="pac-input" class="form-control" placeholder="Place name or address">
+        <input type="text" style="width: 100%; margin-top: -10px;" id="pac-input" class="form-control" placeholder="Place name or address">
+            <a>Toilet <input type="checkbox" id="Acc_Toilet_Check" onclick="initMap()"></a>
+            <a> Carpark <input type="checkbox" id="Acc_Carpark_Check" onclick="initMap()"></a>
+            <a> Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"</a>
 
-            <th>Toilet <input type="checkbox" id="Acc_Toilet_Check" onclick="initMap()">
-                          Carpark <input type="checkbox" id="Acc_Carpark_Check" onclick="initMap()">
-                          Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </th>
+            <table class="table" style="margin-top: 10px;">
 
-            <div class="menu-title" id="PlaceDetails"></div>
-            <table class="table" style="margin-top: 20px;">
-                <thead>
                 <tr>
                     <th scope="col" style="vertical-align: top;">Name:</th>
                     <td scope="col" id="PlaceName"></td>
 
                 </tr>
-                </thead>
+
                 <tbody>
                 <tr>
                     <th scope="row" style="vertical-align: top;">Address: </th>
@@ -117,11 +116,38 @@
                 <tr>
                     <th scope="row" style="vertical-align: top;">Accessibility: </th>
                     <td id="PlaceAccessibility"></td>
-                    <br>
-                    <th scope="row" style="vertical-align: top;">Log in to contribute and update accessibility information</th>
+
                 </tr>
+                <tr>
+                    <td colspan="2">Log in to contribute and update accessibility information</td>
+                </tr>
+
                 </tbody>
             </table>
+            <comtable ng-app="myapp" ng-controller="con">
+                <div id="wrop">
+                    <div ng-class="plnr<1?'plq':'plqk' ">
+                        <p ng-show="plnr<1" class="pl">Be the first one who comment this place</p>
+                        <div ng-repeat="i in plnr|limitTo:isShow?ary.length:3 ">
+                            <h1>用户：{{i.name}}</h1>
+                            <p ng-bind="i.nr"></p>
+                            <span ng-bind="i.sj|date:'yyyy年MM月dd日HH时mm分ss秒' "></span>
+                        </div>
+                    </div>
+                    <div class="zk" ng-show="plnr.length>2">
+                        <button ng-show="!isShow" ng-click="isShow=true">show all the comments<tton>
+                            <button ng-hide="!isShow" ng-click="isShow=false">close all the comments<tton>
+                    </div>
+
+                    <hr />
+                    <div class="lyk">
+                        <p>user：<input type="text" ng-model="textVal"/></p>
+                        <textarea name="" rows="" cols="" ng-model="areaVal"></textarea>
+                        <button ng-click="qk()">clean</button>
+                        <button ng-click="pl()">commit</button>
+                    </div>
+                </div>
+            </comtable>
 	    </div>
 
 		<!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
@@ -194,6 +220,44 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!--for comment-->
+    <script type="text/javascript">
+        angular.module('myapp',[])
+            .controller('con',['$scope','$interval',function($scope,$interval){
+                $scope.textVal='';
+                $scope.areaVal='';
+                $scope.plnr=[]
+                $scope.xsj='';
+                $scope.pl=function(){
+                    if($scope.textVal!=''&&$scope.areaVal!=''){
+                        $scope.xsj=(new Date()).getTime();
+                        $scope.plnr.unshift({
+                            name:$scope.textVal,
+                            nr:$scope.areaVal,
+                            sj:$scope.xsj
+                        });
+                        $scope.textVal='';
+                        $scope.areaVal='';
+                    }else{
+                        alert("输入为空，请重新输入！")
+                    }
+                }
+                //查看全部
+                $scope.isShow=false;
+                $scope.del=function(n){
+                    $scope.plnr.splice(n,1)
+                }
+                $scope.qk=function(){
+                    $scope.textVal='';
+                    $scope.areaVal='';
+                }
+                $interval(function(){
+                    $scope.sjda=new Date().getTime()
+                },1000)
+
+            }])
+    </script>
+
     <!--Map Stuff-->
     <script>
         var markers = [];
