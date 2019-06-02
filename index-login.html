@@ -60,16 +60,106 @@
 		  }
 		body {
 		  height: 100%;
+        }
+        .popup {
+             position: absolute;
+             z-index: 200;
+             left: 0px;
+             top: 0px;
+             border: 1px solid #666;
+             background: white;
+             padding: 8px 5px 5px;
+             margin: 10px 5px;
+            }
+        #flotPie1  {
+            height: 150px;
+        }
+        #flotPie1 td {
+            padding:3px;
+        }
+        #flotPie1 table {
+            top: 20px!important;
+            right: -10px!important;
+        }
+        .chart-container {
+            display: table;
+            min-width: 270px ;
+            text-align: left;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        #flotLine5  {
+             height: 105px;
+        }
+        #flotBarChart {
+            height: 150px;
+        }
+        #cellPaiChart{
+            height: 160px;
+        }
+	    #map {
+			height: 100%;
+		  }
+		body {
+		  height: 100%;
 		}
+    #dropback {
+        position: absolute;
+        height: 100%;
+        width:100%;
+        background: #444;
+        z-index: 1000;
+        opacity: 0.9;
+        display: none;
+}
+#commentform {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    border:1px solid rgb(240, 230, 230);
+    display: none;
+    z-index: 100;
+    color:#666;
+    border-radius: 4px;
+    z-index: 1020;
+    background: #fff;
+    overflow:auto;
+}
+.close {
+    position: relative;
+    float:right;
+    top:3px;
+    right:5px;
+    padding:5px;
+    cursor: pointer;
+}
+.comment_head {
+    font-size: 300%;
+    text-align: center;}
+.comment_text{
+    font-size:100%;
+    font-weight:bold;
+}
+.comment_time{
+    font-size:50%;
+}
     </style>
 </head>
 
 <body>
     <!-- Left Panel -->
-
+    <div id="dropback">
+        <div id="commentform">
+               <form action="">
+                       <div onclick="closecommentform()">back</div>
+                       <div class="comment_head">My Comment</div>
+                       <commentcontent id="commentcontent"></commentcontent>
+               </form>
+           </div>
+        </div>
 
     <aside id="left-panel" class="left-panel shadow-lg">
-        
+
         <div style="padding-top: 25px; padding-left: 10px; padding-right: 10px; height: 650px" data-wow-delay="0.8s">
             <p>Type a place type (e.g. cafe) or place name or address to start</p>
             <input type="text" style="width: 100%;" id="pac-input" class="form-control" placeholder="Place name or address">
@@ -132,7 +222,7 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" id="test2" href="#"><i class="fa fa- user"></i>My comments</a>
+                            <a class="nav-link" href="#" onclick="show_comments()"><i class="fa fa- user"></i>My comment</a>
                             <a class="nav-link" href="https://joyaccess.herokuapp.com/logout"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
@@ -249,7 +339,6 @@
             "use strict";
             var usernameTag = document.querySelector("#username");
             var queryString = GetRequest();
-            show_comments();
             usernameTag.innerText = queryString.username;
 
         });
@@ -258,74 +347,83 @@
 <script>
     function show_comments(){
         var username=GetRequest().username;
-        //var screen = document.getElementById('dropback');
+        var screen = document.getElementById('dropback');
         var commentform=document.getElementById('commentform');
         var commentcontent=document.getElementById('commentcontent');
+        var top = (document.documentElement.clientHeight - 250) / 2 - 150;
+        var left = (document.documentElement.clientWidth - 300) / 2;
+        commentform.style.left = left + 'px';
+        commentform.style.top = top + 'px';
+        screen.style.display = 'block';
+        commentform.style.display='block';
         var nullstring=document.createElement('div');
         nullstring.textContent="\n";
         if(username!=false){
+        
             $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI', function commentbyuserid(result) {
-                    $.each(result, function(i, field){
-                        if(field.user_name==username){
-                            $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + field.place_id, function (jsonData) {
-                                if(jsonData.length){
-                                    $.each( jsonData, function( key, val) {
-                                        var commentplacename=document.createElement('div');
-                                        commentplacename.className='comment_time';
-                                        commentplacename.textContent="Place Name: "+val.place_name;
-                                        commentcontent.appendChild(commentplacename);
-                                        var commentplaceaddress=document.createElement('div');
-                                        commentplaceaddress.className='comment_time';
-                                        commentplaceaddress.textContent="Place Address: "+val.address;
-                                        commentcontent.appendChild(commentplaceaddress);
-                                        //var commentid=document.createElement('div');
-                                        //commentid.className='comment_time';
-                                        var contenttext=document.createElement('div');
-                                        contenttext.className='comment_text';
-                                        var commenttime=document.createElement('div');
-                                        commenttime.className='comment_time';
-                                        var text=document.createElement('div');
-                                        text.className='comment_time';
-                                        text.textContent="Comment content: ";
-                                        //commentid.textContent="Comment No: "+field._id;
-                                        //commentcontent.appendChild(commentid);
-                                        commenttime.textContent="Comment time: "+field.timestamp;
-                                        commentcontent.appendChild(commenttime);
-                                        commentcontent.appendChild(text);
-                                        contenttext.textContent=field.text;
-                                        var btn=document.createElement("BUTTON");
-                                        var t=document.createTextNode("Delete");
-                                        btn.appendChild(t);
-                                        btn.onclick=function (){ 
-                                            $.ajax({
-                                                url: 'https://joyaccess.herokuapp.com/comment/commentAPI/deleteid/'+field._id,
-                                                type: 'DELETE',
-                                                success: function(result) {}
-                                            });
-                                            alert("comment delete success!");
-                                            closecommentform();
-                                        }
-                                        commentcontent.appendChild(contenttext);
-                                        commentcontent.appendChild(btn);
-                                        commentcontent.appendChild(nullstring);
-                                        commentcontent.appendChild(nullstring);
-                                        commentcontent.appendChild(nullstring);
-                                    })
+                $.each(result, function(i, field){
+                    if(field.user_name==username){
+                        $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI/place_id/' + field.place_id, function (jsonData) {
+                            if(jsonData.length){
+                                $.each( jsonData, function( key, val) {
+                                    var commentplacename=document.createElement('div');
+                                    commentplacename.className='comment_time';
+                                    commentplacename.textContent="Place Name: "+val.place_name;
+                                    commentcontent.appendChild(commentplacename);
+                                    var commentplaceaddress=document.createElement('div');
+                                    commentplaceaddress.className='comment_time';
+                                    commentplaceaddress.textContent="Place Address: "+val.address;
+                                    commentcontent.appendChild(commentplaceaddress);
+                                    var commentid=document.createElement('div');
+                                    commentid.className='comment_time';
+                                    var contenttext=document.createElement('div');
+                                    contenttext.className='comment_text';
+                                    var commenttime=document.createElement('div');
+                                    commenttime.className='comment_time';
+                                    var text=document.createElement('div');
+                                    text.className='comment_time';
+                                    text.textContent="Comment content: ";
+                                    commentid.textContent="Comment No: "+field._id;
+                                    commentcontent.appendChild(commentid);
+                                    commenttime.textContent="Comment time: "+field.timestamp;
+                                    commentcontent.appendChild(commenttime);
+                                    commentcontent.appendChild(text);
+                                    contenttext.textContent=field.text;
+                                    var btn=document.createElement("BUTTON");
+                                    var t=document.createTextNode("Delete");
+                                    btn.appendChild(t);
+                                    btn.onclick=function (){ 
+                                        $.ajax({
+                                            url: 'https://joyaccess.herokuapp.com/comment/commentAPI/deleteid/'+field._id,
+                                            type: 'DELETE',
+                                            success: function(result) {}
+                                        });
+                                        alert("comment delete success!");
+                                        closecommentform();
                                     }
-                                    else{
-                                    alert("ERROR");
+                                    commentcontent.appendChild(contenttext);
+                                    commentcontent.appendChild(btn);
+                                    commentcontent.appendChild(nullstring);
+                                    commentcontent.appendChild(nullstring);
+                                    commentcontent.appendChild(nullstring);
+                                })
                                 }
-                            });
-                    }
-                });   
-            });
+                                else{
+                                alert("ERROR");
+                            }
+                        });
+                }
+            });   
+        });
         }
         else{
          alert("fail");   
         }
     }
+    function deletecommentbyid(comment_id){
 
-    function closecommentform()
+    }
+   function closecommentform()
    {
     var screen = document.getElementById('dropback');
     var commentform=document.getElementById('commentform');
@@ -334,8 +432,7 @@
     commentform.style.display='none';
     commentcontent.innerHTML="";
    }
-    </script>
-
+</script>
 <!-- Map Stuff -->
     <script>
         var markers = [];
@@ -652,6 +749,7 @@
                                 else{
                                     var j=1;
                                     $.each(placeresult, function(i, field){
+
                                         var commentid=document.createElement('div');
                                         commentid.className='comment_time';
                                         commentid.textContent="Comment No: "+j;
