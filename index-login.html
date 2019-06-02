@@ -14,7 +14,7 @@
 
 
     <link rel="stylesheet" type="text/css" href="assets/css/new_file.css">
-
+    <link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/jquery.popuplayer.min.css">
@@ -37,23 +37,7 @@
     <![endif]-->
 
    <style>
-    #weatherWidget .currentDesc {
-        color: #ffffff!important;
-    }
-        .traffic-chart {
-            min-height: 335px;
-        }
-	   .search-btn ,.toggle-btn{
-			background-color: #FDC600;
-			color: #333;
-			font-size: 16px;
-			border: 1px solid #EAE9E9;
-			width: 40px;
-			height: 40px;
-			color: #FFF;
-			transition: all 0.3s ease 0s; 
-			padding: 0px;
-		}
+
 
 	    #map {
 			height: 100%;
@@ -71,31 +55,13 @@
              padding: 8px 5px 5px;
              margin: 10px 5px;
             }
-        #flotPie1  {
-            height: 150px;
-        }
+
         #flotPie1 td {
             padding:3px;
         }
         #flotPie1 table {
             top: 20px!important;
             right: -10px!important;
-        }
-        .chart-container {
-            display: table;
-            min-width: 270px ;
-            text-align: left;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        #flotLine5  {
-             height: 105px;
-        }
-        #flotBarChart {
-            height: 150px;
-        }
-        #cellPaiChart{
-            height: 160px;
         }
 	    #map {
 			height: 100%;
@@ -158,43 +124,44 @@
            </div>
         </div>
 
-    <aside id="left-panel" class="left-panel shadow-lg" style="overflow: auto">
+    <aside id="left-panel" class="left-panel shadow-lg" style="overflow: scroll">
 
-        <div style="padding-top: 25px; padding-left: 10px; padding-right: 10px; height: 650px" data-wow-delay="0.8s">
+        <div style="padding-top: 10px; padding-left: 10px; padding-right: 10px; height: 650px" data-wow-delay="0.8s">
             <p>Type a place type (e.g. cafe) or place name or address to start</p>
-            <input type="text" style="width: 100%;" id="pac-input" class="form-control" placeholder="Place name or address">
+            <input type="text" style="width: 100%; margin-top: -10px;" id="pac-input" class="form-control" placeholder="Place name or address">
+            <a>Toilet <input type="checkbox" id="Acc_Toilet_Check" onclick="initMap()"></a>
+            <a> Carpark <input type="checkbox" id="Acc_Carpark_Check" onclick="initMap()"></a>
+            <a> Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"</a>
 
-            <th>Toilet <input type="checkbox" id="Acc_Toilet_Check" onclick="initMap()">
-                Carpark <input type="checkbox" id="Acc_Carpark_Check" onclick="initMap()">
-                Lift <input type="checkbox" id="Acc_Lift_Check" onclick="initMap()"> </th>
+            <table class="table" style="margin-top: 10px;" >
 
-            <div class="menu-title" id="PlaceDetails"></div>
-            <table class="table" style="margin-top: 20px;">
-                <thead>
                 <tr>
-                    <th scope="col" style="vertical-align: top;">Name: </th>
+                    <th scope="col" style="vertical-align: top;font-family: 'Courgette', cursive"">Name:</th>
                     <td scope="col" id="PlaceName"></td>
 
                 </tr>
-                </thead>
+
                 <tbody>
                 <tr>
-                    <th scope="row" style="vertical-align: top;">Address: </th>
+                    <th scope="row" style="vertical-align: top;font-family: 'Courgette', cursive"">Address: </th>
                     <td id="PlaceAddress"></td>
 
                 </tr>
                 <tr>
-                    <th scope="row" style="vertical-align: top;">Accessibility: </th>
+                    <th scope="row" style="vertical-align: top;font-family: 'Courgette', cursive"">Accessibility: </th>
                     <td id="PlaceAccessibility"></td>
+
                 </tr>
+
                 <tr>
-                        <th colspan="2">Comment</th>
-                    </tr>
-                        <tr id=pointcommentform>
-                                <th id=pointcommenttext></th>
-                        </tr>
+                    <th colspan="2" style="font-family: 'Courgette', cursive"">Comments:</th>
+                </tr>
+                <tr >
+
+                </tr>
                 </tbody>
             </table>
+            <h3 style="margin-left: 15%;" id='pointcommenttext'></h3>
         </div>
 
         <!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
@@ -213,7 +180,7 @@
             </div>
             <div class="top-right">
                 <div class="header-menu">
-					
+
 					<a href="#"><div style="padding: 18px"  class="header-left">
 						<h5></h5>
                     </div></a>
@@ -236,7 +203,7 @@
             </div>
 
   </header>
-	
+
 <div style="height: 100%" id="map"></div>
 </div>
 
@@ -342,7 +309,7 @@
 
 <script>
     function addcomment(marker,commentinput){
-        $.post('https://joyaccess.herokuapp.com/comment/commentAPI/createcomment',{  
+        $.post('https://joyaccess.herokuapp.com/comment/commentAPI/createcomment',{
             "place_id": marker.id,
             "text": commentinput,
             "user_name":GetRequest().username,
@@ -357,36 +324,36 @@
                                 var commentcontent=document.getElementById('pointcommenttext');
                                 var nullstring=document.createElement('div');
                                 nullstring.textContent="\n";
-                                $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult){
-                                    if(placeresult.length==0){
-                                            var nocomment=document.createElement('div');
-                                            nocomment.className='comment_time';
-                                            nocomment.textContent="There are no comment for this point";
-                                            commentcontent.appendChild(nocomment);
-                                    }
-                                    else{
-                                        var j=1;
-                                        $.each(placeresult, function(i, field){
-                                        var commentid=document.createElement('div');
-                                        commentid.className='comment_time';
-                                        commentid.textContent="Comment No: "+j;
-                                        commentcontent.appendChild(commentid);
-                                        j++;
-                                        var contenttext=document.createElement('div');
-                                        contenttext.className='comment_text';
-                                        var commenttime=document.createElement('div');
-                                        commenttime.className='comment_time';
-                                        var text=document.createElement('div');
-                                        text.className='comment_time';
-                                        text.textContent="Comment content: ";
-                                        commenttime.textContent="Comment time: "+field.timestamp;
-                                        commentcontent.appendChild(commenttime);
-                                        commentcontent.appendChild(text);
-                                        contenttext.textContent=field.text;
-                                        commentcontent.appendChild(contenttext);
-                                        commentcontent.appendChild(nullstring);
-                                     });   
-                                }
+        $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult){
+            if(placeresult.length==0){
+                var nocomment=document.createElement('h5');
+                nocomment.className='comment_text';
+                nocomment.textContent="There are no comment for this point";
+                commentcontent.appendChild(nocomment);
+            }
+            else{
+                var j=1;
+                $.each(placeresult, function(i, field){
+                    var commentid=document.createElement('comments');
+                    commentid.className='comment_time';
+                    commentid.textContent="No."+j;
+                    commentcontent.appendChild(commentid);
+                    j++;
+                    var contenttext=document.createElement('h5');
+                    contenttext.className='comment_text';
+                    var commenttime=document.createElement('h5');
+                    commenttime.className='comment_time';
+                    var text=document.createElement('h5');
+                    text.className='comment_time';
+                    text.textContent="Content: ";
+                    commenttime.textContent="Time: "+field.timestamp;
+                    commentcontent.appendChild(commenttime);
+                    commentcontent.appendChild(text);
+                    contenttext.textContent=field.text;
+                    commentcontent.appendChild(contenttext);
+                    commentcontent.appendChild(nullstring);
+                });
+            }
                                 });
                             };
 
