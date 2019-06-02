@@ -37,23 +37,6 @@
     #weatherWidget .currentDesc {
         color: #ffffff!important;
     }
-        .traffic-chart {
-            min-height: 335px;
-        }
-	   .search-btn ,.toggle-btn{
-			background-color: #FDC600;
-			color: #333;
-			font-size: 16px;
-			border: 1px solid #EAE9E9;
-			width: 40px;
-			height: 40px;
-			color: #FFF;
-			transition: all 0.3s ease 0s; 
-			padding: 0px;
-
-		}
-        #flotPie1  {
-            height: 150px;
         }
         #flotPie1 td {
             padding:3px;
@@ -62,29 +45,13 @@
             top: 20px!important;
             right: -10px!important;
         }
-        .chart-container {
-            display: table;
-            min-width: 270px ;
-            text-align: left;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        #flotLine5  {
-             height: 105px;
-        }
-
-        #flotBarChart {
-            height: 150px;
-        }
-        #cellPaiChart{
-            height: 160px;
-        }
 	    #map {
 			height: 100%;
 		  }
 		body {
 		  height: 100%;
 		}
+
     </style>
 </head>
 
@@ -143,12 +110,14 @@
                     <hr />
                     <div class="lyk">
                         <p>user：<input type="text" ng-model="textVal"/></p>
-                        <textarea name="" rows="" cols="" ng-model="areaVal"></textarea>
                         <button ng-click="qk()">clean</button>
                         <button ng-click="pl()">commit</button>
+                        <textarea name="" rows="" cols="" ng-model="areaVal"></textarea>
+
                     </div>
                 </div>
             </comtable>
+
 	    </div>
 
 		<!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
