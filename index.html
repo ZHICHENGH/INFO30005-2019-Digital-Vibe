@@ -34,34 +34,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet">	
    <style>
-       .comment_text{
-    font-size:100%;
-    font-weight:bold;
-}
-.comment_time{
-    font-size:50%;
-}
-    #weatherWidget .currentDesc {
-        color: #ffffff!important;
-    }
-        .traffic-chart {
-            min-height: 335px;
-        }
-	   .search-btn ,.toggle-btn{
-			background-color: #FDC600;
-			color: #333;
-			font-size: 16px;
-			border: 1px solid #EAE9E9;
-			width: 40px;
-			height: 40px;
-			color: #FFF;
-			transition: all 0.3s ease 0s; 
-			padding: 0px;
 
-		}
-        #flotPie1  {
-            height: 150px;
-        }
+
         #flotPie1 td {
             padding:3px;
         }
@@ -69,23 +43,7 @@
             top: 20px!important;
             right: -10px!important;
         }
-        .chart-container {
-            display: table;
-            min-width: 270px ;
-            text-align: left;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        #flotLine5  {
-             height: 105px;
-        }
 
-        #flotBarChart {
-            height: 150px;
-        }
-        #cellPaiChart{
-            height: 160px;
-        }
 	    #map {
 			height: 100%;
 		  }
@@ -101,7 +59,7 @@
 
 <body>
     <!-- Left Panel -->
-    <aside id="left-panel" class="left-panel shadow-lg" style="overflow: auto">
+    <aside id="left-panel" class="left-panel shadow-lg" style="overflow: scroll">
 
         <div style="padding-top: 10px; padding-left: 10px; padding-right: 10px; height: 650px" data-wow-delay="0.8s">
             <p>Type a place type (e.g. cafe) or place name or address to start</p>
@@ -141,7 +99,7 @@
                 </tbody>
             </table>
             <h3 style="margin-left: 15%;" id='pointcommenttext'></h3>
-
+        </div>
             <!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
 
     </aside>
