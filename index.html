@@ -126,12 +126,13 @@
             </table>
             <comtable ng-app="myapp" ng-controller="con">
                 <div id="wrop">
+                    <title>Comments</title>
                     <div ng-class="plnr<1?'plq':'plqk' ">
-                        <p ng-show="plnr<1" class="pl">Be the first one who comment this place</p>
-                        <div ng-repeat="i in plnr|limitTo:isShow?ary.length:3 ">
-                            <h1>用户：{{i.name}}</h1>
+                        <p ng-show="plnr<1" class="pl">Be the first one to leave a comment!</p>
+                        <div ng-repeat="i in plnr|limitTo:isShow?ary.length:2 ">
+                            <h1>user：{{i.name}}</h1>
                             <p ng-bind="i.nr"></p>
-                            <span ng-bind="i.sj|date:'yyyy年MM月dd日HH时mm分ss秒' "></span>
+                            <span ng-bind="i.sj|date:'yyyy.MM.dd.HH.mm.ss秒' "></span>
                         </div>
                     </div>
                     <div class="zk" ng-show="plnr.length>2">
@@ -193,7 +194,7 @@
     
     <script language="javascript">
         function GetRequest() {
-        var url = location.search; //获取url中"?"符后的字串
+        var url = location.search;
         var theRequest = new Object();
         if (url.indexOf("?") != -1) {
             var str = url.substr(1);
@@ -239,10 +240,10 @@
                         $scope.textVal='';
                         $scope.areaVal='';
                     }else{
-                        alert("输入为空，请重新输入！")
+                        alert("Please type something and try again!")
                     }
                 }
-                //查看全部
+
                 $scope.isShow=false;
                 $scope.del=function(n){
                     $scope.plnr.splice(n,1)
