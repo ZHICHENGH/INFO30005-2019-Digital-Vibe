@@ -37,6 +37,23 @@
     #weatherWidget .currentDesc {
         color: #ffffff!important;
     }
+        .traffic-chart {
+            min-height: 335px;
+        }
+	   .search-btn ,.toggle-btn{
+			background-color: #FDC600;
+			color: #333;
+			font-size: 16px;
+			border: 1px solid #EAE9E9;
+			width: 40px;
+			height: 40px;
+			color: #FFF;
+			transition: all 0.3s ease 0s; 
+			padding: 0px;
+
+		}
+        #flotPie1  {
+            height: 150px;
         }
         #flotPie1 td {
             padding:3px;
@@ -45,13 +62,29 @@
             top: 20px!important;
             right: -10px!important;
         }
+        .chart-container {
+            display: table;
+            min-width: 270px ;
+            text-align: left;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        #flotLine5  {
+             height: 105px;
+        }
+
+        #flotBarChart {
+            height: 150px;
+        }
+        #cellPaiChart{
+            height: 160px;
+        }
 	    #map {
 			height: 100%;
 		  }
 		body {
 		  height: 100%;
 		}
-
     </style>
 </head>
 
@@ -94,30 +127,28 @@
             <comtable ng-app="myapp" ng-controller="con">
                 <div id="wrop">
                     <title>Comments</title>
-                    <div ng-class="plnr<1?'plq':'plqk' ">
-                        <p ng-show="plnr<1" class="pl">Be the first one to leave a comment!</p>
-                        <div ng-repeat="i in plnr|limitTo:isShow?ary.length:2 ">
-                            <h1>user：{{i.name}}</h1>
+                    
+                    <div>
+                        <p  id="emptycommentpoint" class="pl">Be the first one to leave a comment!</p>
+                        <div id=commentcontent ng-repeat="i in plnr|limitTo:isShow?ary.length:2 ">
+
+                            <h1 id=username>user：{{i.name}}</h1>
                             <p ng-bind="i.nr"></p>
                             <span ng-bind="i.sj|date:'yyyy.MM.dd.HH.mm.ss秒' "></span>
                         </div>
                     </div>
-                    <div class="zk" ng-show="plnr.length>2">
-                        <button ng-show="!isShow" ng-click="isShow=true">show all the comments<tton>
-                            <button ng-hide="!isShow" ng-click="isShow=false">close all the comments<tton>
-                    </div>
+
+      
 
                     <hr />
                     <div class="lyk">
                         <p>user：<input type="text" ng-model="textVal"/></p>
-                        <button ng-click="qk()">clean</button>
-                        <button ng-click="pl()">commit</button>
                         <textarea name="" rows="" cols="" ng-model="areaVal"></textarea>
-
+                        <button >clean</button>
+                        <button>commit</button>
                     </div>
                 </div>
             </comtable>
-
 	    </div>
 
 		<!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
@@ -162,6 +193,29 @@
     <!-- Scripts -->
     
     <script language="javascript">
+           function show_commentsbypoint(marker) {
+                                var commentcontent=document.getElementById('commentcontent');
+                                var nullstring=document.createElement('div');
+                                nullstring.textContent="\n";
+                                var emptycomment=document.getElementById('emptycommentpoint');
+                                $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult){
+                                    if(placeresult.length==0){}
+                                    else{
+                                        emptycomment.innerHTML=""
+                                        $.each(placeresult, function(i, field){
+                                        var comment_username=document.createElement('h1');
+                                        comment_username.textContent="user："+placeresult.user_name;
+                                        commentcontent.appendChild(comment_username);
+                                        var contenttext=document.createElement('p');
+                                        contenttext.textContent= "ng-bind="+field.text;
+                                        commentcontent.appendChild(contenttext);
+                                        var commenttime=document.createElement('span');
+                                        commenttime.textContent="ng-bind=i.sj|date:'yyyy.MM.dd.HH.mm.ss'";
+                                        commentcontent.appendChild(commenttime);
+                                     });   
+                                }
+                                });
+                            };
         function GetRequest() {
         var url = location.search;
         var theRequest = new Object();
