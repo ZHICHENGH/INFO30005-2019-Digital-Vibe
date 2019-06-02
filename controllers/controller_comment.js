@@ -4,10 +4,11 @@ const Comment = mongoose.model('comment');
 // new comment
 const createComment = (req, res) => {
   const comment = new Comment({
-    "comment_id":req.body.comment_id,
     "place_id":req.body.place_id,
     "user_id":req.body.user_id,
     "text":req.body.text,
+    "place_name":req.body.place_name,
+    "place_address":req.body.place_address,
     "timestamp":req.body.timestamp
   });
   comment.save(function(err, newComment) {
@@ -74,7 +75,6 @@ var deleteCommentBycommentid = function(req, res){
         }
     });
 };
-
 
 
 // export the callbacks
