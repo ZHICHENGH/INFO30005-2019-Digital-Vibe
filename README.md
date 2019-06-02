@@ -24,6 +24,12 @@ Files:          GetAccPlaces.html
                 routes_places.js
                 app.js
                 
-                
+Function:      3 - Comment Management 
+Description:   Allow logged users to make comments on places on the map, so that all users can see the comments about the                places. A user can see his own comments in his profile, and he can delete any of his comments if he wants.
+Files:         index-login.html 
+               controller_comment.js
+               route_comment.js 
+               app.js 
+               schema.js 
                 
 
