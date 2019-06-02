@@ -581,7 +581,7 @@ function show_commentsbypoint(marker) {
                             };
                             para.appendChild(cancelBtn);
                             */
-
+                            show_commentsbypoint(marker);
                             var elementAcc = document.getElementById("PlaceAccessibility");
                             elementAcc.appendChild(para);
                             
@@ -815,7 +815,6 @@ function show_commentsbypoint(marker) {
                             acc_lift_input.value = "value";
                             acc_lift_input.disabled = true;
                             para.appendChild(acc_lift_input);
-                            show_commentsbypoint(marker2);
                             /*
                             para.appendChild(document.createElement('br'));
                             var applyBtn = document.createElement('input');
