@@ -353,8 +353,8 @@
             alert("Update status: " + textStatus);}, "json");
     }
     function show_commentsbypoint(marker) {
-                                var commentform=document.getElementById('commentform');
-                                var commentcontent=document.getElementById('commentcontent');
+                                var commentform=document.getElementById('pointcommentform');
+                                var commentcontent=document.getElementById('pointcommentext');
                                 var nullstring=document.createElement('div');
                                 nullstring.textContent="\n";
                                 $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult){
