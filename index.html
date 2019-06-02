@@ -34,6 +34,13 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 	
    <style>
+       .comment_text{
+    font-size:100%;
+    font-weight:bold;
+}
+.comment_time{
+    font-size:50%;
+}
     #weatherWidget .currentDesc {
         color: #ffffff!important;
     }
@@ -84,7 +91,8 @@
 		  }
 		body {
 		  height: 100%;
-		}
+        }
+        
     </style>
 </head>
 
@@ -124,33 +132,9 @@
 
                 </tbody>
             </table>
-            <comtable ng-app="myapp" ng-controller="con">
-                <div id="wrop">
-                    <title>Comments</title>
-                    <div ng-class="plnr<1?'plq':'plqk' ">
-                        <p  ng-show="plnr<1" id="emptycommentpoint" class="pl">Be the first one to leave a comment!</p>
-                        <div id=commentcontent ng-repeat="i in plnr|limitTo:isShow?ary.length:2 ">
-
-                            <h1 id=username>user：{{i.name}}</h1>
-                            <p ng-bind="i.nr"></p>
-                            <span ng-bind="i.sj|date:'yyyy.MM.dd.HH.mm.ss秒' "></span>
-                        </div>
-                    </div>
-                    <div class="zk" ng-show="plnr.length>2">
-                            <button ng-show="!isShow" ng-click="isShow=true">show all the comments<tton>
-                                <button ng-hide="!isShow" ng-click="isShow=false">close all the comments<tton>
-                        </div>
-      
-
-                    <hr />
-                    <div class="lyk">
-                        <p>user：<input type="text" ng-model="textVal"/></p>
-                        <textarea name="" rows="" cols="" ng-model="areaVal"></textarea>
-                        <button ng-click="qk()">clean</button>
-                        <button ng-click="pl()">commit</button>
-                    </div>
-                </div>
-            </comtable>
+            <div id=pointcommentform>
+                <div id=pointcommenttext></div>
+            </div>
 	
 
 		<!--<img style="opacity: 0.4" src="images/disability.jpg"  alt="dissability"/>-->
@@ -195,25 +179,39 @@
     <!-- Scripts -->
     
     <script language="javascript">
-           function show_commentsbypoint(marker) {
+function show_commentsbypoint(marker) {
+                                var commentform=document.getElementById('commentform');
                                 var commentcontent=document.getElementById('commentcontent');
                                 var nullstring=document.createElement('div');
                                 nullstring.textContent="\n";
-                                var emptycomment=document.getElementById('emptycommentpoint');
                                 $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult){
-                                    if(placeresult.length==0){}
+                                    if(placeresult.length==0){
+                                            var nocomment=document.createElement('div');
+                                            nocomment.className='comment_text';
+                                            nocomment.textContent="There are no comment for this point";
+                                            commentcontent.appendChild(nocomment);
+                                    }
                                     else{
-                                        
+                                        var j=1;
                                         $.each(placeresult, function(i, field){
-                                        var comment_username=document.createElement('h1');
-                                        comment_username.textContent="user："+placeresult.user_name;
-                                        commentcontent.appendChild(comment_username);
-                                        var contenttext=document.createElement('p');
-                                        contenttext.textContent= "ng-bind="+field.text;
-                                        commentcontent.appendChild(contenttext);
-                                        var commenttime=document.createElement('span');
-                                        commenttime.textContent="ng-bind=i.sj|date:'yyyy.MM.dd.HH.mm.ss'";
+                                        var commentid=document.createElement('div');
+                                        commentid.className='comment_time';
+                                        commentid.textContent="Comment No: "+j;
+                                        commentcontent.appendChild(commentid);
+                                        j++;
+                                        var contenttext=document.createElement('div');
+                                        contenttext.className='comment_text';
+                                        var commenttime=document.createElement('div');
+                                        commenttime.className='comment_time';
+                                        var text=document.createElement('div');
+                                        text.className='comment_time';
+                                        text.textContent="Comment content: ";
+                                        commenttime.textContent="Comment time: "+field.timestamp;
                                         commentcontent.appendChild(commenttime);
+                                        commentcontent.appendChild(text);
+                                        contenttext.textContent=field.text;
+                                        commentcontent.appendChild(contenttext);
+                                        commentcontent.appendChild(nullstring);
                                      });   
                                 }
                                 });

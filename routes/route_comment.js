@@ -5,7 +5,7 @@ var controller = require('../controllers/controller_comment.js');
 
 
 // create new comment
-router.post('/commentAPI', controller.createComment);
+router.post('/commentAPI/createcomment', controller.createComment);
 
 //get all comments
 router.get('/commentAPI',controller.getAllComments);
