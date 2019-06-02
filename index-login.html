@@ -187,6 +187,12 @@
                     <th scope="row" style="vertical-align: top;">Accessibility: </th>
                     <td id="PlaceAccessibility"></td>
                 </tr>
+                <tr>
+                        <th colspan="2">Comment</th>
+                    </tr>
+                        <tr id=pointcommentform>
+                                <th id=pointcommenttext></th>
+                        </tr>
                 </tbody>
             </table>
         </div>
@@ -241,7 +247,7 @@
         <script src="assets/js/angular.js" type="text/javascript" charset="utf-8"></script>
 
 
-        
+
         <script type="text/javascript">
             angular.module('myapp',[])
                 .controller('con',['$scope','$interval',function($scope,$interval){
@@ -496,6 +502,7 @@
             document.getElementById("PlaceName").innerHTML = "";
             document.getElementById("PlaceAddress").innerHTML = "";
             document.getElementById("PlaceAccessibility").innerHTML = "";
+            document.getElementById("pointcommenttext").innerHTML = "";
             document.getElementById("pac-input").value = "";
 
 
@@ -702,7 +709,7 @@
                             document.getElementById("PlaceName").innerHTML = "";
                             document.getElementById("PlaceAddress").innerHTML = "";
                             document.getElementById("PlaceAccessibility").innerHTML = "";
-
+                            document.getElementById("pointcommenttext").innerHTML = "";
                             toiletSaveData = false;
                             carparkSaveData = false;
                             liftSaveData = false;
@@ -770,50 +777,7 @@
                                 restoreAccData()
                             };
                             para.appendChild(cancelBtn);
-                            var pointcommentBtn = document.createElement('input');
-                            pointcommentBtn.type = "button";
-                            pointcommentBtn.value = "comments";
-                            para.appendChild(pointcommentBtn);
-
-
-                                pointcommentBtn.onclick = function show_commentsbypoint(marker) {
-                                var commentform=document.getElementById('commentform');
-                                var commentcontent=document.getElementById('commentcontent');
-                                var nullstring=document.createElement('div');
-                                nullstring.textContent="\n";
-                                $.getJSON('https://joyaccess.herokuapp.com/comment/commentAPI/placeid/'+marker.id,function (placeresult){
-                                    if(placeresult.length==0){
-                                            var nocomment=document.createElement('div');
-                                            nocomment.className='comment_time';
-                                            nocomment.textContent="There are no comment for this point";
-                                            commentcontent.appendChild(nocomment);
-                                    }
-                                    else{
-                                        var j=1;
-                                        $.each(placeresult, function(i, field){
-                                        var commentid=document.createElement('div');
-                                        commentid.className='comment_time';
-                                        commentid.textContent="Comment No: "+j;
-                                        commentcontent.appendChild(commentid);
-                                        j++;
-                                        var contenttext=document.createElement('div');
-                                        contenttext.className='comment_text';
-                                        var commenttime=document.createElement('div');
-                                        commenttime.className='comment_time';
-                                        var text=document.createElement('div');
-                                        text.className='comment_time';
-                                        text.textContent="Comment content: ";
-                                        commenttime.textContent="Comment time: "+field.timestamp;
-                                        commentcontent.appendChild(commenttime);
-                                        commentcontent.appendChild(text);
-                                        contenttext.textContent=field.text;
-                                        commentcontent.appendChild(contenttext);
-                                        commentcontent.appendChild(btn);
-                                        commentcontent.appendChild(nullstring);
-                                     });   
-                                }
-                                });
-                            };
+                            show_commentsbypoint(marker);
                             var elementAcc = document.getElementById("PlaceAccessibility");
                             elementAcc.appendChild(para);
 
@@ -937,7 +901,7 @@
                 document.getElementById("PlaceName").innerHTML = "";
                 document.getElementById("PlaceAddress").innerHTML = "";
                 document.getElementById("PlaceAccessibility").innerHTML = "";
-
+                document.getElementById("pointcommenttext").innerHTML = "";
                 // For each place, get the icon, name and location.
                 var bounds = new google.maps.LatLngBounds();
 
@@ -997,6 +961,7 @@
                             document.getElementById("PlaceName").innerHTML = "";
                             document.getElementById("PlaceAddress").innerHTML = "";
                             document.getElementById("PlaceAccessibility").innerHTML = "";
+                            document.getElementById("pointcommenttext").innerHTML = "";
                             toiletSaveData = false;
                             carparkSaveData = false;
                             liftSaveData = false;
@@ -1073,7 +1038,7 @@
                             var text = document.createElement('text');
                             text.textContent = marker2.address;
                             infowincontent.appendChild(text);
-
+                            show_commentsbypoint(marker2);
                             // go through MongoDB to find any matching places and show its accessibility data
                             $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function(jsonData) {
                                 $.each(jsonData, function (key, data) {
