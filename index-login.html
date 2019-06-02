@@ -69,7 +69,7 @@
 
 
     <aside id="left-panel" class="left-panel shadow-lg">
-        
+
         <div style="padding-top: 25px; padding-left: 10px; padding-right: 10px; height: 650px" data-wow-delay="0.8s">
             <p>Type a place type (e.g. cafe) or place name or address to start</p>
             <input type="text" style="width: 100%;" id="pac-input" class="form-control" placeholder="Place name or address">
@@ -132,7 +132,7 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" id="test2" href="#"><i class="fa fa- user"></i>My comments</a>
+                            <a class="nav-link" id="test2" href="#" onclick="show_comments()"><i class="fa fa- user"></i>My comments</a>
                             <a class="nav-link" href="https://joyaccess.herokuapp.com/logout"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
@@ -249,7 +249,6 @@
             "use strict";
             var usernameTag = document.querySelector("#username");
             var queryString = GetRequest();
-            show_comments();
             usernameTag.innerText = queryString.username;
 
         });
