@@ -581,7 +581,7 @@ function show_commentsbypoint(marker) {
 
                             var elementAcc = document.getElementById("PlaceAccessibility");
                             elementAcc.appendChild(para);
-
+                            
                             if (acc_toilet == true) {
                                 document.getElementById("acc_toilet_input").checked = true;
                                 toiletSaveData = true;
@@ -844,7 +844,7 @@ function show_commentsbypoint(marker) {
                             var text = document.createElement('text');
                             text.textContent = marker2.address;
                             infowincontent.appendChild(text);
-
+                            show_commentsbypoint(marker2)
                             // go through MongoDB to find any matching places and show its accessibility data
                             $.getJSON('https://joyaccess.herokuapp.com/places/placeAPI', function(jsonData) {
                                 $.each(jsonData, function (key, data) {
